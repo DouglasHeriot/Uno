@@ -15,7 +15,7 @@ namespace Uno
     class Card
     {
         private CardColor _color;
-
+        private CardFace _face;
         
 
         /// <summary>
@@ -25,6 +25,31 @@ namespace Uno
         {
             get { return _color; }
         }
+
+        /// <summary>
+        /// The face of the card
+        /// </summary>
+        public CardFace Face
+        {
+            get { return _face; }
+        }
+
+
+
+        /// <summary>
+        /// Construct a new card
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="face"></param>
+        public Card(CardColor color, CardFace face)
+        {
+            // Save parameters in private attributes
+            _color = color;
+            _face = face;
+
+            // TODO: implement validation, to prevent illegal card (eg. red wild, or black skip)
+        }
+
 
 
 

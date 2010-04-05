@@ -1,6 +1,6 @@
 ﻿namespace Uno
 {
-    partial class GameDisplay
+    partial class GameView
     {
         /// <summary>
         /// Required designer variable.

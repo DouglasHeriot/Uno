@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Uno
 {
-    public partial class GameDisplay : Form
+    public partial class GameView : Form
     {
-        public GameDisplay()
+        public GameView()
         {
             InitializeComponent();
 
