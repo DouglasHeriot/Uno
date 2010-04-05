@@ -18,55 +18,10 @@ namespace Uno
     /// </summary>
     class Card
     {
-        private CardColor _color;
-        private CardFace _face;
-        
 
-        /// <summary>
-        /// The color of the card
-        /// </summary>
-        public CardColor Color
-        {
-            get { return _color; }
-        }
-
-        /// <summary>
-        /// The face of the card
-        /// </summary>
-        public CardFace Face
-        {
-            get { return _face; }
-        }
-
-
-
-        /// <summary>
-        /// Construct a new card
-        /// </summary>
-        /// <param name="color"></param>
-        /// <param name="face"></param>
-        public Card(CardColor color, CardFace face)
-        {
-            // Save parameters in private attributes
-            _color = color;
-            _face = face;
-
-            // TODO: implement validation, to prevent illegal card (eg. red wild, or black skip)
-        }
-
-
-
-        /// <summary>
-        /// Get the string representing the card
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return StringForCard(_color, _face);
-        }
-        
-
-
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Enums
+        ///////////////////////////////////////////////////////////////////////////////////////
 
 
         /// <summary>
@@ -134,8 +89,95 @@ namespace Uno
             /// <summary>
             /// A Wild Draw 4 card
             /// </summary>
-            Draw4
+            Draw4,
+
+            /// <summary>
+            /// No face (a wild card)
+            /// </summary>
+            None
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Attributes
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+
+        private CardColor _color;
+        private CardFace _face;
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Properties
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+
+        /// <summary>
+        /// The color of the card
+        /// </summary>
+        public CardColor Color
+        {
+            get { return _color; }
+        }
+
+        /// <summary>
+        /// The face of the card
+        /// </summary>
+        public CardFace Face
+        {
+            get { return _face; }
+        }
+
+        /// <summary>
+        /// The image used to present this card on the interface
+        /// </summary>
+        public Image Image
+        {
+            get { return ImageForCard(_color, _face); }
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Constructors
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+
+        /// <summary>
+        /// Construct a new card
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="face"></param>
+        public Card(CardColor color, CardFace face)
+        {
+            // Save parameters in private attributes
+            _color = color;
+            _face = face;
+
+            // TODO: implement validation, to prevent illegal card (eg. red wild, or black skip)
+        }
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Public Methods
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+
+        /// <summary>
+        /// Get the string representing the card
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return StringForCard(_color, _face);
+        }
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Static Methods
+        ///////////////////////////////////////////////////////////////////////////////////////
+
 
 
         /// <summary>

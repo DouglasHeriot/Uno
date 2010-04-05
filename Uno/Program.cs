@@ -15,7 +15,24 @@ namespace Uno
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameView());
+
+
+
+            // TEMPORARY CODE UNTIL STARTUP WINDOW IS IMPLEMENTED
+
+            List<Player> players = new List<Player>();
+            players.Add(new Player("Me"));
+            players.Add(new Player("You"));
+            players.Add(new Player("Someone Else"));
+
+            GameOptions options = new GameOptions();
+
+            Game game = new Game(players, options);
+            new GameController(game);
+
+
+
+            Application.Run();
         }
     }
 }
