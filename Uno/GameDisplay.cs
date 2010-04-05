@@ -15,8 +15,11 @@ namespace Uno
         {
             InitializeComponent();
 
-            new StartupDisplay().Show();
-            new SortedPlayersView().Show();
+            new Card();
+
+            Card.CardFace test = (Card.CardFace) 2;
+
+            MessageBox.Show(test.ToString());
         }
     }
 }
