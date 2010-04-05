@@ -347,16 +347,16 @@ namespace Uno.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap wd4 {
+        internal static System.Drawing.Bitmap w {
             get {
-                object obj = ResourceManager.GetObject("wd4", resourceCulture);
+                object obj = ResourceManager.GetObject("w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap wild {
+        internal static System.Drawing.Bitmap wd4 {
             get {
-                object obj = ResourceManager.GetObject("wild", resourceCulture);
+                object obj = ResourceManager.GetObject("wd4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

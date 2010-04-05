@@ -1,7 +1,11 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Resources;
+using System.Drawing;
 
 namespace Uno
 {
@@ -52,7 +56,15 @@ namespace Uno
 
 
 
-
+        /// <summary>
+        /// Get the string representing the card
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return StringForCard(_color, _face);
+        }
+        
 
 
 
@@ -85,7 +97,7 @@ namespace Uno
             /// <summary>
             /// Wild cards
             /// </summary>
-            Black
+            Wild
         }
 
         /// <summary>
@@ -120,14 +132,9 @@ namespace Uno
             Reverse,
 
             /// <summary>
-            /// A wild card
-            /// </summary>
-            Wild,
-
-            /// <summary>
             /// A Wild Draw 4 card
             /// </summary>
-            WildDraw4
+            Draw4
         }
 
 
@@ -151,6 +158,105 @@ namespace Uno
         public static CardFace IntToCardFace(int cardInt)
         {
             return (CardFace) cardInt;
+        }
+
+
+        /// <summary>
+        /// Get the letter representing the color
+        /// </summary>
+        /// <param name="cardColor"></param>
+        /// <returns></returns>
+        public static string CardColorToString(CardColor cardColor)
+        {
+            return cardColor.ToString().Substring(0,1).ToLowerInvariant();
+        }
+
+
+        /// <summary>
+        /// Get the string representing the card face
+        /// </summary>
+        /// <param name="cardFace"></param>
+        /// <returns></returns>
+        public static string CardFaceToString(CardFace cardFace)
+        {
+            string ret = "";
+
+            switch (cardFace)
+            {
+                case CardFace.Zero:
+                case CardFace.One:
+                case CardFace.Two:
+                case CardFace.Three:
+                case CardFace.Four:
+                case CardFace.Five:
+                case CardFace.Six:
+                case CardFace.Seven:
+                case CardFace.Eight:
+                case CardFace.Nine:
+                    ret = CardFaceToInt(cardFace).ToString();
+                    break;
+
+                case CardFace.Draw2:
+                    ret = "d2";
+                    break;
+
+                case CardFace.Draw4:
+                    ret = "d4";
+                    break;
+
+                case CardFace.Reverse:
+                    ret = "r";
+                    break;
+
+                case CardFace.Skip:
+                    ret = "s";
+                    break;
+
+            }
+
+
+            return ret;
+        }
+
+
+        /// <summary>
+        /// Get the string for a card
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="face"></param>
+        /// <returns></returns>
+        public static string StringForCard(CardColor color, CardFace face)
+        {
+            return CardColorToString(color) + CardFaceToString(face);
+        }
+
+
+        /// <summary>
+        /// Get the Image for a card
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="face"></param>
+        /// <returns></returns>
+        public static Image ImageForCard(CardColor color, CardFace face)
+        {
+            // Check the card's valid, otherwise just return the back of a card!
+            if (!IsValidCard(color, face)) return Properties.Resources.back;
+
+            string card = StringForCard(color, face);
+            return (Image)Properties.Resources.ResourceManager.GetObject(card);
+        }
+
+
+        /// <summary>
+        /// Check if a color/face combination is a valid Uno card
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="face"></param>
+        /// <returns></returns>
+        public static bool IsValidCard(CardColor color, CardFace face)
+        {
+            // TODO: implement checking for valid card
+            return true;
         }
     }
 }
