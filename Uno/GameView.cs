@@ -16,6 +16,8 @@ namespace Uno
         private Game _game;
         private Hashtable _cardsViews = new Hashtable(108);
 
+        private List<Label> _playerLabels = new List<Label>(4);
+
 
 
 
@@ -31,6 +33,21 @@ namespace Uno
             {
                 _cardsViews.Add(c, _createPictureBoxForCard(c));
             }
+
+            _playerLabels.Add(player1Label);
+            _playerLabels.Add(player2Label);
+            _playerLabels.Add(player3Label);
+            _playerLabels.Add(player4Label);
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (i < _game.Players.Count)
+                    _playerLabels[i].Text = _game.Players[i].Name;
+
+                else
+                    _playerLabels[i].Visible = false;
+            }
+
         }
 
 

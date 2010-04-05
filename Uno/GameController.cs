@@ -74,11 +74,11 @@ namespace Uno
             {
                 foreach (System.Collections.DictionaryEntry p in _game.PlayersCards)
                 {
-                    // TODO: deal the actual cards from the main cards array
-
+                    // Add to player's hand
                     (p.Value as Game.GamePlayer).Cards.Add(_game.Deck[i]);
-                    _game.Deck.RemoveAt(i);
-                    
+
+                    // Remove from deck
+                    _game.Deck.RemoveAt(i);   
                 }
             }
         }
@@ -94,6 +94,8 @@ namespace Uno
         {
             ShuffleList<Card>(_game.Deck);
         }
+
+
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -122,6 +124,18 @@ namespace Uno
                     list[randomIndex] = tmp;
                 }
             }
+        }
+
+
+
+
+        /// <summary>
+        /// Sort a list of cards
+        /// </summary>
+        /// <param name="cards"></param>
+        public static void _sortCards(List<Card> cards)
+        {
+
         }
 
     }
