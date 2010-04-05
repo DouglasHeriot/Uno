@@ -29,6 +29,12 @@ namespace Uno
         /// </summary>
         Hashtable _playersCards = new Hashtable(MAXPLAYERS);
 
+
+
+
+        /// <summary>
+        /// Create a new game
+        /// </summary>
         public Game()
         {
             
@@ -40,10 +46,38 @@ namespace Uno
         /// <summary>
         /// Records data about the player in the current game
         /// </summary>
-        public class Player
+        public class GamePlayer
         {
+            Uno.Player _player;
+            List<Card> _cards = new List<Card>(108);
+            int _score = 0;
 
 
+            /// <summary>
+            /// The player represented
+            /// </summary>
+            public Uno.Player Player
+            {
+                get { return _player; }
+            }
+
+
+            /// <summary>
+            /// The cards this player holds
+            /// </summary>
+            public List<Card> Cards
+            {
+                get { return _cards; }
+            }
+
+            /// <summary>
+            /// The Player's score for this round
+            /// </summary>
+            public int Score
+            {
+                get { return _score; }
+                set { _score = value; }
+            }
 
         }
 

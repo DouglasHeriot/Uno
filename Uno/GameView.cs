@@ -14,12 +14,6 @@ namespace Uno
         public GameView()
         {
             InitializeComponent();
-
-            new Card();
-
-            Card.CardFace test = (Card.CardFace) 2;
-
-            MessageBox.Show(test.ToString());
         }
     }
 }
