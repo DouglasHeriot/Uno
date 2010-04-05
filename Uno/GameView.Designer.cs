@@ -32,6 +32,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.player1Label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -70,12 +71,23 @@
             this.button4.Text = "About";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // player1Label
+            // 
+            this.player1Label.AutoSize = true;
+            this.player1Label.BackColor = System.Drawing.Color.Transparent;
+            this.player1Label.Location = new System.Drawing.Point(253, 54);
+            this.player1Label.Name = "player1Label";
+            this.player1Label.Size = new System.Drawing.Size(45, 13);
+            this.player1Label.TabIndex = 1;
+            this.player1Label.Text = "Player 1";
+            // 
             // GameView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Uno.Properties.Resources.GameView;
             this.ClientSize = new System.Drawing.Size(954, 618);
+            this.Controls.Add(this.player1Label);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -86,6 +98,7 @@
             this.ShowIcon = false;
             this.Text = "Uno";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -95,6 +108,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label player1Label;
 
     }
 }

@@ -113,6 +113,171 @@
   <ItemGroup>
     <None Include="Resources\GameView.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bd2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\br.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gd2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rd2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wd4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wild.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yd2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ys.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
