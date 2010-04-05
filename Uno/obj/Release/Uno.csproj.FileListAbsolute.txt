@@ -8,3 +8,4 @@ Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.StartupPlayerView.resources
 Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.csproj.GenerateResource.Cache
 Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.exe
 Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.pdb
+Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.SortedPlayersView.resources
