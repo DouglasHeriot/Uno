@@ -113,109 +113,19 @@ namespace Uno
         /// <returns>The face's integer value, or -1 for action cards</returns>
         public static int CardFaceToInt(CardFace cardFace)
         {
-            int ret = -1;
-
-            switch (cardFace)
-            {
-                case CardFace.Zero:
-                    ret = 0;
-                    break;
-
-                case CardFace.One:
-                    ret = 1;
-                    break;
-
-                case CardFace.Two:
-                    ret = 2;
-                    break;
-
-                case CardFace.Three:
-                    ret = 3;
-                    break;
-
-                case CardFace.Four:
-                    ret = 4;
-                    break;
-
-                case CardFace.Five:
-                    ret = 5;
-                    break;
-
-                case CardFace.Six:
-                    ret = 6;
-                    break;
-
-                case CardFace.Seven:
-                    ret = 7;
-                    break;
-
-                case CardFace.Eight:
-                    ret = 8;
-                    break;
-
-                case CardFace.Nine:
-                    ret = 9;
-                    break;
-            }
-
-            return ret;
+            int value = (int)cardFace;
+            return value > 9 ? -1 : value;
         }
 
 
+        /// <summary>
+        /// Convert an integer into a CardFace
+        /// </summary>
+        /// <param name="cardInt"></param>
+        /// <returns></returns>
         public static CardFace IntToCardFace(int cardInt)
         {
-            CardFace ret;
-
-            switch (cardInt)
-            {
-                case 0:
-                    ret = CardFace.Zero;
-                    break;
-
-                case 1:
-                    ret = CardFace.One;
-                    break;
-
-                case 2:
-                    ret = CardFace.Two;
-                    break;
-
-                case 3:
-                    ret = CardFace.Three;
-                    break;
-
-                case 4:
-                    ret = CardFace.Four;
-                    break;
-
-                case 5:
-                    ret = CardFace.Five;
-                    break;
-
-                case 6:
-                    ret = CardFace.Six;
-                    break;
-
-                case 7:
-                    ret = CardFace.Seven;
-                    break;
-
-                case 8:
-                    ret = CardFace.Eight;
-                    break;
-
-                case 9:
-                    ret = CardFace.Nine;
-                    break;
-
-                default:
-                    ret = 0;
-                    break;
-
-
-            }
-
-            return ret;
+            return (CardFace) cardInt;
         }
     }
 }
