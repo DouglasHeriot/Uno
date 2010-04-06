@@ -27,7 +27,7 @@ namespace Uno
         {
             InitializeComponent();
 
-            this.BackgroundImage = null;
+            //this.BackgroundImage = null;
 
             _game = game;
             _controller = controller;
