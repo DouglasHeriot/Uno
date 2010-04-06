@@ -173,7 +173,7 @@ namespace Uno
 
             pictureBox.Image = card.Image;
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox.BackColor = Color.Transparent;
+            //pictureBox.BackColor = Color.Transparent;
 
             pictureBox.Height = 80;
             pictureBox.Width = 50;
