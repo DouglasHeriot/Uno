@@ -58,6 +58,7 @@
     <Compile Include="GameView.Designer.cs">
       <DependentUpon>GameView.cs</DependentUpon>
     </Compile>
+    <Compile Include="HSBColor.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="StartupPlayerView.Designer.cs">
       <DependentUpon>StartupPlayerView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tweener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GameView.png" />
