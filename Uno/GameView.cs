@@ -15,6 +15,7 @@ namespace Uno
     {
 
         private Game _game;
+        private GameController _controller;
         private Hashtable _cardsViews = new Hashtable(108);
 
         private List<Label> _playerLabels = new List<Label>(4);
@@ -22,13 +23,14 @@ namespace Uno
 
 
 
-        public GameView(Game game)
+        public GameView(Game game, GameController controller)
         {
             InitializeComponent();
 
             this.BackgroundImage = null;
 
             _game = game;
+            _controller = controller;
 
 
             // Create picture boxes for each card, and store them in a hash table
@@ -56,11 +58,27 @@ namespace Uno
 
         public void ReDraw()
         {
+
+            for (int c = 0; c < _game.DiscardPile.Count - 2; c++ )
+            {
+                Controls.Remove(_cardsViews[_game.DiscardPile[c]] as PictureBox);
+
+            }
+
+            if (_game.DiscardPile.Count > 0)
+            {
+                Controls.Add(_cardsViews[_game.DiscardPile.Last()] as Control);
+                (_cardsViews[_game.DiscardPile.Last()] as Control).BringToFront();
+                AnimateMotion(_cardsViews[_game.DiscardPile.Last()] as Control, 20, 50);
+            }
+
+
             // Remove cards that are just in the deck
             foreach(Card c in _game.Deck)
             {
                 this.Controls.Remove(_cardsViews[c] as PictureBox);
             }
+
 
 
 
@@ -151,6 +169,8 @@ namespace Uno
         {
             PictureBox pictureBox = new PictureBox();
 
+            pictureBox.Tag = card;
+
             pictureBox.Image = card.Image;
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox.BackColor = Color.Transparent;
@@ -158,11 +178,18 @@ namespace Uno
             pictureBox.Height = 80;
             pictureBox.Width = 50;
 
-            pictureBox.MouseEnter += new EventHandler(card_MouseEnter);
-            pictureBox.MouseLeave += new EventHandler(card_MouseLeave);
+            pictureBox.Click += new EventHandler(card_Click);
+            //pictureBox.MouseEnter += new EventHandler(card_MouseEnter);
+            //pictureBox.MouseLeave += new EventHandler(card_MouseLeave);
 
             
             return pictureBox;
+        }
+
+
+        void card_Click(object sender, EventArgs e)
+        {
+            _controller.SelectCard((sender as PictureBox).Tag as Card);
         }
     }
 }

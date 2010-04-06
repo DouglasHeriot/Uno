@@ -29,6 +29,11 @@ namespace Uno
         public const bool USEANIMATION = true;
 
 
+        /// <summary>
+        /// The number of cards in a Uno deck
+        /// </summary>
+        public const int MAXUNOCARDS = 108;
+
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -61,6 +66,17 @@ namespace Uno
         /// </summary>
         GameOptions _options;
 
+
+        /// <summary>
+        /// The discard pile
+        /// </summary>
+        List<Card> _discardPile = new List<Card>(MAXUNOCARDS);
+
+
+        /// <summary>
+        /// Index of the current player
+        /// </summary>
+        int _currentPlayerIndex = 0;
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -101,8 +117,33 @@ namespace Uno
         public List<Card> Deck
         {
             get { return _deck; }
+            set { _deck = value; }
         }
 
+        /// <summary>
+        /// The discard pile
+        /// </summary>
+        public List<Card> DiscardPile
+        {
+            get { return _discardPile; }
+        }
+
+
+        /// <summary>
+        /// Current player
+        /// </summary>
+        public Player CurrentPlayer
+        {
+            get { return _players[_currentPlayerIndex]; }
+        }
+
+        /// <summary>
+        /// Current GamePlayer
+        /// </summary>
+        public GamePlayer CurrentGamePlayer
+        {
+            get { return _playersCards[_players[_currentPlayerIndex]] as Game.GamePlayer; }
+        }
 
 
 
@@ -116,8 +157,10 @@ namespace Uno
         /// </summary>
         private Game()
         {
-            // Generate the Uno deck
-            _deck = GenerateUnoDeck();
+            
+
+            
+            
         }
 
 
@@ -144,6 +187,24 @@ namespace Uno
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
+        // Public Methods
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        public void NextPlayer()
+        {
+            // TODO: look at direction of play
+
+            _currentPlayerIndex++;
+
+            if(_currentPlayerIndex >= _players.Count)
+                _currentPlayerIndex = 0;
+
+        }
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
         // Classes
         ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -154,7 +215,7 @@ namespace Uno
         public class GamePlayer
         {
             Uno.Player _player;
-            List<Card> _cards = new List<Card>(108);
+            List<Card> _cards = new List<Card>(MAXUNOCARDS);
             int _score = 0;
 
 
@@ -204,47 +265,7 @@ namespace Uno
         ///////////////////////////////////////////////////////////////////////////////////////
 
 
-        public static List<Card> GenerateUnoDeck()
-        {
-            List<Card> deck = new List<Card>(108);
-
-
-            // Loop to go through each colour
-            for (int i = 0; i < 5; i++)
-            {
-                Card.CardColor color = (Card.CardColor)i;
-
-                if(color != Card.CardColor.Wild)
-                {
-                    // Loop to make 2 of each face card for the selected color, but only one 0 (standard Uno deck)
-                    // only count from 0-12 to exclude draw 4
-                    for (int k = 0; k < 13; k++)
-                    {
-                        deck.Add( new Card(color, (Card.CardFace) k));
-
-                        // Add the second idenical card, except for 0s
-                        if(k!=0)
-                            deck.Add(new Card(color, (Card.CardFace)k));
-                    }
-
-                }
-                else
-                {
-                    // Generate wild cards
-
-                    for (int k = 0; k < 4; k++)
-                    {
-                        deck.Add(new Card(color, Card.CardFace.None));
-                        deck.Add(new Card(color, Card.CardFace.Draw4));
-                    }
-
-                }
-
-            }
-
-
-            return deck;
-        }
+        
 
 
     }

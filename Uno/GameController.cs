@@ -44,14 +44,26 @@ namespace Uno
         {
             _game = game;
 
-            // Create a new game view
-            _gameView = new GameView(game);
+            
 
+            // Setup the uno deck
+            _game.Deck = GenerateUnoDeck();
             _shuffleDeck();
+
+            
+
+            // Create a new game view
+            _gameView = new GameView(game, this);
+
+
+            // Deal the cards to players
             DealCards();
 
-
+            // Prepare the game view
             _gameView.ReDraw();
+
+
+
             _gameView.Show();
 
 
@@ -84,6 +96,20 @@ namespace Uno
         }
 
 
+        public void SelectCard(Card card)
+        {
+            if (_game.CurrentGamePlayer.Cards.IndexOf(card) >= 0)
+            {
+                _game.DiscardPile.Add(card);
+                _game.CurrentGamePlayer.Cards.Remove(card);
+                _game.NextPlayer();
+            }
+
+            
+            _gameView.ReDraw();
+        }
+
+
         ///////////////////////////////////////////////////////////////////////////////////////
         // Private Methods
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -94,8 +120,6 @@ namespace Uno
         {
             ShuffleList<Card>(_game.Deck);
         }
-
-
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -136,6 +160,53 @@ namespace Uno
         public static void _sortCards(List<Card> cards)
         {
 
+        }
+
+
+        /// <summary>
+        /// Generate a Uno deck of cards
+        /// </summary>
+        /// <returns></returns>
+        public static List<Card> GenerateUnoDeck()
+        {
+            List<Card> deck = new List<Card>(Game.MAXUNOCARDS);
+
+
+            // Loop to go through each colour
+            for (int i = 0; i < 5; i++)
+            {
+                Card.CardColor color = (Card.CardColor)i;
+
+                if (color != Card.CardColor.Wild)
+                {
+                    // Loop to make 2 of each face card for the selected color, but only one 0 (standard Uno deck)
+                    // only count from 0-12 to exclude draw 4
+                    for (int k = 0; k < 13; k++)
+                    {
+                        deck.Add(new Card(color, (Card.CardFace)k));
+
+                        // Add the second idenical card, except for 0s
+                        if (k != 0)
+                            deck.Add(new Card(color, (Card.CardFace)k));
+                    }
+
+                }
+                else
+                {
+                    // Generate wild cards
+
+                    for (int k = 0; k < 4; k++)
+                    {
+                        deck.Add(new Card(color, Card.CardFace.None));
+                        deck.Add(new Card(color, Card.CardFace.Draw4));
+                    }
+
+                }
+
+            }
+
+
+            return deck;
         }
 
     }
