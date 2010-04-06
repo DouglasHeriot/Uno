@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using Projectplace.Gui;
 
 namespace Uno
 {
@@ -24,6 +25,8 @@ namespace Uno
         public GameView(Game game)
         {
             InitializeComponent();
+
+            this.BackgroundImage = null;
 
             _game = game;
 
@@ -59,6 +62,10 @@ namespace Uno
                 this.Controls.Remove(_cardsViews[c] as PictureBox);
             }
 
+
+
+            // Layout the cards for each player
+
             int i = 0;
 
             foreach (Game.GamePlayer p in _game.PlayersCards.Values)
@@ -70,17 +77,74 @@ namespace Uno
                 {
                     PictureBox pictureBox = _cardsViews[c] as PictureBox;
 
-                    pictureBox.Left = k * 60 + 260;
-                    pictureBox.Top = i * 137 + 80;
-
-                    this.Controls.Add(pictureBox);
                     
+                    this.Controls.Add(pictureBox);
+
+                    
+
+
+                    int top = i * 137 + 80;
+                    int left = k * 30 + 260;
+
+
+                    if (Game.USEANIMATION)
+                        AnimateMotion(pictureBox, left, top);
+                    else
+                    {
+                        pictureBox.Left = left;
+                        pictureBox.Top = top;
+                    }
+
+
                     k++;
                 }
 
                 i++;
             }
         }
+
+        void card_MouseLeave(object sender, EventArgs e)
+        {
+            int newTop = (sender as PictureBox).Top + 10;
+
+            if (Game.USEANIMATION && false)
+                AnimateMotion((Control)sender, (sender as Control).Left, newTop);
+            else
+                (sender as PictureBox).Top = newTop;
+
+
+            //(sender as PictureBox).Invalidate();
+            //this.Invalidate();
+        }
+
+        void card_MouseEnter(object sender, EventArgs e)
+        {
+            int newTop = (sender as PictureBox).Top - 10;
+
+            if (Game.USEANIMATION && false)
+                AnimateMotion((Control)sender, (sender as Control).Left, newTop);
+            else
+                (sender as PictureBox).Top = newTop;
+
+
+            //(sender as PictureBox).Invalidate();
+            //this.Invalidate(true);
+        }
+
+
+
+
+        private void AnimateMotion(Control control, int left, int top)
+        {
+            TweenPairs p = new TweenPairs();
+            p.Add("Y", top);
+            p.Add("X", left);
+            Tweener t = new Tweener(control, p, Tweener.easeInOutCubic, 30, 0);
+
+            //t.setOnComplete(new Tweener.onCompleteFunction(completed));
+            Tweener.add(t);
+        }
+
 
 
         private PictureBox _createPictureBoxForCard(Card card)
@@ -93,6 +157,10 @@ namespace Uno
 
             pictureBox.Height = 80;
             pictureBox.Width = 50;
+
+            pictureBox.MouseEnter += new EventHandler(card_MouseEnter);
+            pictureBox.MouseLeave += new EventHandler(card_MouseLeave);
+
             
             return pictureBox;
         }

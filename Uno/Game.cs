@@ -23,6 +23,12 @@ namespace Uno
         public const int MAXPLAYERS = 4;
 
 
+        /// <summary>
+        /// Should animation be used?
+        /// </summary>
+        public const bool USEANIMATION = true;
+
+
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
