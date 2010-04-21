@@ -25,9 +25,13 @@ namespace Uno
 
         public GameView(Game game, GameController controller)
         {
+
+
             InitializeComponent();
 
-            //this.BackgroundImage = null;
+            this.BackgroundImage = null;
+
+            //BackgroundImage = Properties.Resources.GameView;
 
             _game = game;
             _controller = controller;
@@ -35,9 +39,7 @@ namespace Uno
 
             // Create picture boxes for each card, and store them in a hash table
             foreach (Card c in _game.Deck)
-            {
                 _cardsViews.Add(c, _createPictureBoxForCard(c));
-            }
 
             _playerLabels.Add(player1Label);
             _playerLabels.Add(player2Label);
@@ -47,13 +49,46 @@ namespace Uno
             for (int i = 0; i < 4; i++)
             {
                 if (i < _game.Players.Count)
-                    _playerLabels[i].Text = _game.Players[i].Name;
+                    _playerLabels[i].Text = i.ToString() + ": " + _game.Players[i].Name;
 
                 else
                     _playerLabels[i].Visible = false;
             }
 
+
+
+
+            
+
         }
+
+
+        /*
+         * http://blogs.msdn.com/mhendersblog/archive/2005/10/12/480156.aspx
+         * and http://www.eggheadcafe.com/software/aspnet/30750705/help-with-form-painting-p.aspx
+         */
+        /*
+        private Bitmap _renderBmp;
+
+        public override Image BackgroundImage
+        {
+            set
+            {
+                Image baseImage = value;
+                if (_renderBmp != null)
+                    _renderBmp.Dispose();
+                _renderBmp = new Bitmap(this.Width, this.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                Graphics g = Graphics.FromImage(_renderBmp);
+                g.DrawImage(baseImage, 0, 0, Width, Height);
+                g.Dispose();
+            }
+            get
+            {
+                return _renderBmp;
+            }
+        }
+        */
+
 
 
         public void ReDraw()
@@ -67,9 +102,18 @@ namespace Uno
 
             if (_game.DiscardPile.Count > 0)
             {
-                Controls.Add(_cardsViews[_game.DiscardPile.Last()] as Control);
-                (_cardsViews[_game.DiscardPile.Last()] as Control).BringToFront();
-                AnimateMotion(_cardsViews[_game.DiscardPile.Last()] as Control, 20, 50);
+                Control lastCard = _cardsViews[_game.DiscardPile.Last()] as Control;
+
+                Controls.Add(lastCard);
+                lastCard.BringToFront();
+
+                if (Game.USEANIMATION)
+                    AnimateMotion(lastCard, 50, 50);
+                else
+                {
+                    lastCard.Top = 50;
+                    lastCard.Left = 50;
+                }
             }
 
 
@@ -84,22 +128,23 @@ namespace Uno
 
             // Layout the cards for each player
 
-            int i = 0;
+            
 
-            foreach (Game.GamePlayer p in _game.PlayersCards.Values)
+            for (int i=0; i<_game.Players.Count; i++)
             {
 
-                int k = 0;
+                Game.GamePlayer p = (Game.GamePlayer) _game.PlayersCards[_game.Players[i]];
+                
+                
 
-                foreach (Card c in p.Cards)
+                for (int k=0; k<p.Cards.Count; k++)
                 {
+                    Card c = p.Cards[k];
+
                     PictureBox pictureBox = _cardsViews[c] as PictureBox;
 
                     
                     this.Controls.Add(pictureBox);
-
-                    
-
 
                     int top = i * 137 + 80;
                     int left = k * 30 + 260;
@@ -114,10 +159,10 @@ namespace Uno
                     }
 
 
-                    k++;
+                   
                 }
 
-                i++;
+                
             }
         }
 
@@ -125,7 +170,7 @@ namespace Uno
         {
             int newTop = (sender as PictureBox).Top + 10;
 
-            if (Game.USEANIMATION && false)
+            if (Game.USEANIMATION)
                 AnimateMotion((Control)sender, (sender as Control).Left, newTop);
             else
                 (sender as PictureBox).Top = newTop;
@@ -139,7 +184,7 @@ namespace Uno
         {
             int newTop = (sender as PictureBox).Top - 10;
 
-            if (Game.USEANIMATION && false)
+            if (Game.USEANIMATION)
                 AnimateMotion((Control)sender, (sender as Control).Left, newTop);
             else
                 (sender as PictureBox).Top = newTop;
@@ -170,10 +215,11 @@ namespace Uno
             PictureBox pictureBox = new PictureBox();
 
             pictureBox.Tag = card;
+            
 
             pictureBox.Image = card.Image;
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            //pictureBox.BackColor = Color.Transparent;
+            pictureBox.BackColor = Color.Transparent;
 
             pictureBox.Height = 80;
             pictureBox.Width = 50;
@@ -190,6 +236,11 @@ namespace Uno
         void card_Click(object sender, EventArgs e)
         {
             _controller.SelectCard((sender as PictureBox).Tag as Card);
+        }
+
+        private void GameView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

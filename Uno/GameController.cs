@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Uno
 {
@@ -57,7 +58,7 @@ namespace Uno
 
 
             // Deal the cards to players
-            DealCards();
+            _dealCards();
 
             // Prepare the game view
             _gameView.ReDraw();
@@ -77,7 +78,40 @@ namespace Uno
         ///////////////////////////////////////////////////////////////////////////////////////
 
 
-        public void DealCards()
+
+
+        public void SelectCard(Card card)
+        {
+            if (_game.CurrentGamePlayer.Cards.IndexOf(card) >= 0)
+            {
+                _game.DiscardPile.Add(card);
+                _game.CurrentGamePlayer.Cards.Remove(card);
+                _nextPlayer();
+            }
+
+            
+            _gameView.ReDraw();
+        }
+
+
+        
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Private Methods
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        private void _shuffleDeck()
+        {
+            ShuffleList<Card>(_game.Deck);
+        }
+
+
+        
+        private void _dealCards()
         {
            
             int i=0;
@@ -96,29 +130,11 @@ namespace Uno
         }
 
 
-        public void SelectCard(Card card)
+        private void _nextPlayer()
         {
-            if (_game.CurrentGamePlayer.Cards.IndexOf(card) >= 0)
-            {
-                _game.DiscardPile.Add(card);
-                _game.CurrentGamePlayer.Cards.Remove(card);
-                _game.NextPlayer();
-            }
+            _game.NextPlayer();
 
-            
-            _gameView.ReDraw();
-        }
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////
-        // Private Methods
-        ///////////////////////////////////////////////////////////////////////////////////////
-
-
-
-        private void _shuffleDeck()
-        {
-            ShuffleList<Card>(_game.Deck);
+            //MessageBox.Show(_game.CurrentPlayerIndex.ToString() + ": " + _game.CurrentPlayer.Name);
         }
 
 

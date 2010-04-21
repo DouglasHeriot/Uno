@@ -145,6 +145,12 @@ namespace Uno
             get { return _playersCards[_players[_currentPlayerIndex]] as Game.GamePlayer; }
         }
 
+        public int CurrentPlayerIndex
+        {
+            get { return _currentPlayerIndex; }
+            set { _currentPlayerIndex = value; }
+        }
+
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -190,17 +196,17 @@ namespace Uno
         // Public Methods
         ///////////////////////////////////////////////////////////////////////////////////////
 
+
         public void NextPlayer()
         {
             // TODO: look at direction of play
 
             _currentPlayerIndex++;
 
-            if(_currentPlayerIndex >= _players.Count)
+            if (_currentPlayerIndex >= _players.Count)
                 _currentPlayerIndex = 0;
 
         }
-
 
 
 
@@ -241,7 +247,7 @@ namespace Uno
             /// </summary>
             public int Score
             {
-                get { return _score; }
+                get { return _score; }  
                 set { _score = value; }
             }
 

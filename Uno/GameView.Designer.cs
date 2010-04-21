@@ -124,7 +124,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(954, 618);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(950, 621);
             this.Controls.Add(this.player4Label);
             this.Controls.Add(this.player3Label);
             this.Controls.Add(this.player2Label);
@@ -133,11 +134,13 @@
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.endGameButton);
             this.Controls.Add(this.newGameButton);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "GameView";
             this.ShowIcon = false;
             this.Text = "Uno";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameView_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
