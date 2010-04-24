@@ -17,6 +17,10 @@ namespace Uno
         private GameView _gameView;
 
 
+        private int _cardsToDraw = 0;
+        private Card.CardColor _wildColor = Card.CardColor.Wild;
+
+
         ///////////////////////////////////////////////////////////////////////////////////////
         // Properties
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +64,12 @@ namespace Uno
             // Deal the cards to players
             _dealCards();
 
+
+            // Sort the cards in each player's hand
+            foreach (System.Collections.DictionaryEntry p in _game.PlayersCards)
+                _sortCards((p.Value as Game.GamePlayer).Cards);
+            
+
             // Prepare the game view
             _gameView.ReDraw();
 
@@ -91,7 +101,26 @@ namespace Uno
                 {
                     _game.DiscardPile.Add(card);
                     _game.CurrentGamePlayer.Cards.Remove(card);
+
+                    if (card.Color == Card.CardColor.Wild)
+                    {
+                        WildColorChooser wildColor = new WildColorChooser();
+                        wildColor.ShowDialog();
+
+                        if (wildColor.DialogResult == DialogResult.OK)
+                        {
+                            _game.CurrentColor = wildColor.Color;
+                        }
+                        
+                    }
+                    else
+                    {
+                        _game.CurrentColor = card.Color;
+                    }
+                    
+
                     _nextPlayer();
+                    _gameView.ReDraw();
                 }
                 else
                 {
@@ -104,7 +133,7 @@ namespace Uno
             }
 
             
-            _gameView.ReDraw();
+            
         }
 
 
@@ -113,9 +142,18 @@ namespace Uno
         /// </summary>
         public void PickupCard()
         {
+            //Avoid crashing when the deck is empty
+            if (_game.Deck.Count == 0)
+                // Should take cards from the discard pile to fill the deck (but what if there's only 1 there?)
+                return;
+
+
             // Add a card from the deck to the current player's hand
             _game.CurrentGamePlayer.Cards.Add(_game.Deck[0]);
             _game.Deck.RemoveAt(0);
+
+            // Sort the hand
+            _sortCards(_game.CurrentGamePlayer.Cards);
 
             // Move onto the next player
             _nextPlayer();
@@ -163,14 +201,23 @@ namespace Uno
             // Add a card to start the discard pile
             _game.DiscardPile.Add(_game.Deck[0]);
             _game.Deck.RemoveAt(0);
+
+            _game.CurrentColor = _game.CurrentCard.Color;
+            
         }
+
 
 
         private void _nextPlayer()
         {
-            _game.NextPlayer();
+            
+            // TODO: look at direction of play
 
-            //MessageBox.Show(_game.CurrentPlayerIndex.ToString() + ": " + _game.CurrentPlayer.Name);
+            _game.CurrentPlayerIndex++;
+
+            if (_game.CurrentPlayerIndex >= _game.Players.Count)
+                _game.CurrentPlayerIndex = 0;
+
         }
 
 
@@ -227,7 +274,15 @@ namespace Uno
         /// <param name="cards"></param>
         public static void _sortCards(List<Card> cards)
         {
-
+            for (int i = 1; i < cards.Count; i++)
+            {
+                for (int k = i; k > 0 && cards[k].SortingValue < cards[k - 1].SortingValue; k--)
+                {
+                    Card temp = cards[k];
+                    cards[k] = cards[k - 1];
+                    cards[k - 1] = temp;
+                }
+            }
         }
 
 
@@ -242,7 +297,7 @@ namespace Uno
         {
             //bool success = false;
 
-            return current.Color == newCard.Color || newCard.Color == Card.CardColor.Wild || current.Face == newCard.Face;
+            return current.Color == newCard.Color || newCard.Color == Card.CardColor.Wild || current.Color == Card.CardColor.Wild || current.Face == newCard.Face;
         }
 
 

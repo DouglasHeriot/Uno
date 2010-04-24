@@ -19,7 +19,7 @@ namespace Uno
         private Hashtable _cardsViews = new Hashtable(108);
 
         private List<Label> _playerLabels = new List<Label>(4);
-
+        private List<PictureBox> _playerStatus = new List<PictureBox>(4);
 
 
 
@@ -29,9 +29,9 @@ namespace Uno
 
             InitializeComponent();
 
-            this.BackgroundImage = null;
+            //this.BackgroundImage = null;
 
-            //BackgroundImage = Properties.Resources.GameView;
+            BackgroundImage = Properties.Resources.GameView;
 
             _game = game;
             _controller = controller;
@@ -41,15 +41,25 @@ namespace Uno
             foreach (Card c in _game.Deck)
                 _cardsViews.Add(c, _createPictureBoxForCard(c));
 
+            // Add controls to their arrays
+
             _playerLabels.Add(player1Label);
             _playerLabels.Add(player2Label);
             _playerLabels.Add(player3Label);
             _playerLabels.Add(player4Label);
 
+            _playerStatus.Add(player1Status);
+            _playerStatus.Add(player2Status);
+            _playerStatus.Add(player3Status);
+            _playerStatus.Add(player4Status);
+
+
+
+            // Set player name labels
             for (int i = 0; i < 4; i++)
             {
                 if (i < _game.Players.Count)
-                    _playerLabels[i].Text = i.ToString() + ": " + _game.Players[i].Name;
+                    _playerLabels[i].Text = _game.Players[i].Name;
 
                 else
                     _playerLabels[i].Visible = false;
@@ -67,7 +77,7 @@ namespace Uno
          * http://blogs.msdn.com/mhendersblog/archive/2005/10/12/480156.aspx
          * and http://www.eggheadcafe.com/software/aspnet/30750705/help-with-form-painting-p.aspx
          */
-        /*
+        
         private Bitmap _renderBmp;
 
         public override Image BackgroundImage
@@ -87,28 +97,14 @@ namespace Uno
                 return _renderBmp;
             }
         }
-        */
+        
 
 
-
+        /// <summary>
+        /// Updates the game view form to present the current state of the game
+        /// </summary>
         public void ReDraw()
         {
-
-            for (int c = 0; c < _game.DiscardPile.Count - 2; c++ )
-            {
-                Controls.Remove(_cardsViews[_game.DiscardPile[c]] as PictureBox);
-
-            }
-
-            if (_game.DiscardPile.Count > 0)
-            {
-                Control lastCard = _cardsViews[_game.DiscardPile.Last()] as Control;
-
-                Controls.Add(lastCard);
-                lastCard.BringToFront();
-
-                _moveCardTo(lastCard, 70, 50);
-            }
 
 
             // Remove cards that are just in the deck
@@ -121,9 +117,6 @@ namespace Uno
 
 
             // Layout the cards for each player
-
-            
-
             for (int i=0; i<_game.Players.Count; i++)
             {
 
@@ -136,18 +129,72 @@ namespace Uno
                     Card c = p.Cards[k];
 
                     PictureBox pictureBox = _cardsViews[c] as PictureBox;
-
-                    
                     this.Controls.Add(pictureBox);
+                    pictureBox.BringToFront();
 
-                    _moveCardTo(pictureBox, k * 30 + 260, i * 137 + 80);
+
+
+                    #if DEBUG
+                    if (p.Cards.Count > 10)
+                    {
+                        //System.Diagnostics.Debugger.Break();
+                    }
+                    #endif
+
+                    int left = p.Cards.Count <= 10 ? k * 60 + 260 : k * (650 / p.Cards.Count) + 260 ;
+
+
+                    _moveCardTo(pictureBox, left, i * 137 + 80);
 
 
                    
                 }
-
-                
             }
+
+
+            // Remove all cards in the discard pile from the form except the top 2 cards
+            for (int c = 0; c < _game.DiscardPile.Count - 2; c++)
+                Controls.Remove(_cardsViews[_game.DiscardPile[c]] as PictureBox);
+            
+
+            // Display the discard pile
+            if (_game.DiscardPile.Count > 0)
+            {
+                Control lastCard = _cardsViews[_game.DiscardPile.Last()] as Control;
+
+                Controls.Add(lastCard);
+                lastCard.BringToFront();
+
+                _moveCardTo(lastCard, 75, 65);
+            }
+
+
+
+            // Show the pickup pile as empty when it's empty
+            if (_game.Deck.Count == 0)
+            {
+                pickupPileImage.Image = null;
+                pickupPileImage.BackColor = Color.White;
+            }
+            else if (pickupPileImage.Image == null)
+            {
+                pickupPileImage.Image = Properties.Resources.back;
+                pickupPileImage.BackColor = Color.Transparent;
+            }
+
+
+
+
+            // Set player status
+
+            foreach (PictureBox p in _playerStatus)
+                p.Image = null;
+
+            _playerStatus[_game.CurrentPlayerIndex].Image = (Image) Properties.Resources.ResourceManager.GetObject(Card.CardColorToString(_game.CurrentColor)+"_cw");
+
+
+
+
         }
 
         void card_MouseLeave(object sender, EventArgs e)

@@ -29,12 +29,19 @@ namespace Uno
 
             GameOptions options = new GameOptions();
 
-            Game game = new Game(players, options);
-            new GameController(game);
+            NewGame(players, options);
+            
 
 
 
             Application.Run();
+        }
+
+
+        static public void NewGame(List<Player> players, GameOptions options)
+        {
+            Game game = new Game(players, options);
+            new GameController(game);
         }
     }
 }

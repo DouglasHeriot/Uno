@@ -44,39 +44,47 @@ namespace Uno
         /// <summary>
         /// Array of cards to be dealt to other players, then used as the discard pile
         /// </summary>
-        List<Card> _deck;
+        List<Card> deck;
 
 
 
         /// <summary>
         /// The Players
         /// </summary>
-        List<Player> _players;
+        List<Player> players;
 
 
 
         /// <summary>
         /// Hash table containing players and the Game.Player objects, which contains data about the current game
         /// </summary>
-        Hashtable _playersCards = new Hashtable(MAXPLAYERS);
+        Hashtable playersCards = new Hashtable(MAXPLAYERS);
 
 
         /// <summary>
         /// Game options object
         /// </summary>
-        GameOptions _options;
+        GameOptions options;
 
 
         /// <summary>
         /// The discard pile
         /// </summary>
-        List<Card> _discardPile = new List<Card>(MAXUNOCARDS);
+        List<Card> discardPile = new List<Card>(MAXUNOCARDS);
 
 
         /// <summary>
         /// Index of the current player
         /// </summary>
-        int _currentPlayerIndex = 0;
+        int currentPlayerIndex = 0;
+
+
+
+        bool reverse = false;
+
+
+        Card.CardColor currentColor;
+
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -89,7 +97,7 @@ namespace Uno
         /// </summary>
         public List<Player> Players
         {
-            get { return _players; }
+            get { return players; }
         }
 
 
@@ -98,7 +106,7 @@ namespace Uno
         /// </summary>
         public Hashtable PlayersCards
         {
-            get { return _playersCards; }
+            get { return playersCards; }
         }
 
 
@@ -107,7 +115,7 @@ namespace Uno
         /// </summary>
         public GameOptions Options
         {
-            get { return _options; }
+            get { return options; }
         }
 
 
@@ -116,8 +124,8 @@ namespace Uno
         /// </summary>
         public List<Card> Deck
         {
-            get { return _deck; }
-            set { _deck = value; }
+            get { return deck; }
+            set { deck = value; }
         }
 
         /// <summary>
@@ -125,7 +133,7 @@ namespace Uno
         /// </summary>
         public List<Card> DiscardPile
         {
-            get { return _discardPile; }
+            get { return discardPile; }
         }
 
 
@@ -134,7 +142,7 @@ namespace Uno
         /// </summary>
         public Player CurrentPlayer
         {
-            get { return _players[_currentPlayerIndex]; }
+            get { return players[currentPlayerIndex]; }
         }
 
         /// <summary>
@@ -142,7 +150,7 @@ namespace Uno
         /// </summary>
         public GamePlayer CurrentGamePlayer
         {
-            get { return _playersCards[_players[_currentPlayerIndex]] as Game.GamePlayer; }
+            get { return playersCards[players[currentPlayerIndex]] as Game.GamePlayer; }
         }
 
         /// <summary>
@@ -150,8 +158,8 @@ namespace Uno
         /// </summary>
         public int CurrentPlayerIndex
         {
-            get { return _currentPlayerIndex; }
-            set { _currentPlayerIndex = value; }
+            get { return currentPlayerIndex; }
+            set { currentPlayerIndex = value; }
         }
 
         /// <summary>
@@ -159,8 +167,22 @@ namespace Uno
         /// </summary>
         public Card CurrentCard
         {
-            get { return _discardPile.Last(); }
+            get { return discardPile.Last(); }
         }
+
+        public bool Reverse
+        {
+            get { return reverse; }
+            set { reverse = value; }
+        }
+
+
+        public Card.CardColor CurrentColor
+        {
+            get { return currentColor; }
+            set { currentColor = value; }
+        }
+
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -185,17 +207,17 @@ namespace Uno
         /// </summary>
         /// <param name="players"></param>
         /// <param name="options"></param>
-        public Game(List<Player> players, GameOptions options)
+        public Game(List<Player> gamePlayers, GameOptions gameOptions)
             :this()
         {
             // store parameters
-            _players = players;
-            _options = options;
+            players = gamePlayers;
+            options = gameOptions;
 
             // Create entries for each player in the hash table
-            foreach (Player p in _players)
+            foreach (Player p in players)
             {
-                _playersCards.Add(p, new GamePlayer(p));
+                playersCards.Add(p, new GamePlayer(p));
             }
         }
 
@@ -207,16 +229,6 @@ namespace Uno
         ///////////////////////////////////////////////////////////////////////////////////////
 
 
-        public void NextPlayer()
-        {
-            // TODO: look at direction of play
-
-            _currentPlayerIndex++;
-
-            if (_currentPlayerIndex >= _players.Count)
-                _currentPlayerIndex = 0;
-
-        }
 
 
 
@@ -230,9 +242,9 @@ namespace Uno
         /// </summary>
         public class GamePlayer
         {
-            Uno.Player _player;
-            List<Card> _cards = new List<Card>(MAXUNOCARDS);
-            int _score = 0;
+            Uno.Player player;
+            List<Card> cards = new List<Card>(MAXUNOCARDS);
+            int score = 0;
 
 
             /// <summary>
@@ -240,7 +252,7 @@ namespace Uno
             /// </summary>
             public Uno.Player Player
             {
-                get { return _player; }
+                get { return player; }
             }
 
 
@@ -249,7 +261,7 @@ namespace Uno
             /// </summary>
             public List<Card> Cards
             {
-                get { return _cards; }
+                get { return cards; }
             }
 
             /// <summary>
@@ -257,8 +269,8 @@ namespace Uno
             /// </summary>
             public int Score
             {
-                get { return _score; }  
-                set { _score = value; }
+                get { return score; }  
+                set { score = value; }
             }
 
 
@@ -267,9 +279,9 @@ namespace Uno
             /// Create a new GamePlayer object
             /// </summary>
             /// <param name="player"></param>
-            public GamePlayer(Player player)
+            public GamePlayer(Player inputPlayer)
             {
-                _player = player;
+                player = inputPlayer;
             }
 
         }

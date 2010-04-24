@@ -79,6 +79,9 @@
     <EmbeddedResource Include="StartupPlayerView.resx">
       <DependentUpon>StartupPlayerView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WildColorChooser.resx">
+      <DependentUpon>WildColorChooser.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -112,6 +115,12 @@
       <DependentUpon>StartupPlayerView.cs</DependentUpon>
     </Compile>
     <Compile Include="Tweener.cs" />
+    <Compile Include="WildColorChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WildColorChooser.Designer.cs">
+      <DependentUpon>WildColorChooser.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GameView.png" />
@@ -283,6 +292,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GameView.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y_cw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_ccw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_cw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g_ccw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\g_cw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r_ccw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\r_cw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\y_ccw.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

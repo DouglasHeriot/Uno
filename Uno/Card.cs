@@ -136,6 +136,25 @@ namespace Uno
         }
 
 
+        /// <summary>
+        /// The value of the card, used only for sorting purposes
+        /// </summary>
+        public int SortingValue
+        {
+            get
+            {
+                int value;
+
+                if (_color == CardColor.Wild && _face == CardFace.None)
+                    value = 13*4;
+                else
+                    value = (int)_color * 13 + (int)_face;
+
+                return value;
+            }
+        }
+
+
         ///////////////////////////////////////////////////////////////////////////////////////
         // Constructors
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -171,6 +190,39 @@ namespace Uno
             return StringForCard(_color, _face);
         }
 
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Operators
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+
+        // Based on code from http://www.blackwasp.co.uk/CSharpRelationalOverload.aspx
+
+
+        /*
+
+        public static bool operator >(Card v1, Card v2)
+        {
+            return (v1.Length > v2.Length);
+        }
+
+        public static bool operator <(Card v1, Card v2)
+        {
+            return (v1.Length < v2.Length);
+        }
+
+        public static bool operator >=(Card v1, Card v2)
+        {
+            return (v1.Length >= v2.Length);
+        }
+
+        public static bool operator <=(Card v1, Card v2)
+        {
+            return (v1.Length <= v2.Length);
+        }
+
+        */
 
 
 

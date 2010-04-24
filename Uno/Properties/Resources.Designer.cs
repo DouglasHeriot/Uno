@@ -60,6 +60,20 @@ namespace Uno.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap b_ccw {
+            get {
+                object obj = ResourceManager.GetObject("b_ccw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap b_cw {
+            get {
+                object obj = ResourceManager.GetObject("b_cw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap b0 {
             get {
                 object obj = ResourceManager.GetObject("b0", resourceCulture);
@@ -158,6 +172,20 @@ namespace Uno.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap g_ccw {
+            get {
+                object obj = ResourceManager.GetObject("g_ccw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap g_cw {
+            get {
+                object obj = ResourceManager.GetObject("g_cw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap g0 {
             get {
                 object obj = ResourceManager.GetObject("g0", resourceCulture);
@@ -252,6 +280,20 @@ namespace Uno.Properties {
         internal static System.Drawing.Bitmap gs {
             get {
                 object obj = ResourceManager.GetObject("gs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap r_ccw {
+            get {
+                object obj = ResourceManager.GetObject("r_ccw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap r_cw {
+            get {
+                object obj = ResourceManager.GetObject("r_cw", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -357,6 +399,20 @@ namespace Uno.Properties {
         internal static System.Drawing.Bitmap wd4 {
             get {
                 object obj = ResourceManager.GetObject("wd4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap y_ccw {
+            get {
+                object obj = ResourceManager.GetObject("y_ccw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap y_cw {
+            get {
+                object obj = ResourceManager.GetObject("y_cw", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

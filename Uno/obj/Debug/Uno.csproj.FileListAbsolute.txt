@@ -9,3 +9,4 @@ Z:\SDD\Projects\Uno\Uno\obj\Debug\Uno.StartupDisplay.resources
 Z:\SDD\Projects\Uno\Uno\obj\Debug\Uno.StartupPlayerView.resources
 Z:\SDD\Projects\Uno\Uno\obj\Debug\Uno.SortedPlayersView.resources
 Z:\SDD\Projects\Uno\Uno\obj\Debug\Uno.GameView.resources
+Z:\SDD\Projects\Uno\Uno\obj\Debug\Uno.WildColorChooser.resources
