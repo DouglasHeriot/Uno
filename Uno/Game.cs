@@ -145,12 +145,22 @@ namespace Uno
             get { return _playersCards[_players[_currentPlayerIndex]] as Game.GamePlayer; }
         }
 
+        /// <summary>
+        /// Index of the current player
+        /// </summary>
         public int CurrentPlayerIndex
         {
             get { return _currentPlayerIndex; }
             set { _currentPlayerIndex = value; }
         }
 
+        /// <summary>
+        /// The last card played on the discard pile
+        /// </summary>
+        public Card CurrentCard
+        {
+            get { return _discardPile.Last(); }
+        }
 
 
         ///////////////////////////////////////////////////////////////////////////////////////

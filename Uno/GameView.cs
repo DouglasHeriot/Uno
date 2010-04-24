@@ -107,13 +107,7 @@ namespace Uno
                 Controls.Add(lastCard);
                 lastCard.BringToFront();
 
-                if (Game.USEANIMATION)
-                    AnimateMotion(lastCard, 50, 50);
-                else
-                {
-                    lastCard.Top = 50;
-                    lastCard.Left = 50;
-                }
+                _moveCardTo(lastCard, 70, 50);
             }
 
 
@@ -146,17 +140,7 @@ namespace Uno
                     
                     this.Controls.Add(pictureBox);
 
-                    int top = i * 137 + 80;
-                    int left = k * 30 + 260;
-
-
-                    if (Game.USEANIMATION)
-                        AnimateMotion(pictureBox, left, top);
-                    else
-                    {
-                        pictureBox.Left = left;
-                        pictureBox.Top = top;
-                    }
+                    _moveCardTo(pictureBox, k * 30 + 260, i * 137 + 80);
 
 
                    
@@ -224,6 +208,9 @@ namespace Uno
             pictureBox.Height = 80;
             pictureBox.Width = 50;
 
+            pictureBox.Left = 75;
+            pictureBox.Top = 182;
+
             pictureBox.Click += new EventHandler(card_Click);
             //pictureBox.MouseEnter += new EventHandler(card_MouseEnter);
             //pictureBox.MouseLeave += new EventHandler(card_MouseLeave);
@@ -241,6 +228,23 @@ namespace Uno
         private void GameView_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void pickupPileImage_Click(object sender, EventArgs e)
+        {
+            _controller.PickupCard();
+        }
+
+
+        private void _moveCardTo(Control card, int left, int top)
+        {
+            if (Game.USEANIMATION)
+                AnimateMotion(card, left, top);
+            else
+            {
+                card.Top = top;
+                card.Left = left;
+            }
         }
     }
 }

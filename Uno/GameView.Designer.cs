@@ -37,6 +37,8 @@
             this.player2Label = new System.Windows.Forms.Label();
             this.player3Label = new System.Windows.Forms.Label();
             this.player4Label = new System.Windows.Forms.Label();
+            this.pickupPileImage = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).BeginInit();
             this.SuspendLayout();
             // 
             // newGameButton
@@ -119,6 +121,17 @@
             this.player4Label.TabIndex = 1;
             this.player4Label.Text = "Player 1";
             // 
+            // pickupPileImage
+            // 
+            this.pickupPileImage.Image = global::Uno.Properties.Resources.back;
+            this.pickupPileImage.Location = new System.Drawing.Point(75, 182);
+            this.pickupPileImage.Name = "pickupPileImage";
+            this.pickupPileImage.Size = new System.Drawing.Size(50, 80);
+            this.pickupPileImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pickupPileImage.TabIndex = 2;
+            this.pickupPileImage.TabStop = false;
+            this.pickupPileImage.Click += new System.EventHandler(this.pickupPileImage_Click);
+            // 
             // GameView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -126,6 +139,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(950, 621);
+            this.Controls.Add(this.pickupPileImage);
             this.Controls.Add(this.player4Label);
             this.Controls.Add(this.player3Label);
             this.Controls.Add(this.player2Label);
@@ -141,6 +155,7 @@
             this.ShowIcon = false;
             this.Text = "Uno";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameView_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,6 +171,7 @@
         private System.Windows.Forms.Label player2Label;
         private System.Windows.Forms.Label player3Label;
         private System.Windows.Forms.Label player4Label;
+        private System.Windows.Forms.PictureBox pickupPileImage;
 
     }
 }

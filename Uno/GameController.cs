@@ -79,14 +79,28 @@ namespace Uno
 
 
 
-
+        /// <summary>
+        /// Choose a card for the current player to play
+        /// </summary>
+        /// <param name="card"></param>
         public void SelectCard(Card card)
         {
             if (_game.CurrentGamePlayer.Cards.IndexOf(card) >= 0)
             {
-                _game.DiscardPile.Add(card);
-                _game.CurrentGamePlayer.Cards.Remove(card);
-                _nextPlayer();
+                if (_canPlayCard(card))
+                {
+                    _game.DiscardPile.Add(card);
+                    _game.CurrentGamePlayer.Cards.Remove(card);
+                    _nextPlayer();
+                }
+                else
+                {
+                    // Sorry, you can't play that card!
+                }
+            }
+            else
+            {
+                // It's not your turn!
             }
 
             
@@ -94,7 +108,21 @@ namespace Uno
         }
 
 
-        
+        /// <summary>
+        /// Choose to pickup a card instead of playing
+        /// </summary>
+        public void PickupCard()
+        {
+            // Add a card from the deck to the current player's hand
+            _game.CurrentGamePlayer.Cards.Add(_game.Deck[0]);
+            _game.Deck.RemoveAt(0);
+
+            // Move onto the next player
+            _nextPlayer();
+
+            // Re-layout the game view
+            _gameView.ReDraw();
+        }
 
 
 
@@ -111,22 +139,30 @@ namespace Uno
 
 
         
+        /// <summary>
+        /// Deal cards to each player and to the discard pile
+        /// </summary>
         private void _dealCards()
         {
-           
-            int i=0;
-
+                       
+            // Continue until the last player has the required number of cards
             while ((_game.PlayersCards[_game.Players.Last()] as Game.GamePlayer).Cards.Count < _game.Options.CardsForEachPlayer)
             {
+                // Give each player a card from the 'top' of the deck
                 foreach (System.Collections.DictionaryEntry p in _game.PlayersCards)
                 {
                     // Add to player's hand
-                    (p.Value as Game.GamePlayer).Cards.Add(_game.Deck[i]);
+                    (p.Value as Game.GamePlayer).Cards.Add(_game.Deck[0]);
 
                     // Remove from deck
-                    _game.Deck.RemoveAt(i);   
+                    _game.Deck.RemoveAt(0);   
                 }
             }
+
+
+            // Add a card to start the discard pile
+            _game.DiscardPile.Add(_game.Deck[0]);
+            _game.Deck.RemoveAt(0);
         }
 
 
@@ -136,6 +172,22 @@ namespace Uno
 
             //MessageBox.Show(_game.CurrentPlayerIndex.ToString() + ": " + _game.CurrentPlayer.Name);
         }
+
+
+
+        private bool _canPlayCard(Card card)
+        {
+            bool success = false;
+
+            if (_canPlayCardOn(_game.CurrentCard, card))
+            {
+                success = true;
+            }
+            return success;
+        }
+
+        
+
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -177,6 +229,23 @@ namespace Uno
         {
 
         }
+
+
+
+        /// <summary>
+        /// Check if a card can be played on another. Does not take into account draw cards.
+        /// </summary>
+        /// <param name="current">Current card on the top of the discard pile</param>
+        /// <param name="newCard">New card asking to be played</param>
+        /// <returns></returns>
+        private bool _canPlayCardOn(Card current, Card newCard)
+        {
+            //bool success = false;
+
+            return current.Color == newCard.Color || newCard.Color == Card.CardColor.Wild || current.Face == newCard.Face;
+        }
+
+
 
 
         /// <summary>
