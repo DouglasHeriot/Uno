@@ -38,15 +38,9 @@
             this.player4Label = new System.Windows.Forms.Label();
             this.pickupPileImage = new System.Windows.Forms.PictureBox();
             this.player1Label = new System.Windows.Forms.Label();
-            this.player1Status = new System.Windows.Forms.PictureBox();
-            this.player2Status = new System.Windows.Forms.PictureBox();
-            this.player3Status = new System.Windows.Forms.PictureBox();
-            this.player4Status = new System.Windows.Forms.PictureBox();
+            this.playerStatus = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player1Status)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player2Status)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player3Status)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player4Status)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // newGameButton
@@ -141,41 +135,14 @@
             this.player1Label.TabIndex = 1;
             this.player1Label.Text = "Player 1";
             // 
-            // player1Status
+            // playerStatus
             // 
-            this.player1Status.BackColor = System.Drawing.Color.Transparent;
-            this.player1Status.Location = new System.Drawing.Point(213, 43);
-            this.player1Status.Name = "player1Status";
-            this.player1Status.Size = new System.Drawing.Size(33, 123);
-            this.player1Status.TabIndex = 3;
-            this.player1Status.TabStop = false;
-            // 
-            // player2Status
-            // 
-            this.player2Status.BackColor = System.Drawing.Color.Transparent;
-            this.player2Status.Location = new System.Drawing.Point(213, 180);
-            this.player2Status.Name = "player2Status";
-            this.player2Status.Size = new System.Drawing.Size(33, 123);
-            this.player2Status.TabIndex = 3;
-            this.player2Status.TabStop = false;
-            // 
-            // player3Status
-            // 
-            this.player3Status.BackColor = System.Drawing.Color.Transparent;
-            this.player3Status.Location = new System.Drawing.Point(213, 317);
-            this.player3Status.Name = "player3Status";
-            this.player3Status.Size = new System.Drawing.Size(33, 123);
-            this.player3Status.TabIndex = 3;
-            this.player3Status.TabStop = false;
-            // 
-            // player4Status
-            // 
-            this.player4Status.BackColor = System.Drawing.Color.Transparent;
-            this.player4Status.Location = new System.Drawing.Point(213, 455);
-            this.player4Status.Name = "player4Status";
-            this.player4Status.Size = new System.Drawing.Size(33, 123);
-            this.player4Status.TabIndex = 3;
-            this.player4Status.TabStop = false;
+            this.playerStatus.BackColor = System.Drawing.Color.Transparent;
+            this.playerStatus.Location = new System.Drawing.Point(213, 43);
+            this.playerStatus.Name = "playerStatus";
+            this.playerStatus.Size = new System.Drawing.Size(33, 123);
+            this.playerStatus.TabIndex = 3;
+            this.playerStatus.TabStop = false;
             // 
             // GameView
             // 
@@ -184,10 +151,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(950, 621);
-            this.Controls.Add(this.player4Status);
-            this.Controls.Add(this.player3Status);
-            this.Controls.Add(this.player2Status);
-            this.Controls.Add(this.player1Status);
+            this.Controls.Add(this.playerStatus);
             this.Controls.Add(this.player1Label);
             this.Controls.Add(this.pickupPileImage);
             this.Controls.Add(this.player4Label);
@@ -205,10 +169,7 @@
             this.Text = "Uno";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameView_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player1Status)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player2Status)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player3Status)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.player4Status)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerStatus)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,10 +186,7 @@
         private System.Windows.Forms.Label player4Label;
         private System.Windows.Forms.PictureBox pickupPileImage;
         private System.Windows.Forms.Label player1Label;
-        private System.Windows.Forms.PictureBox player1Status;
-        private System.Windows.Forms.PictureBox player2Status;
-        private System.Windows.Forms.PictureBox player3Status;
-        private System.Windows.Forms.PictureBox player4Status;
+        private System.Windows.Forms.PictureBox playerStatus;
 
     }
 }

@@ -16,5 +16,10 @@ namespace Uno
             InitializeComponent();
         }
 
+        private void startupPlayerView1_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

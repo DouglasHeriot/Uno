@@ -13,12 +13,15 @@ namespace Uno
         ///////////////////////////////////////////////////////////////////////////////////////
 
 
-        private Game _game;
-        private GameView _gameView;
+        private Game game;
+        private GameView gameView;
 
 
-        private int _cardsToDraw = 0;
-        private Card.CardColor _wildColor = Card.CardColor.Wild;
+        private int cardsToDraw = 0;
+        private bool skip = false;
+        
+
+        
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +34,7 @@ namespace Uno
         /// </summary>
         public Game Game
         {
-            get { return _game; }
+            get { return game; }
         }
 
 
@@ -45,37 +48,37 @@ namespace Uno
         /// Create a new game controller for a new Game
         /// </summary>
         /// <param name="game"></param>
-        public GameController(Game game)
+        public GameController(Game newGame)
         {
-            _game = game;
+            game = newGame;
 
             
 
             // Setup the uno deck
-            _game.Deck = GenerateUnoDeck();
-            _shuffleDeck();
+            game.Deck = GenerateUnoDeck();
+            shuffleDeck();
 
             
 
             // Create a new game view
-            _gameView = new GameView(game, this);
+            gameView = new GameView(game, this);
 
 
             // Deal the cards to players
-            _dealCards();
+            dealCards();
 
 
             // Sort the cards in each player's hand
-            foreach (System.Collections.DictionaryEntry p in _game.PlayersCards)
-                _sortCards((p.Value as Game.GamePlayer).Cards);
+            foreach (System.Collections.DictionaryEntry p in game.PlayersCards)
+                sortCards((p.Value as Game.GamePlayer).Cards);
             
 
             // Prepare the game view
-            _gameView.ReDraw();
+            gameView.ReDraw();
 
 
 
-            _gameView.Show();
+            gameView.Show();
 
 
             
@@ -95,13 +98,17 @@ namespace Uno
         /// <param name="card"></param>
         public void SelectCard(Card card)
         {
-            if (_game.CurrentGamePlayer.Cards.IndexOf(card) >= 0)
+            // Check that it's the current player's card, not someone else's
+            if (game.CurrentGamePlayer.Cards.IndexOf(card) >= 0)
             {
-                if (_canPlayCard(card))
+                // Check that the card is allowed
+                if (canPlayCard(card))
                 {
-                    _game.DiscardPile.Add(card);
-                    _game.CurrentGamePlayer.Cards.Remove(card);
+                    // Move it to the discard pile
+                    game.DiscardPile.Add(card);
+                    game.CurrentGamePlayer.Cards.Remove(card);
 
+                    // Ask for the color for a wild card
                     if (card.Color == Card.CardColor.Wild)
                     {
                         WildColorChooser wildColor = new WildColorChooser();
@@ -109,18 +116,24 @@ namespace Uno
 
                         if (wildColor.DialogResult == DialogResult.OK)
                         {
-                            _game.CurrentColor = wildColor.Color;
+                            game.WildColor = wildColor.Color;
                         }
-                        
+
                     }
                     else
                     {
-                        _game.CurrentColor = card.Color;
+                        // If the card isn't a wild, reset the wildColor variable back to normal.
+                        game.WildColor = Card.CardColor.Wild;
                     }
+
+
+                    // Perform action on action cards
+                    performAction(card);
                     
 
-                    _nextPlayer();
-                    _gameView.ReDraw();
+                    // Setup next player, and update the game view
+                    nextPlayer();
+                    gameView.ReDraw();
                 }
                 else
                 {
@@ -142,24 +155,14 @@ namespace Uno
         /// </summary>
         public void PickupCard()
         {
-            //Avoid crashing when the deck is empty
-            if (_game.Deck.Count == 0)
-                // Should take cards from the discard pile to fill the deck (but what if there's only 1 there?)
-                return;
-
-
-            // Add a card from the deck to the current player's hand
-            _game.CurrentGamePlayer.Cards.Add(_game.Deck[0]);
-            _game.Deck.RemoveAt(0);
-
-            // Sort the hand
-            _sortCards(_game.CurrentGamePlayer.Cards);
+            // Pickup a card
+            currentPlayerPickupCard();
 
             // Move onto the next player
-            _nextPlayer();
+            nextPlayer();
 
             // Re-layout the game view
-            _gameView.ReDraw();
+            gameView.ReDraw();
         }
 
 
@@ -170,9 +173,9 @@ namespace Uno
 
 
 
-        private void _shuffleDeck()
+        private void shuffleDeck()
         {
-            ShuffleList<Card>(_game.Deck);
+            ShuffleList<Card>(game.Deck);
         }
 
 
@@ -180,56 +183,191 @@ namespace Uno
         /// <summary>
         /// Deal cards to each player and to the discard pile
         /// </summary>
-        private void _dealCards()
+        private void dealCards()
         {
                        
             // Continue until the last player has the required number of cards
-            while ((_game.PlayersCards[_game.Players.Last()] as Game.GamePlayer).Cards.Count < _game.Options.CardsForEachPlayer)
+            while ((game.PlayersCards[game.Players.Last()] as Game.GamePlayer).Cards.Count < game.Options.CardsForEachPlayer)
             {
                 // Give each player a card from the 'top' of the deck
-                foreach (System.Collections.DictionaryEntry p in _game.PlayersCards)
+                foreach (System.Collections.DictionaryEntry p in game.PlayersCards)
                 {
                     // Add to player's hand
-                    (p.Value as Game.GamePlayer).Cards.Add(_game.Deck[0]);
+                    (p.Value as Game.GamePlayer).Cards.Add(game.Deck[0]);
 
                     // Remove from deck
-                    _game.Deck.RemoveAt(0);   
+                    game.Deck.RemoveAt(0);   
                 }
             }
 
 
-            // Add a card to start the discard pile
-            _game.DiscardPile.Add(_game.Deck[0]);
-            _game.Deck.RemoveAt(0);
-
-            _game.CurrentColor = _game.CurrentCard.Color;
+            // Add a card to start the discard pile, but don't allow wilds
+            do
+            {
+                game.DiscardPile.Add(game.Deck[0]);
+                game.Deck.RemoveAt(0);
+            }
+            while (game.CurrentCard.Color == Card.CardColor.Wild);
             
         }
 
 
 
-        private void _nextPlayer()
+        private void nextPlayer()
         {
+            // Stop if the game is all finished
+            if (game.Finished)
+                return;
+
+
+            // Move onto the next player
+            if (!game.Reverse)
+            {
+                game.CurrentPlayerIndex++;
+
+                if (game.CurrentPlayerIndex >= game.Players.Count)
+                    game.CurrentPlayerIndex = 0;
+            }
+            else
+            {
+                game.CurrentPlayerIndex--;
+
+                if (game.CurrentPlayerIndex < 0)
+                    game.CurrentPlayerIndex = game.Players.Count - 1;
+            }
+
+
+            // Check if the player is actually already finished (but the whole game isn't)
+            if (game.CurrentGamePlayer.Finished)
+            {
+                nextPlayer();
+                return;
+            }
             
-            // TODO: look at direction of play
 
-            _game.CurrentPlayerIndex++;
 
-            if (_game.CurrentPlayerIndex >= _game.Players.Count)
-                _game.CurrentPlayerIndex = 0;
+
+
+            // Skip the player if a skip card was played
+            if (skip)
+            {
+                skip = false;
+                nextPlayer();
+            }
+
+            if (cardsToDraw > 0)
+            {
+                bool success;
+
+                for (int i = 0; i < cardsToDraw; i++)
+                {
+                    success = currentPlayerPickupCard();
+
+#if DEBUG
+                    if (!success)
+                        MessageBox.Show("Failed to pickup a card!");
+#endif
+                }
+
+                // Reset to 0
+                cardsToDraw = 0;
+
+                // Move onto the next player
+                nextPlayer();
+                return;
+
+                // TODO: give the next player an opportunity to play another draw card on top, etc.
+            }
+
+
 
         }
 
 
+        /// <summary>
+        /// Make the current player pickup a card
+        /// </summary>
+        private bool currentPlayerPickupCard()
+        {
+            //Avoid crashing when the deck is empty
+            if (game.Deck.Count == 0)
+                // Should take cards from the discard pile to fill the deck (but what if there's only 1 there?)
+                // Failed to pickup a card
+                return false;
 
-        private bool _canPlayCard(Card card)
+
+            // Add a card from the deck to the current player's hand
+            game.CurrentGamePlayer.Cards.Add(game.Deck[0]);
+            game.Deck.RemoveAt(0);
+
+            // Sort the hand
+            sortCards(game.CurrentGamePlayer.Cards);
+
+
+            // Successfully picked up a card
+            return true;
+        }
+
+
+
+        /// <summary>
+        /// Perform the action on an action card
+        /// </summary>
+        /// <param name="card">The card played</param>
+        private void performAction(Card card)
+        {
+            switch (card.Face)
+            {
+                case Card.CardFace.Draw2:
+                    cardsToDraw = 2;
+                    break;
+
+                case Card.CardFace.Draw4:
+                    cardsToDraw = 4;
+
+                    // Selecting a color is handled by the SelectCard method, when the card is played
+
+                    break;
+
+                case Card.CardFace.Skip:
+                    skip = true;
+                    break;
+
+                case Card.CardFace.Reverse:
+                    reverse();
+                    break;
+            }
+        }
+
+
+        /// <summary>
+        /// Reverse the direction of play
+        /// </summary>
+        private void reverse()
+        {
+            // If reverse is true, swap to false, and if false, swap to true.
+            game.Reverse = game.Reverse ? false : true;
+        }
+
+
+        private bool canPlayCard(Card card)
         {
             bool success = false;
 
-            if (_canPlayCardOn(_game.CurrentCard, card))
+            // Check the basic card can be played
+            if (canPlayCardOn(game.CurrentCard, card))
             {
                 success = true;
             }
+            // Check if the last card was a wild
+            else if (game.WildColor != Card.CardColor.Wild)
+            {
+                if (card.Color == game.WildColor)
+                {
+                    success = true;
+                }
+            }
+
             return success;
         }
 
@@ -272,7 +410,7 @@ namespace Uno
         /// Sort a list of cards
         /// </summary>
         /// <param name="cards"></param>
-        public static void _sortCards(List<Card> cards)
+        public static void sortCards(List<Card> cards)
         {
             for (int i = 1; i < cards.Count; i++)
             {
@@ -293,11 +431,11 @@ namespace Uno
         /// <param name="current">Current card on the top of the discard pile</param>
         /// <param name="newCard">New card asking to be played</param>
         /// <returns></returns>
-        private bool _canPlayCardOn(Card current, Card newCard)
+        private bool canPlayCardOn(Card current, Card newCard)
         {
             //bool success = false;
 
-            return current.Color == newCard.Color || newCard.Color == Card.CardColor.Wild || current.Color == Card.CardColor.Wild || current.Face == newCard.Face;
+            return current.Color == newCard.Color || newCard.Color == Card.CardColor.Wild || /* current.Color == Card.CardColor.Wild ||*/ current.Face == newCard.Face;
         }
 
 

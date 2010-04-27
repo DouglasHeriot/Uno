@@ -77,11 +77,10 @@
             // 
             // startupPlayerView1
             // 
-            this.startupPlayerView1.Location = new System.Drawing.Point(12, 128);
+            this.startupPlayerView1.Location = new System.Drawing.Point(12, 63);
             this.startupPlayerView1.Name = "startupPlayerView1";
             this.startupPlayerView1.Size = new System.Drawing.Size(250, 80);
             this.startupPlayerView1.TabIndex = 5;
-            
             // 
             // StartupDisplay
             // 

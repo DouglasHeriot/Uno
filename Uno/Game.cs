@@ -79,12 +79,22 @@ namespace Uno
         int currentPlayerIndex = 0;
 
 
-
+        /// <summary>
+        /// Is the play order reversed?
+        /// </summary>
         bool reverse = false;
 
 
-        Card.CardColor currentColor;
+        /// <summary>
+        /// The selected color for the last Wild card
+        /// </summary>
+        private Card.CardColor wildColor = Card.CardColor.Wild;
 
+
+        /// <summary>
+        /// The number of players that have finished playing
+        /// </summary>
+        private int finishedPlayers = 0;
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -179,11 +189,50 @@ namespace Uno
 
         public Card.CardColor CurrentColor
         {
-            get { return currentColor; }
-            set { currentColor = value; }
+            get
+            {
+                Card.CardColor color;
+
+                if (wildColor == Card.CardColor.Wild)
+                    color = discardPile.Last().Color;
+                else
+                    color = wildColor;
+
+                return color;
+            }
+            
         }
 
 
+        /// <summary>
+        /// The color selected for the last wild card. Returns wild when the previous card was not wild
+        /// </summary>
+        public Card.CardColor WildColor
+        {
+            get { return wildColor; }
+            set { wildColor = value; }
+        }
+
+
+
+        public bool Finished
+        {
+            get
+            {
+                bool finished = true;
+
+                for (int i = 0; i < players.Count; i++)
+                {
+                    if (!(playersCards[players[i]] as Game.GamePlayer).Finished)
+                    {
+                        finished = false;
+                        break;
+                    }
+                }
+
+                return finished;
+            }
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // Constructors
@@ -273,6 +322,13 @@ namespace Uno
                 set { score = value; }
             }
 
+            /// <summary>
+            /// Is the player finished?
+            /// </summary>
+            public bool Finished
+            {
+                get { return cards.Count <= 0; }
+            }
 
 
             /// <summary>
