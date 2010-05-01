@@ -11,7 +11,7 @@ namespace Uno
         // TODO: break down into properties with private attributes
 
 
-        public int CardsForEachPlayer = 7;
+        public int CardsForEachPlayer = 25;
 
     }
 }

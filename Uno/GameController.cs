@@ -71,13 +71,15 @@ namespace Uno
             // Sort the cards in each player's hand
             foreach (System.Collections.DictionaryEntry p in game.PlayersCards)
                 sortCards((p.Value as Game.GamePlayer).Cards);
-            
+
+            // Perform the action of the first card (if applicable)
+            performAction(Game.CurrentCard);
 
             // Prepare the game view
             gameView.ReDraw();
 
 
-
+            // Show the game view
             gameView.Show();
 
 
@@ -289,11 +291,18 @@ namespace Uno
         /// </summary>
         private bool currentPlayerPickupCard()
         {
+            bool successMovingCards;
+
             //Avoid crashing when the deck is empty
             if (game.Deck.Count == 0)
-                // Should take cards from the discard pile to fill the deck (but what if there's only 1 there?)
-                // Failed to pickup a card
-                return false;
+            {
+                successMovingCards = discardPileToDeck();
+                if (!successMovingCards)
+                {
+                    // Failed to pickup a card
+                    return false;
+                }
+            }
 
 
             // Add a card from the deck to the current player's hand
@@ -308,6 +317,38 @@ namespace Uno
             return true;
         }
 
+
+        /// <summary>
+        /// Moves unused cards from the discard pile to the deck
+        /// </summary>
+        private bool discardPileToDeck()
+        {
+#if DEBUG
+            //MessageBox.Show("Attempting to move cards from discard pile to deck");
+#endif
+
+            // Don't allow when the discard pile is already very empty
+            if(Game.DiscardPile.Count < 2)
+                // Report failure
+                return false;
+
+
+            // Get the cards to move
+            List<Card> cardsToMove = Game.DiscardPile.GetRange(0, Game.DiscardPile.Count - 1);
+
+            // Remove the cards from the discard pile
+            foreach (Card c in cardsToMove)
+                Game.DiscardPile.Remove(c);
+
+            // Add the cards to the deck
+            Game.Deck.AddRange(cardsToMove);
+
+            // Shuffle the new deck
+            shuffleDeck();
+
+            // Success
+            return true;
+        }
 
 
         /// <summary>

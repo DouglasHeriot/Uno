@@ -9,15 +9,48 @@ using System.Windows.Forms;
 
 namespace Uno
 {
-    public partial class StartupPlayerView : UserControl
+    partial class StartupPlayerView : UserControl
     {
+        private Player player;
+
+
         public StartupPlayerView()
         {
             InitializeComponent();
+
+            // Create a new player object
+            player = new Player();
         }
 
-        private void StartupPlayerView_Load(object sender, EventArgs e)
+
+        /// <summary>
+        ///  The player object 
+        /// </summary>
+        public Player Player
         {
+            get { return player; }
+        }
+
+
+        private void name_TextChanged(object sender, EventArgs e)
+        {
+            player.Name = name.Text;
+        }
+
+        private void type_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (type.Text)
+            {
+                case "Human":
+                    player.Type = Player.PlayerType.Human;
+                    break;
+                case "Computer":
+                    player.Type = Player.PlayerType.Computer;
+                    break;
+                case "Smart Computer":
+                    player.Type = Player.PlayerType.SmartComputer;
+                    break;
+            }
 
         }
     }

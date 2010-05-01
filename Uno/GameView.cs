@@ -29,8 +29,6 @@ namespace Uno
 
             InitializeComponent();
 
-            //this.BackgroundImage = null;
-
             BackgroundImage = Properties.Resources.GameView;
 
             _game = game;
@@ -61,7 +59,7 @@ namespace Uno
 
 
 
-
+            this.FormClosed += new FormClosedEventHandler(GameView_FormClosed);
             
 
         }
@@ -278,7 +276,7 @@ namespace Uno
 
         private void GameView_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            Program.CloseWindow();
         }
 
         private void pickupPileImage_Click(object sender, EventArgs e)

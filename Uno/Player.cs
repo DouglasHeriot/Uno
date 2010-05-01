@@ -9,13 +9,25 @@ namespace Uno
     {
 
         ///////////////////////////////////////////////////////////////////////////////////////
+        // Enums
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        public enum PlayerType
+        {
+            Human,
+            Computer,
+            SmartComputer
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
         // Attributes
         ///////////////////////////////////////////////////////////////////////////////////////
 
 
-        private string _name;
-        private int _score;
-
+        private string name;
+        private int score;
+        private PlayerType type = PlayerType.Human;
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -28,8 +40,8 @@ namespace Uno
         /// </summary>
         public string Name
         {
-            get { return _name; }
-            set { _name = value; }
+            get { return name; }
+            set { name = value; }
             // TODO: trigger events when the name is changed
         }
 
@@ -38,8 +50,18 @@ namespace Uno
         /// </summary>
         public int Score
         {
-            get { return _score; }
-            set { _score = value; }
+            get { return score; }
+            set { score = value; }
+        }
+
+
+        /// <summary>
+        ///  The type of the player
+        /// </summary>
+        public PlayerType Type
+        {
+            get { return type; }
+            set { type = value; }
         }
 
 
@@ -66,12 +88,41 @@ namespace Uno
         /// Create a new Player with a name
         /// </summary>
         /// <param name="name"></param>
-        public Player(string name)
+        public Player(string newName)
             :this()
         {
-            _name = name;
+            name = newName;
         }
 
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
+        // Static Methods
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Get a string that can be displayed from a PlayerType
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string PlayerTypeToString(PlayerType type)
+        {
+            string playerTypeString;
+
+            switch(type)
+            {
+                case PlayerType.SmartComputer:
+                    playerTypeString = "Smart Compuer";
+                    break;
+
+                default:
+                    playerTypeString = type.ToString();
+                    break;
+            }
+
+            return playerTypeString;
+        }
 
     }
 }

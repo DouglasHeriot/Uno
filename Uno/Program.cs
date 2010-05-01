@@ -7,6 +7,9 @@ namespace Uno
 {
     static class Program
     {
+
+        static private int windowCount = 0;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -18,8 +21,11 @@ namespace Uno
 
 
 
-            // TEMPORARY CODE UNTIL STARTUP WINDOW IS IMPLEMENTED
+            new StartupDisplay().Show();
+            NewWindow();
 
+            // TEMPORARY CODE UNTIL STARTUP WINDOW IS IMPLEMENTED
+            /*
             List<Player> players = new List<Player>();
             players.Add(new Player("Me"));
             players.Add(new Player("You"));
@@ -30,7 +36,7 @@ namespace Uno
             GameOptions options = new GameOptions();
 
             NewGame(players, options);
-            
+            */
 
 
 
@@ -42,6 +48,26 @@ namespace Uno
         {
             Game game = new Game(players, options);
             new GameController(game);
+
+            NewWindow();
+        }
+
+        //static public void NewStartupDisplay
+
+
+        static public int NewWindow()
+        {
+            return ++windowCount;
+        }
+
+        static public int CloseWindow()
+        {
+            --windowCount;
+
+            // Exit the application if no windows are left
+            if (windowCount == 0) Application.Exit();
+
+            return windowCount;
         }
     }
 }
