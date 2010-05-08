@@ -14,47 +14,48 @@ namespace Uno
     partial class GameView : Form
     {
 
-        private Game _game;
-        private GameController _controller;
-        private Hashtable _cardsViews = new Hashtable(108);
+        private Game game;
+        private GameController controller;
+        private Hashtable cardsViews = new Hashtable(108);
 
-        private List<Label> _playerLabels = new List<Label>(4);
+        private List<Label> playerLabels = new List<Label>(4);
 
         private bool animating = false;
 
 
-        public GameView(Game game, GameController controller)
+        public GameView(Game newGame, GameController gameController)
         {
 
 
             InitializeComponent();
 
+            // Must redefine the background image to make the optimizing code work properly
             BackgroundImage = Properties.Resources.GameView;
 
-            _game = game;
-            _controller = controller;
+            game = newGame;
+            controller = gameController;
 
 
             // Create picture boxes for each card, and store them in a hash table
-            foreach (Card c in _game.Deck)
-                _cardsViews.Add(c, _createPictureBoxForCard(c));
+            foreach (Card c in game.Deck)
+                cardsViews.Add(c, createPictureBoxForCard(c));
 
             // Add controls to their arrays
 
-            _playerLabels.Add(player1Label);
-            _playerLabels.Add(player2Label);
-            _playerLabels.Add(player3Label);
-            _playerLabels.Add(player4Label);
+            playerLabels.Add(player1Label);
+            playerLabels.Add(player2Label);
+            playerLabels.Add(player3Label);
+            playerLabels.Add(player4Label);
 
 
             // Set player name labels
             for (int i = 0; i < 4; i++)
             {
-                if (i < _game.Players.Count)
-                    _playerLabels[i].Text = _game.Players[i].Name;
+                if (i < game.Players.Count)
+                    playerLabels[i].Text = game.Players[i].Name;
 
                 else
-                    _playerLabels[i].Visible = false;
+                    playerLabels[i].Visible = false;
             }
 
 
@@ -70,23 +71,23 @@ namespace Uno
          * and http://www.eggheadcafe.com/software/aspnet/30750705/help-with-form-painting-p.aspx
          */
         
-        private Bitmap _renderBmp;
+        private Bitmap renderBmp;
 
         public override Image BackgroundImage
         {
             set
             {
                 Image baseImage = value;
-                if (_renderBmp != null)
-                    _renderBmp.Dispose();
-                _renderBmp = new Bitmap(this.Width, this.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-                Graphics g = Graphics.FromImage(_renderBmp);
+                if (renderBmp != null)
+                    renderBmp.Dispose();
+                renderBmp = new Bitmap(this.Width, this.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                Graphics g = Graphics.FromImage(renderBmp);
                 g.DrawImage(baseImage, 0, 0, Width, Height);
                 g.Dispose();
             }
             get
             {
-                return _renderBmp;
+                return renderBmp;
             }
         }
         
@@ -100,19 +101,19 @@ namespace Uno
 
 
             // Remove cards that are just in the deck
-            foreach(Card c in _game.Deck)
+            foreach(Card c in game.Deck)
             {
-                this.Controls.Remove(_cardsViews[c] as PictureBox);
+                this.Controls.Remove(cardsViews[c] as PictureBox);
             }
 
 
 
 
             // Layout the cards for each player
-            for (int i=0; i<_game.Players.Count; i++)
+            for (int i=0; i<game.Players.Count; i++)
             {
 
-                Game.GamePlayer p = (Game.GamePlayer) _game.PlayersCards[_game.Players[i]];
+                Game.GamePlayer p = (Game.GamePlayer) game.PlayersCards[game.Players[i]];
                 
                 
 
@@ -120,7 +121,7 @@ namespace Uno
                 {
                     Card c = p.Cards[k];
 
-                    PictureBox pictureBox = _cardsViews[c] as PictureBox;
+                    PictureBox pictureBox = cardsViews[c] as PictureBox;
                     this.Controls.Add(pictureBox);
                     pictureBox.BringToFront();
 
@@ -145,14 +146,14 @@ namespace Uno
 
 
             // Remove all cards in the discard pile from the form except the top 2 cards
-            for (int c = 0; c < _game.DiscardPile.Count - 2; c++)
-                Controls.Remove(_cardsViews[_game.DiscardPile[c]] as PictureBox);
+            for (int c = 0; c < game.DiscardPile.Count - 2; c++)
+                Controls.Remove(cardsViews[game.DiscardPile[c]] as PictureBox);
             
 
             // Display the discard pile
-            if (_game.DiscardPile.Count > 0)
+            if (game.DiscardPile.Count > 0)
             {
-                Control lastCard = _cardsViews[_game.DiscardPile.Last()] as Control;
+                Control lastCard = cardsViews[game.DiscardPile.Last()] as Control;
 
                 Controls.Add(lastCard);
                 lastCard.BringToFront();
@@ -163,7 +164,7 @@ namespace Uno
 
 
             // Show the pickup pile as empty when it's empty
-            if (_game.Deck.Count == 0)
+            if (game.Deck.Count == 0)
             {
                 pickupPileImage.Image = null;
                 pickupPileImage.BackColor = Color.White;
@@ -178,9 +179,9 @@ namespace Uno
 
 
             // Set player status
-            moveCardTo(playerStatus, 213, _game.CurrentPlayerIndex * 137 + 43);
+            moveCardTo(playerStatus, 213, game.CurrentPlayerIndex * 137 + 43);
 
-            playerStatus.Image = (Image) Properties.Resources.ResourceManager.GetObject(Card.CardColorToString(_game.CurrentColor)+ ( _game.Reverse ? "_ccw" : "_cw" ));
+            playerStatus.Image = (Image) Properties.Resources.ResourceManager.GetObject(Card.CardColorToString(game.CurrentColor)+ ( game.Reverse ? "_ccw" : "_cw" ));
 
 
 
@@ -242,7 +243,7 @@ namespace Uno
         }
 
 
-        private PictureBox _createPictureBoxForCard(Card card)
+        private PictureBox createPictureBoxForCard(Card card)
         {
             PictureBox pictureBox = new PictureBox();
 
@@ -271,7 +272,7 @@ namespace Uno
         void card_Click(object sender, EventArgs e)
         {
             if(!animating)
-                _controller.SelectCard((sender as PictureBox).Tag as Card);
+                controller.SelectCard((sender as PictureBox).Tag as Card);
         }
 
         private void GameView_FormClosed(object sender, FormClosedEventArgs e)
@@ -282,7 +283,7 @@ namespace Uno
         private void pickupPileImage_Click(object sender, EventArgs e)
         {
             if(!animating)
-                _controller.PickupCard();
+                controller.PickupCard();
         }
 
 
