@@ -48,10 +48,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Card.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameController.cs" />
     <Compile Include="GameOptions.cs" />
+    <Compile Include="GameOptionsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameOptionsView.Designer.cs">
+      <DependentUpon>GameOptionsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +74,12 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameOptionsView.resx">
+      <DependentUpon>GameOptionsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameView.resx">
       <DependentUpon>GameView.cs</DependentUpon>
     </EmbeddedResource>
@@ -72,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SortedPlayersView.resx">
       <DependentUpon>SortedPlayersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SortedPlayerView.resx">
+      <DependentUpon>SortedPlayerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartupDisplay.resx">
       <DependentUpon>StartupDisplay.cs</DependentUpon>
@@ -101,6 +122,12 @@
     </Compile>
     <Compile Include="SortedPlayersView.Designer.cs">
       <DependentUpon>SortedPlayersView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SortedPlayerView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SortedPlayerView.Designer.cs">
+      <DependentUpon>SortedPlayerView.cs</DependentUpon>
     </Compile>
     <Compile Include="StartupDisplay.cs">
       <SubType>Form</SubType>

@@ -23,10 +23,10 @@ namespace Uno
         public const int MAXPLAYERS = 4;
 
 
-        /// <summary>
-        /// Should animation be used?
-        /// </summary>
-        public const bool USEANIMATION = true;
+        
+        
+        //public const bool USEANIMATION = false;
+        // NOTE: now in GameOptions, so it can be modified by users
 
 
         /// <summary>
@@ -186,23 +186,35 @@ namespace Uno
             set { reverse = value; }
         }
 
-
+        /// <summary>
+        /// Gets the color of the last card played (considering wilds as well)
+        /// </summary>
         public Card.CardColor CurrentColor
         {
             get
             {
                 Card.CardColor color;
 
-                if (wildColor == Card.CardColor.Wild)
-                    color = discardPile.Last().Color;
-                else
+                if (discardPile.Last().Color == Card.CardColor.Wild)
                     color = wildColor;
+                else
+                    color = discardPile.Last().Color;
 
                 return color;
             }
             
         }
 
+        /// <summary>
+        /// Gets the current face of the card
+        /// </summary>
+        public Card.CardFace CurrentFace
+        {
+            get
+            {
+                return discardPile.Last().Face;
+            }
+        }
 
         /// <summary>
         /// The color selected for the last wild card. Returns wild when the previous card was not wild
@@ -214,7 +226,9 @@ namespace Uno
         }
 
 
-
+        /// <summary>
+        /// Is the game completely finished?
+        /// </summary>
         public bool Finished
         {
             get
@@ -233,6 +247,16 @@ namespace Uno
                 return finished;
             }
         }
+
+
+        /// <summary>
+        /// The number of players playing the game
+        /// </summary>
+        public int NumberOfPlayers
+        {
+            get { return players.Count; }
+        }
+
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // Constructors

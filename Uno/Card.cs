@@ -254,6 +254,28 @@ namespace Uno
             return (CardFace) cardInt;
         }
 
+        /// <summary>
+        /// Get a card color from an Integer from 0-4, where 4 is wild
+        /// </summary>
+        /// <param name="colorInt"></param>
+        /// <returns></returns>
+        public static CardColor IntToCardColor(int colorInt)
+        {
+            return (CardColor) colorInt;
+        }
+
+        /// <summary>
+        /// Get the integer representer a card color
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static int CardColorToInt(CardColor color)
+        {
+            return (int)color;
+        }
+
+
+
 
         /// <summary>
         /// Get the letter representing the color

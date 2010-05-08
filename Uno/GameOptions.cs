@@ -12,6 +12,7 @@ namespace Uno
 
 
         public int CardsForEachPlayer = 25;
-
+        public int ComputerPlayerDelay = 50;
+        public bool UseAnimation = true;
     }
 }

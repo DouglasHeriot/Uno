@@ -19,8 +19,8 @@ namespace Uno
 
         private int cardsToDraw = 0;
         private bool skip = false;
-        
 
+        private Timer computerPlayerTimer = new Timer();
         
 
 
@@ -62,7 +62,7 @@ namespace Uno
 
             // Create a new game view
             gameView = new GameView(game, this);
-
+            gameView.FormClosed += new FormClosedEventHandler(gameView_FormClosed);
 
             // Deal the cards to players
             dealCards();
@@ -75,16 +75,31 @@ namespace Uno
             // Perform the action of the first card (if applicable)
             performAction(Game.CurrentCard);
 
+
+            // Get ready for the first player (make a move if it's a computer)
+            setupCurrentPlayer();
+
             // Prepare the game view
             gameView.ReDraw();
+
+
+            // Setup the computer player delay timer
+            computerPlayerTimer.Interval = game.Options.ComputerPlayerDelay;
+            computerPlayerTimer.Tick += new EventHandler(computerPlayerTimer_Tick);
+
 
 
             // Show the game view
             gameView.Show();
 
 
+
+            // Testing purposes only!
+            //makeComputerMove();
+
             
         }
+
 
 
 
@@ -93,12 +108,44 @@ namespace Uno
         ///////////////////////////////////////////////////////////////////////////////////////
 
 
-
         /// <summary>
         /// Choose a card for the current player to play
         /// </summary>
         /// <param name="card"></param>
         public void SelectCard(Card card)
+        {
+            
+            // Check if the card can be played
+            if (!canPlayCard(card))
+                return;
+            
+
+            // Ask for the color for a wild card
+            if (card.Color == Card.CardColor.Wild)
+            {
+                WildColorChooser wildColorChooser = new WildColorChooser();
+                do
+                {
+                    wildColorChooser.ShowDialog();
+
+                    if (wildColorChooser.DialogResult == DialogResult.OK)
+                    {
+                        // Remember the chosen wild color
+                        game.WildColor = wildColorChooser.Color;
+                    }
+                } while (wildColorChooser.DialogResult != DialogResult.OK);
+
+            }
+
+            SelectCard(card, game.CurrentPlayer, false);
+        }
+
+
+        /// <summary>
+        /// Choose a card for the current player to play
+        /// </summary>
+        /// <param name="card"></param>
+        public void SelectCard(Card card, Player player, bool computer)
         {
             // Check that it's the current player's card, not someone else's
             if (game.CurrentGamePlayer.Cards.IndexOf(card) >= 0)
@@ -109,25 +156,6 @@ namespace Uno
                     // Move it to the discard pile
                     game.DiscardPile.Add(card);
                     game.CurrentGamePlayer.Cards.Remove(card);
-
-                    // Ask for the color for a wild card
-                    if (card.Color == Card.CardColor.Wild)
-                    {
-                        WildColorChooser wildColor = new WildColorChooser();
-                        wildColor.ShowDialog();
-
-                        if (wildColor.DialogResult == DialogResult.OK)
-                        {
-                            game.WildColor = wildColor.Color;
-                        }
-
-                    }
-                    else
-                    {
-                        // If the card isn't a wild, reset the wildColor variable back to normal.
-                        game.WildColor = Card.CardColor.Wild;
-                    }
-
 
                     // Perform action on action cards
                     performAction(card);
@@ -157,6 +185,10 @@ namespace Uno
         /// </summary>
         public void PickupCard()
         {
+            // Don't let a player pick up a card after the game is finished!
+            if (game.Finished)
+                return;
+
             // Pickup a card
             currentPlayerPickupCard();
 
@@ -168,13 +200,35 @@ namespace Uno
         }
 
 
+        public void EndGame()
+        {
+            // TODO: calculate scores for players
+
+
+            // Show the final results
+            Program.NewSortedPlayersView(game);
+
+
+            // Close the game view
+            gameView.Close();
+        }
+
+        /// <summary>
+        /// Testing purposes only (should be removed later)
+        /// </summary>
+        public void MakeComputerMove()
+        {
+            startComputerMove();
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // Private Methods
         ///////////////////////////////////////////////////////////////////////////////////////
 
 
-
+        /// <summary>
+        /// Shuffle the deck of cards to pick up
+        /// </summary>
         private void shuffleDeck()
         {
             ShuffleList<Card>(game.Deck);
@@ -255,8 +309,12 @@ namespace Uno
             {
                 skip = false;
                 nextPlayer();
+                return;
             }
 
+
+            // Force the player to draw their cards
+            // TODO: give the next player an opportunity to play another draw card on top, etc.
             if (cardsToDraw > 0)
             {
                 bool success;
@@ -278,11 +336,20 @@ namespace Uno
                 nextPlayer();
                 return;
 
-                // TODO: give the next player an opportunity to play another draw card on top, etc.
+                
             }
 
+            
+            //setupCurrentPlayer();
 
 
+        }
+
+        private void setupCurrentPlayer()
+        {
+            // If the player is a computer, get ready to make a move
+            if (game.CurrentPlayer.Type != Player.PlayerType.Human)
+                startComputerMove();
         }
 
 
@@ -391,28 +458,118 @@ namespace Uno
         }
 
 
+        /// <summary>
+        /// Check if a card can be played
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns></returns>
         private bool canPlayCard(Card card)
         {
             bool success = false;
 
-            // Check the basic card can be played
-            if (canPlayCardOn(game.CurrentCard, card))
-            {
+            
+            // Old condition used during development from old canPlayCardOn(card, card) method
+            // current.Color == newCard.Color || newCard.Color == Card.CardColor.Wild || /* current.Color == Card.CardColor.Wild ||*/ current.Face == newCard.Face
+
+
+            // Always allow wilds
+            // TODO: implement (optional) Uno rule where you can only play D4 when you've got no other option
+            if (card.Color == Card.CardColor.Wild)
                 success = true;
-            }
-            // Check if the last card was a wild
-            else if (game.WildColor != Card.CardColor.Wild)
-            {
-                if (card.Color == game.WildColor)
-                {
-                    success = true;
-                }
-            }
+
+            // Allow if the color is correct
+            else if (card.Color == game.CurrentColor)
+                success = true;
+
+            // Allow if the face is correct
+            else if (card.Face == game.CurrentFace)
+                success = true;
+
+
+            // Don't allow playing somebody else's cards!
+            if (game.CurrentGamePlayer.Cards.IndexOf(card) < 0)
+                success = false;
 
             return success;
         }
 
-        
+
+
+
+        void gameView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.CloseWindow();
+        }
+
+
+
+        /// <summary>
+        /// Gets ready to make a move for the computer
+        /// </summary>
+        private void startComputerMove()
+        {
+            
+
+            // Check the next player actually is a computer
+            if(game.CurrentPlayer.Type != Player.PlayerType.Human)
+                // Start a timer to add some delay before the computer moves
+                computerPlayerTimer.Start();
+        }
+
+
+        /// <summary>
+        /// Makes the move for a computer player (should only be called by a timer)
+        /// </summary>
+        private void makeComputerMove()
+        {
+            // TODO: implement a smarter computer
+            if (game.CurrentPlayer.Type != Player.PlayerType.Human)
+            {
+                // Store cards that can be played in a list
+                List<Card> playableCards = new List<Card>(Game.MAXUNOCARDS);
+
+                // Look for cards that can be played
+                foreach (Card c in game.CurrentGamePlayer.Cards)
+                {
+                    if (canPlayCard(c))
+                        playableCards.Add(c);
+                }
+
+                if (playableCards.Count > 0)
+                {
+                    // Choose a card randomly to play
+                    Random random = new Random();
+                    Card selectedCard = playableCards[random.Next(0, playableCards.Count)];
+
+                    // If the card's a wild, randomly choose a color
+                    // TODO: implement smarter wild colour choosing for the smart computer
+                    if (selectedCard.Color == Card.CardColor.Wild)
+                    {
+                        game.WildColor = Card.IntToCardColor(random.Next(0, 4));
+#if DEBUG
+                        //MessageBox.Show("Computer player \"" + game.CurrentPlayer.Name + "\" chose the color " + game.WildColor.ToString());
+#endif
+                    }
+
+                    // Play the card
+                    SelectCard(selectedCard, game.CurrentPlayer, true);
+                }
+                else
+                {
+                    // Pickup a card if there's nothing else to play
+                    PickupCard();
+                }
+            }
+        }
+
+
+
+        void computerPlayerTimer_Tick(object sender, EventArgs e)
+        {
+            // Stop the timer and make a move
+            computerPlayerTimer.Stop();
+            makeComputerMove();
+        }
 
 
 
@@ -423,6 +580,8 @@ namespace Uno
 
         /// <summary>
         /// Shuffle a list
+        /// 
+        /// Copied from http://www.vcskicks.com/code-snippet/shuffle-array.php
         /// </summary>
         /// <typeparam name="E">Type contained in the list</typeparam>
         /// <param name="list">List to shuffle</param>
@@ -463,22 +622,6 @@ namespace Uno
                 }
             }
         }
-
-
-
-        /// <summary>
-        /// Check if a card can be played on another. Does not take into account draw cards.
-        /// </summary>
-        /// <param name="current">Current card on the top of the discard pile</param>
-        /// <param name="newCard">New card asking to be played</param>
-        /// <returns></returns>
-        private bool canPlayCardOn(Card current, Card newCard)
-        {
-            //bool success = false;
-
-            return current.Color == newCard.Color || newCard.Color == Card.CardColor.Wild || /* current.Color == Card.CardColor.Wild ||*/ current.Face == newCard.Face;
-        }
-
 
 
 

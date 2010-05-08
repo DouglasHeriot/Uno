@@ -60,7 +60,7 @@ namespace Uno
 
 
 
-            this.FormClosed += new FormClosedEventHandler(GameView_FormClosed);
+            
             
 
         }
@@ -183,7 +183,8 @@ namespace Uno
 
             playerStatus.Image = (Image) Properties.Resources.ResourceManager.GetObject(Card.CardColorToString(game.CurrentColor)+ ( game.Reverse ? "_ccw" : "_cw" ));
 
-
+            if (game.CurrentColor == Card.CardColor.Wild) playerStatus.BackColor = Color.Black;
+            else playerStatus.BackColor = Color.Transparent;
 
 
         }
@@ -240,6 +241,8 @@ namespace Uno
         private void completed()
         {
             animating = false;
+
+            controller.MakeComputerMove();
         }
 
 
@@ -275,10 +278,6 @@ namespace Uno
                 controller.SelectCard((sender as PictureBox).Tag as Card);
         }
 
-        private void GameView_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Program.CloseWindow();
-        }
 
         private void pickupPileImage_Click(object sender, EventArgs e)
         {
@@ -289,7 +288,7 @@ namespace Uno
 
         private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction)
         {
-            if (Game.USEANIMATION)
+            if (game.Options.UseAnimation /*&& !animating*/)
                 AnimateMotion(card, left, top, easingFunction);
             else
             {
@@ -302,6 +301,21 @@ namespace Uno
         private void moveCardTo(Control card, int left, int top)
         {
             moveCardTo(card, left, top, Tweener.easeOutCubic);
+        }
+
+        private void newGameButton_Click(object sender, EventArgs e)
+        {
+            Program.NewStartup();
+        }
+
+        private void endGameButton_Click(object sender, EventArgs e)
+        {
+            controller.EndGame();
+        }
+
+        private void aboutButton_Click(object sender, EventArgs e)
+        {
+            new AboutBox().ShowDialog();
         }
     }
 }

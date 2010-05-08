@@ -90,6 +90,7 @@
             this.gameOptionsButton.TabIndex = 5;
             this.gameOptionsButton.Text = "Game Options...";
             this.gameOptionsButton.UseVisualStyleBackColor = true;
+            this.gameOptionsButton.Click += new System.EventHandler(this.gameOptionsButton_Click);
             // 
             // label1
             // 
@@ -103,6 +104,7 @@
             // 
             // startupPlayerView4
             // 
+            this.startupPlayerView4.FormName = "";
             this.startupPlayerView4.Location = new System.Drawing.Point(221, 192);
             this.startupPlayerView4.Name = "startupPlayerView4";
             this.startupPlayerView4.Size = new System.Drawing.Size(452, 54);
@@ -110,6 +112,7 @@
             // 
             // startupPlayerView3
             // 
+            this.startupPlayerView3.FormName = "";
             this.startupPlayerView3.Location = new System.Drawing.Point(221, 132);
             this.startupPlayerView3.Name = "startupPlayerView3";
             this.startupPlayerView3.Size = new System.Drawing.Size(452, 54);
@@ -117,6 +120,7 @@
             // 
             // startupPlayerView2
             // 
+            this.startupPlayerView2.FormName = "";
             this.startupPlayerView2.Location = new System.Drawing.Point(221, 72);
             this.startupPlayerView2.Name = "startupPlayerView2";
             this.startupPlayerView2.Size = new System.Drawing.Size(452, 54);
@@ -124,6 +128,7 @@
             // 
             // startupPlayerView1
             // 
+            this.startupPlayerView1.FormName = "";
             this.startupPlayerView1.Location = new System.Drawing.Point(221, 12);
             this.startupPlayerView1.Name = "startupPlayerView1";
             this.startupPlayerView1.Size = new System.Drawing.Size(452, 54);

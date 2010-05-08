@@ -45,21 +45,23 @@
             // 
             // newGameButton
             // 
-            this.newGameButton.Location = new System.Drawing.Point(44, 472);
+            this.newGameButton.Location = new System.Drawing.Point(44, 503);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(130, 22);
             this.newGameButton.TabIndex = 0;
             this.newGameButton.Text = "New Game";
             this.newGameButton.UseVisualStyleBackColor = true;
+            this.newGameButton.Click += new System.EventHandler(this.newGameButton_Click);
             // 
             // endGameButton
             // 
-            this.endGameButton.Location = new System.Drawing.Point(44, 503);
+            this.endGameButton.Location = new System.Drawing.Point(44, 438);
             this.endGameButton.Name = "endGameButton";
-            this.endGameButton.Size = new System.Drawing.Size(130, 22);
+            this.endGameButton.Size = new System.Drawing.Size(130, 55);
             this.endGameButton.TabIndex = 0;
             this.endGameButton.Text = "End Game";
             this.endGameButton.UseVisualStyleBackColor = true;
+            this.endGameButton.Click += new System.EventHandler(this.endGameButton_Click);
             // 
             // helpButton
             // 
@@ -78,6 +80,7 @@
             this.aboutButton.TabIndex = 0;
             this.aboutButton.Text = "About";
             this.aboutButton.UseVisualStyleBackColor = true;
+            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
             // player2Label
             // 
@@ -167,7 +170,6 @@
             this.Name = "GameView";
             this.ShowIcon = false;
             this.Text = "Uno";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameView_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerStatus)).EndInit();
             this.ResumeLayout(false);

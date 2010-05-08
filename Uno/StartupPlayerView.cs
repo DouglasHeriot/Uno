@@ -12,7 +12,7 @@ namespace Uno
     partial class StartupPlayerView : UserControl
     {
         private Player player;
-
+        private string formName = "";
 
         public StartupPlayerView()
         {
@@ -29,6 +29,16 @@ namespace Uno
         public Player Player
         {
             get { return player; }
+        }
+
+        public string FormName
+        {
+            get { return formName; }
+            set
+            {
+                formName = value;
+                groupBox.Text = formName;
+            }
         }
 
 

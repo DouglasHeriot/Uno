@@ -12,6 +12,7 @@ namespace Uno
     public partial class StartupDisplay : Form
     {
         private List<StartupPlayerView> startupPlayerViews = new List<StartupPlayerView>(Game.MAXPLAYERS);
+        private GameOptionsView optionsView = new GameOptionsView();
 
         public StartupDisplay()
         {
@@ -22,6 +23,11 @@ namespace Uno
             startupPlayerViews.Add(startupPlayerView2);
             startupPlayerViews.Add(startupPlayerView3);
             startupPlayerViews.Add(startupPlayerView4);
+
+            for (int i = 0; i < startupPlayerViews.Count; i++)
+            {
+                startupPlayerViews[i].FormName = "Player " + (i + 1).ToString();
+            }
 
             numberOfPlayers.Maximum = Game.MAXPLAYERS;
             numberOfPlayers.Value = 2;
@@ -38,6 +44,7 @@ namespace Uno
 
         private void numberOfPlayers_ValueChanged(object sender, EventArgs e)
         {
+            // Enable/disable the forms for different players depending on the number selecred
             for (int i = 0; i < Game.MAXPLAYERS; i++)
             {
                 startupPlayerViews[i].Enabled = i < numberOfPlayers.Value ? true : false;
@@ -48,21 +55,27 @@ namespace Uno
         {
             List<Player> players = new List<Player>(Game.MAXPLAYERS);
 
+            // Add the players from the form into the list
             for (int i = 0; i < numberOfPlayers.Value; i++)
             {
                 players.Add(startupPlayerViews[i].Player);
+
+                // Add a name if one isn't provided
+                if (players[i].Name == null) players[i].Name = "Player " + (i + 1).ToString();
             }
 
-            GameOptions options = new GameOptions();
-
-
             // Create the new game in a new form
-            Program.NewGame(players, options);
+            Program.NewGame(players, optionsView.Options);
 
 
             // Close this form
             Close();
 
+        }
+
+        private void gameOptionsButton_Click(object sender, EventArgs e)
+        {
+            optionsView.ShowDialog();
         }
 
 
