@@ -147,7 +147,11 @@ namespace Uno
 
             // Remove all cards in the discard pile from the form except the top 2 cards
             for (int c = 0; c < game.DiscardPile.Count - 2; c++)
+            {
                 Controls.Remove(cardsViews[game.DiscardPile[c]] as PictureBox);
+                (cardsViews[game.DiscardPile[c]] as PictureBox).Location = new Point(75,182);
+
+            }
             
 
             // Display the discard pile
@@ -242,7 +246,7 @@ namespace Uno
         {
             animating = false;
 
-            controller.MakeComputerMove();
+            //controller.MakeComputerMove();
         }
 
 

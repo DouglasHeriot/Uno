@@ -185,9 +185,23 @@ namespace Uno
         /// </summary>
         public void PickupCard()
         {
+            
+            PickupCard(false);
+        }
+
+        /// <summary>
+        /// Choose to pickup a card instead of playing
+        /// </summary>
+        public void PickupCard(bool computer)
+        {
             // Don't let a player pick up a card after the game is finished!
             if (game.Finished)
                 return;
+
+            // Don't let users make the computer pickup a card!
+            if (game.CurrentPlayer.Type != Player.PlayerType.Human && !computer)
+                return;
+
 
             // Pickup a card
             currentPlayerPickupCard();
@@ -213,6 +227,7 @@ namespace Uno
             gameView.Close();
         }
 
+        /*
         /// <summary>
         /// Testing purposes only (should be removed later)
         /// </summary>
@@ -220,6 +235,7 @@ namespace Uno
         {
             startComputerMove();
         }
+         */
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // Private Methods
@@ -340,7 +356,7 @@ namespace Uno
             }
 
             
-            //setupCurrentPlayer();
+            setupCurrentPlayer();
 
 
         }
@@ -557,7 +573,7 @@ namespace Uno
                 else
                 {
                     // Pickup a card if there's nothing else to play
-                    PickupCard();
+                    PickupCard(true);
                 }
             }
         }
