@@ -28,7 +28,7 @@ namespace Uno
         private string name;
         private int score;
         private PlayerType type = PlayerType.Human;
-
+        private int rank = -1;
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // Properties
@@ -65,6 +65,15 @@ namespace Uno
         }
 
 
+        /// <summary>
+        /// The rank of the player. Will be calculated at the end of each game, when the list is sorted
+        /// </summary>
+        public int Rank
+        {
+            get { return rank; }
+            set { rank = value; }
+        }
+
 
 
 
@@ -92,6 +101,17 @@ namespace Uno
             :this()
         {
             name = newName;
+        }
+
+        /// <summary>
+        /// Create a new player with a name and type
+        /// </summary>
+        /// <param name="newName"></param>
+        /// <param name="newType"></param>
+        public Player(string newName, PlayerType newType)
+            :this(newName)
+        {
+            type = newType;
         }
 
 

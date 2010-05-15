@@ -28,21 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Uno.Player player1 = new Uno.Player();
-            Uno.Player player2 = new Uno.Player();
-            Uno.Player player3 = new Uno.Player();
-            Uno.Player player4 = new Uno.Player();
+            
             this.newGameButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.sortedPlayerView4 = new Uno.SortedPlayerView();
             this.sortedPlayerView3 = new Uno.SortedPlayerView();
             this.sortedPlayerView2 = new Uno.SortedPlayerView();
             this.sortedPlayerView1 = new Uno.SortedPlayerView();
+            this.moreDetailCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // newGameButton
             // 
-            this.newGameButton.Location = new System.Drawing.Point(167, 420);
+            this.newGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.newGameButton.Location = new System.Drawing.Point(167, 433);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(92, 44);
             this.newGameButton.TabIndex = 2;
@@ -52,7 +51,8 @@
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(27, 420);
+            this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.exitButton.Location = new System.Drawing.Point(27, 433);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(92, 44);
             this.exitButton.TabIndex = 2;
@@ -62,51 +62,47 @@
             // 
             // sortedPlayerView4
             // 
-            this.sortedPlayerView4.BackColor = System.Drawing.Color.Transparent;
+            this.sortedPlayerView4.BackColor = System.Drawing.Color.White;
             this.sortedPlayerView4.Location = new System.Drawing.Point(27, 294);
             this.sortedPlayerView4.Name = "sortedPlayerView4";
-            player1.Name = null;
-            player1.Score = 0;
-            player1.Type = Uno.Player.PlayerType.Human;
-            this.sortedPlayerView4.Player = player1;
             this.sortedPlayerView4.Size = new System.Drawing.Size(232, 88);
             this.sortedPlayerView4.TabIndex = 6;
             // 
             // sortedPlayerView3
             // 
-            this.sortedPlayerView3.BackColor = System.Drawing.Color.Transparent;
+            this.sortedPlayerView3.BackColor = System.Drawing.Color.White;
             this.sortedPlayerView3.Location = new System.Drawing.Point(27, 200);
             this.sortedPlayerView3.Name = "sortedPlayerView3";
-            player2.Name = null;
-            player2.Score = 0;
-            player2.Type = Uno.Player.PlayerType.Human;
-            this.sortedPlayerView3.Player = player2;
             this.sortedPlayerView3.Size = new System.Drawing.Size(232, 88);
             this.sortedPlayerView3.TabIndex = 5;
             // 
             // sortedPlayerView2
             // 
-            this.sortedPlayerView2.BackColor = System.Drawing.Color.Transparent;
+            this.sortedPlayerView2.BackColor = System.Drawing.Color.White;
             this.sortedPlayerView2.Location = new System.Drawing.Point(27, 106);
             this.sortedPlayerView2.Name = "sortedPlayerView2";
-            player3.Name = null;
-            player3.Score = 0;
-            player3.Type = Uno.Player.PlayerType.Human;
-            this.sortedPlayerView2.Player = player3;
             this.sortedPlayerView2.Size = new System.Drawing.Size(232, 88);
             this.sortedPlayerView2.TabIndex = 4;
             // 
             // sortedPlayerView1
             // 
-            this.sortedPlayerView1.BackColor = System.Drawing.Color.Transparent;
+            this.sortedPlayerView1.BackColor = System.Drawing.Color.White;
             this.sortedPlayerView1.Location = new System.Drawing.Point(27, 12);
             this.sortedPlayerView1.Name = "sortedPlayerView1";
-            player4.Name = null;
-            player4.Score = 0;
-            player4.Type = Uno.Player.PlayerType.Human;
-            this.sortedPlayerView1.Player = player4;
             this.sortedPlayerView1.Size = new System.Drawing.Size(232, 88);
             this.sortedPlayerView1.TabIndex = 3;
+            // 
+            // moreDetailCheckBox
+            // 
+            this.moreDetailCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreDetailCheckBox.AutoSize = true;
+            this.moreDetailCheckBox.Location = new System.Drawing.Point(179, 401);
+            this.moreDetailCheckBox.Name = "moreDetailCheckBox";
+            this.moreDetailCheckBox.Size = new System.Drawing.Size(80, 17);
+            this.moreDetailCheckBox.TabIndex = 7;
+            this.moreDetailCheckBox.Text = "More Detail";
+            this.moreDetailCheckBox.UseVisualStyleBackColor = true;
+            this.moreDetailCheckBox.CheckedChanged += new System.EventHandler(this.moreDetailCheckBox_CheckedChanged);
             // 
             // SortedPlayersView
             // 
@@ -115,6 +111,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(290, 489);
+            this.Controls.Add(this.moreDetailCheckBox);
             this.Controls.Add(this.sortedPlayerView4);
             this.Controls.Add(this.sortedPlayerView3);
             this.Controls.Add(this.sortedPlayerView2);
@@ -128,6 +125,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Final Scores";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -139,5 +137,6 @@
         private SortedPlayerView sortedPlayerView2;
         private SortedPlayerView sortedPlayerView3;
         private SortedPlayerView sortedPlayerView4;
+        private System.Windows.Forms.CheckBox moreDetailCheckBox;
     }
 }

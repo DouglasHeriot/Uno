@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Projectplace.Gui;
 
 namespace Uno
 {
@@ -31,11 +32,14 @@ namespace Uno
 
             for (int i = 0; i < Game.MAXPLAYERS; i++)
             {
+                
+
                 // Check if the player exists
                 if (i < game.NumberOfPlayers)
                 {
-                    // Set the player so the view can display the player's properties
-                    sortedPlayerViews[i].Player = game.Players[i];
+                    // Set the info so the view can display the player's properties
+                    sortedPlayerViews[i].SetInfo(game.Players[i], game);
+                    
                 }
                 else
                 {
@@ -47,6 +51,7 @@ namespace Uno
 
             FormClosed += new FormClosedEventHandler(SortedPlayersView_FormClosed);
 
+            Height = game.NumberOfPlayers * 94 + 145;
 
         }
 
@@ -65,6 +70,44 @@ namespace Uno
             Program.NewStartup();
 
             Close();
+        }
+
+        private void moreDetailCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Tell the player views whether or not to use more detail
+            foreach (SortedPlayerView v in sortedPlayerViews)
+            {
+                if(v.Visible)
+                    v.SetMoreDetail(moreDetailCheckBox.Checked);
+            }
+
+
+            int width = moreDetailCheckBox.Checked ? 434 : 296;
+
+            // Animate changing the width
+
+            TweenPairs p = new TweenPairs();
+            p.Add("theFormWidth", width);
+            Tweener t = new Tweener(this, p, Tweener.easeOutElastic, 30, 0);
+
+            t.setOnComplete(new Tweener.onCompleteFunction(resizeCompleted));
+            Tweener.add(t);
+
+
+            // Disable the more detail button while resizing
+            moreDetailCheckBox.Enabled = false;
+        }
+
+        public Single theFormWidth
+        {
+            get { return (Single) this.Width; }
+            set { this.Width = (int) value; }
+        }
+
+        private void resizeCompleted()
+        {
+            // Re-enable the checkbox
+            moreDetailCheckBox.Enabled = true;
         }
 
 

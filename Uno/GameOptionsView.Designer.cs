@@ -50,7 +50,6 @@
             this.animationCheckbox.TabIndex = 0;
             this.animationCheckbox.Text = "Use Animation";
             this.animationCheckbox.UseVisualStyleBackColor = true;
-            
             // 
             // computerDelayUpDown
             // 
@@ -75,7 +74,6 @@
             0,
             0,
             0});
-            
             // 
             // groupBox1
             // 
@@ -129,7 +127,6 @@
             0,
             0,
             0});
-            
             // 
             // GameOptionsView
             // 

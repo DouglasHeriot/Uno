@@ -160,6 +160,13 @@ namespace Uno
                     // Perform action on action cards
                     performAction(card);
                     
+                    // Add to number of cards played statistic
+                    game.CurrentGamePlayer.NumberOfCardsPlayed++;
+
+                    if (game.CurrentGamePlayer.Finished)
+                    {
+                        game.CurrentGamePlayer.FinishRank = game.NumberOfFinishedPlayers - 1;
+                    }
 
                     // Setup next player, and update the game view
                     nextPlayer();
@@ -216,7 +223,25 @@ namespace Uno
 
         public void EndGame()
         {
-            // TODO: calculate scores for players
+            
+
+            // Calculate scores
+            if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
+            {
+                for (int i = 0; i < game.NumberOfPlayers; i++)
+                {
+                    Game.GamePlayer gamePlayer = (game.PlayersCards[game.Players[i]] as Game.GamePlayer);
+                    gamePlayer.Score = gamePlayer.FinishRank < 0 ? game.NumberOfPlayers - 1 : gamePlayer.FinishRank;
+
+                    game.Players[i].Score += gamePlayer.Score;
+                }
+
+
+            }
+
+
+            // Sort players based on score
+            sortPlayersByScore();
 
 
             // Show the final results
@@ -355,17 +380,23 @@ namespace Uno
                 
             }
 
-            
+            // Get ready for the next player
             setupCurrentPlayer();
 
 
         }
 
+        /// <summary>
+        /// Get ready for the next player
+        /// </summary>
         private void setupCurrentPlayer()
         {
             // If the player is a computer, get ready to make a move
             if (game.CurrentPlayer.Type != Player.PlayerType.Human)
                 startComputerMove();
+
+            // Add to number of turns statistic
+            game.CurrentGamePlayer.NumberOfTurns++;
         }
 
 
@@ -395,6 +426,8 @@ namespace Uno
             // Sort the hand
             sortCards(game.CurrentGamePlayer.Cards);
 
+            // Add to the number of cards picked up statistic
+            game.CurrentGamePlayer.NumberOfCardsPickedUp++;
 
             // Successfully picked up a card
             return true;
@@ -637,6 +670,31 @@ namespace Uno
                     cards[k - 1] = temp;
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Sort the players
+        /// </summary>
+        private void sortPlayersByScore()
+        {
+
+            if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
+            {
+                for (int i = 1; i < game.NumberOfPlayers; i++)
+                {
+                    for (int k = i; k > 0 && game.Players[k].Score < game.Players[k - 1].Score; k--)
+                    {
+                        Player temp = game.Players[k];
+                        game.Players[k] = game.Players[k - 1];
+                        game.Players[k - 1] = temp;
+                    }
+                }
+            }
+
+            // Give the players ranks so strings for "first", "second", etc. can be generated
+            for (int j = 0; j < game.NumberOfPlayers; j++)
+                game.Players[j].Rank = j;
         }
 
 

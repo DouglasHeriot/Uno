@@ -12,3 +12,4 @@ Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.GameView.resources
 Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.WildColorChooser.resources
 Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.SortedPlayerView.resources
 Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.AboutBox.resources
+Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.GameOptionsView.resources

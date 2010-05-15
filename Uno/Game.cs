@@ -91,10 +91,7 @@ namespace Uno
         private Card.CardColor wildColor = Card.CardColor.Wild;
 
 
-        /// <summary>
-        /// The number of players that have finished playing
-        /// </summary>
-        private int finishedPlayers = 0;
+        
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -257,6 +254,25 @@ namespace Uno
             get { return players.Count; }
         }
 
+        /// <summary>
+        /// The number of players that have finished the game
+        /// </summary>
+        public int NumberOfFinishedPlayers
+        {
+            get
+            {
+                int count = 0;
+
+                // Look at each player and check if they're finished
+                for (int i = 0; i < players.Count; i++)
+                {
+                    if ((playersCards[players[i]] as Game.GamePlayer).Finished)
+                        count++;
+                }
+
+                return count;
+            }
+        }
 
         ///////////////////////////////////////////////////////////////////////////////////////
         // Constructors
@@ -319,6 +335,11 @@ namespace Uno
             List<Card> cards = new List<Card>(MAXUNOCARDS);
             int score = 0;
 
+            int cardsPickedUp = 0;
+            int cardsPlayed = 0;
+            int turns = 0;
+            int finishRank = -1;
+
 
             /// <summary>
             /// The player represented
@@ -352,6 +373,43 @@ namespace Uno
             public bool Finished
             {
                 get { return cards.Count <= 0; }
+            }
+
+
+            /// <summary>
+            /// The number of cards the player has picked up throught the game
+            /// </summary>
+            public int NumberOfCardsPickedUp
+            {
+                get { return cardsPickedUp; }
+                set { cardsPickedUp = value; }
+            }
+
+            /// <summary>
+            /// The number of cards the player has played throught the game
+            /// </summary>
+            public int NumberOfCardsPlayed
+            {
+                get { return cardsPlayed; }
+                set { cardsPlayed = value; }
+            }
+
+            /// <summary>
+            /// The number of chances the player has had to play
+            /// </summary>
+            public int NumberOfTurns
+            {
+                get { return turns; }
+                set { turns = value; }
+            }
+
+            /// <summary>
+            /// The rank of the player in finishing, where 0 is first, 1 is second, and -1 is not finished yet.
+            /// </summary>
+            public int FinishRank
+            {
+                get { return finishRank; }
+                set { finishRank = value; }
             }
 
 

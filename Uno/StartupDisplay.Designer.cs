@@ -37,6 +37,7 @@
             this.startupPlayerView3 = new Uno.StartupPlayerView();
             this.startupPlayerView2 = new Uno.StartupPlayerView();
             this.startupPlayerView1 = new Uno.StartupPlayerView();
+            this.quickDebugGameButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,12 +135,23 @@
             this.startupPlayerView1.Size = new System.Drawing.Size(452, 54);
             this.startupPlayerView1.TabIndex = 0;
             // 
+            // quickDebugGameButton
+            // 
+            this.quickDebugGameButton.Location = new System.Drawing.Point(17, 82);
+            this.quickDebugGameButton.Name = "quickDebugGameButton";
+            this.quickDebugGameButton.Size = new System.Drawing.Size(148, 23);
+            this.quickDebugGameButton.TabIndex = 7;
+            this.quickDebugGameButton.Text = "Quick Debug Game";
+            this.quickDebugGameButton.UseVisualStyleBackColor = true;
+            this.quickDebugGameButton.Click += new System.EventHandler(this.quickDebugGameButton_Click);
+            // 
             // StartupDisplay
             // 
             this.AcceptButton = this.startGameButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 262);
+            this.Controls.Add(this.quickDebugGameButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.startupPlayerView4);
             this.Controls.Add(this.startupPlayerView3);
@@ -170,5 +182,6 @@
         private StartupPlayerView startupPlayerView3;
         private StartupPlayerView startupPlayerView4;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button quickDebugGameButton;
     }
 }

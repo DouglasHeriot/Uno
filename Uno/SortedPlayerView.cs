@@ -12,37 +12,68 @@ namespace Uno
     partial class SortedPlayerView : UserControl
     {
 
-        private Player player = new Player();
+        private Player player;
+        private bool moreDetail = false;
+        private Game game;
+        private Game.GamePlayer gamePlayer;
+
+
+
 
         public SortedPlayerView()
         {
             InitializeComponent();
 
             
+            
         }
 
-
-        public Player Player
+        public void SetInfo(Player thePlayer, Game theGame)
         {
-            get { return player; }
-            set
-            {
-                player = value;
-                setupPlayer();
-            }
-        }
+            game = theGame;
+            player = thePlayer;
+            gamePlayer = game.PlayersCards[player] as Game.GamePlayer;
+
+            // Don't show the score label if basic scoring is used
+            if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
+                scoreLabel.Visible = false;
 
 
-        private void setupPlayer()
-        {
             nameLabel.Text = player.Name;
             scoreLabel.Text = "Score: " + player.Score;
             typeLabel.Text = Player.PlayerTypeToString(player.Type);
 
-            // TODO: sort players properly!
-            ordinalLabel.Text = GetOrdinalStringForInt(1);
+            turnsLabel.Text = gamePlayer.NumberOfTurns.ToString();
+            cardsPickedUpLabel.Text = gamePlayer.NumberOfCardsPickedUp.ToString();
+            cardsPlayedLabel.Text = gamePlayer.NumberOfCardsPlayed.ToString();
             
+            ordinalLabel.Text = GetOrdinalStringForInt(player.Rank + 1);
         }
+
+        
+
+        /// <summary>
+        /// Show or hide the extra detail
+        /// </summary>
+        /// <param name="detail"></param>
+        public void SetMoreDetail(bool detail)
+        {
+            moreDetail = detail;
+
+            if (moreDetail)
+            {
+                scoreLabel.Visible = true;
+                
+                Width = 370;
+            }
+            else
+            {
+                Width = 232;
+                if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
+                    scoreLabel.Visible = false;
+            }
+        }
+
 
 
 

@@ -33,6 +33,14 @@ namespace Uno
             numberOfPlayers.Value = 2;
 
             this.FormClosed += new FormClosedEventHandler(StartupDisplay_FormClosed);
+
+
+            // Only show the debug buton when in debug mode in VisualC#
+            quickDebugGameButton.Visible = false;
+
+            #if DEBUG
+            quickDebugGameButton.Visible = true;
+            #endif
         }
 
 
@@ -76,6 +84,29 @@ namespace Uno
         private void gameOptionsButton_Click(object sender, EventArgs e)
         {
             optionsView.ShowDialog();
+        }
+
+
+        private void quickDebugGameButton_Click(object sender, EventArgs e)
+        {
+            List<Player> players = new List<Player>(Game.MAXPLAYERS);
+            
+            // Set options for a quick game to be able to test the end of game window
+            GameOptions options = new GameOptions();
+            options.CardsForEachPlayer = 25;
+            options.ComputerPlayerDelay = 1;
+            options.UseAnimation = false;
+
+            // Add the players from the form into the list
+            for (int i = 0; i < numberOfPlayers.Value; i++)
+                players.Add(new Player("Player " + (i + 1).ToString(), Player.PlayerType.Computer));
+
+            // Create the new game in a new form
+            Program.NewGame(players, options);
+
+
+            // Close this form
+            Close();
         }
 
 
