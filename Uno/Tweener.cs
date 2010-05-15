@@ -271,12 +271,17 @@ namespace Projectplace.Gui
                 timer.Interval = 15;
                 timer.Tick += new EventHandler(timer_Tick);
             }
-            if (!tweeners.ContainsKey(tweener.animated_object))
-            {
-                tweener.init();
-                tweeners.Add(tweener.animated_object, tweener);
-                timer.Enabled = true;
-            }
+
+            // If the object already has a tweener, remove it first
+            // Note: this probably means that if there are different parameters being animated, then the old ones will be lost
+            if (tweeners.ContainsKey(tweener.animated_object))
+                tweeners.Remove(tweener.animated_object);
+
+
+            tweener.init();
+            tweeners.Add(tweener.animated_object, tweener);
+            timer.Enabled = true;
+        
         }
 
         ///<summary>
