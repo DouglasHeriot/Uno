@@ -25,7 +25,7 @@ namespace Uno
         ///////////////////////////////////////////////////////////////////////////////////////
 
 
-        private string name;
+        private string name = "";
         private int score;
         private PlayerType type = PlayerType.Human;
         private int rank = -1;

@@ -30,10 +30,9 @@ namespace Uno
             sortedPlayerViews.Add(sortedPlayerView3);
             sortedPlayerViews.Add(sortedPlayerView4);
 
+            // Setup the sorted player views
             for (int i = 0; i < Game.MAXPLAYERS; i++)
             {
-                
-
                 // Check if the player exists
                 if (i < game.NumberOfPlayers)
                 {
@@ -46,11 +45,12 @@ namespace Uno
                     // If the player doesn't exist, hide its view
                     sortedPlayerViews[i].Visible = false;
                 }
-                
             }
 
+            // Handle the form closing event
             FormClosed += new FormClosedEventHandler(SortedPlayersView_FormClosed);
 
+            // Set the height of the form to only what's needed
             Height = game.NumberOfPlayers * 94 + 145;
 
         }
