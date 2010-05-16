@@ -24,8 +24,10 @@ namespace Uno
         {
             InitializeComponent();
 
-            
-            
+            BackgroundImage = Properties.Resources.CardTableLight;
+
+
+            typeLabel.ForeColor = Color.FromArgb(126, 147, 73);
         }
 
         public void SetInfo(Player thePlayer, Game theGame)
@@ -74,6 +76,34 @@ namespace Uno
             }
         }
 
+
+
+
+        /*
+         * http://blogs.msdn.com/mhendersblog/archive/2005/10/12/480156.aspx
+         * and http://www.eggheadcafe.com/software/aspnet/30750705/help-with-form-painting-p.aspx
+         */
+
+        private Bitmap renderBmp;
+
+        public override Image BackgroundImage
+        {
+            set
+            {
+                Image baseImage = value;
+                if (renderBmp != null)
+                    renderBmp.Dispose();
+                renderBmp = new Bitmap(this.Width, this.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                Graphics g = Graphics.FromImage(renderBmp);
+                g.DrawImage(baseImage, 0, 0, Width, Height);
+                g.Dispose();
+            }
+            get
+            {
+                return renderBmp;
+            }
+        }
+        
 
 
 

@@ -166,9 +166,9 @@
             this.Controls.Add(this.newGameButton);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "GameView";
-            this.ShowIcon = false;
             this.Text = "Uno";
             ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerStatus)).EndInit();

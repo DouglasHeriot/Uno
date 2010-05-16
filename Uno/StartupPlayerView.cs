@@ -19,6 +19,10 @@ namespace Uno
 
             // Create a new player object
             player = new Player();
+
+
+            // Set the background image
+            BackgroundImage = Properties.Resources.CardTableLight;
         }
 
 
@@ -62,5 +66,32 @@ namespace Uno
             }
 
         }
+
+
+        /*
+         * http://blogs.msdn.com/mhendersblog/archive/2005/10/12/480156.aspx
+         * and http://www.eggheadcafe.com/software/aspnet/30750705/help-with-form-painting-p.aspx
+         */
+
+        private Bitmap renderBmp;
+
+        public override Image BackgroundImage
+        {
+            set
+            {
+                Image baseImage = value;
+                if (renderBmp != null)
+                    renderBmp.Dispose();
+                renderBmp = new Bitmap(this.Width, this.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                Graphics g = Graphics.FromImage(renderBmp);
+                g.DrawImage(baseImage, 0, 0, 400, 300);
+                g.Dispose();
+            }
+            get
+            {
+                return renderBmp;
+            }
+        }
+        
     }
 }

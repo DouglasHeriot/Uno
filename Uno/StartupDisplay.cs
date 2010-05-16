@@ -15,10 +15,6 @@ namespace Uno
         private List<StartupPlayerView> startupPlayerViews = new List<StartupPlayerView>(Game.MAXPLAYERS);
         private GameOptionsView optionsView = new GameOptionsView();
 
-        // Aids in aniating height, without having to disable the number of players control while animating
-        private bool animating = false;
-        private int heightToAnimate = -1;
-
 
         public StartupDisplay()
         {
@@ -31,6 +27,7 @@ namespace Uno
             startupPlayerViews.Add(startupPlayerView4);
 
             Height = 200;
+            BackgroundImage = Properties.Resources.StartupWindow;
 
             numberOfPlayers.Maximum = Game.MAXPLAYERS;
             numberOfPlayers.Value = 2;
@@ -125,24 +122,10 @@ namespace Uno
             }
 
             int height = count * 100 + 202;
-
-
-            if (animating)
-                heightToAnimate = height;
-            else
-                animateToHeight(height);
+            
+            animateToHeight(height);
 
             
-        }
-
-        private void resizeCompleted()
-        {
-            animating = false;
-
-            if (heightToAnimate >= 0 && heightToAnimate != Height)
-                animateToHeight(heightToAnimate);
-            else
-                heightToAnimate = -1;
         }
 
         private void animateToHeight(int input)
@@ -172,9 +155,49 @@ namespace Uno
         }
 
 
+
+
+
+
+        /*
+         * http://blogs.msdn.com/mhendersblog/archive/2005/10/12/480156.aspx
+         * and http://www.eggheadcafe.com/software/aspnet/30750705/help-with-form-painting-p.aspx
+         */
+
+        private Bitmap renderBmp;
+
+        public override Image BackgroundImage
+        {
+            set
+            {
+                Image baseImage = value;
+                if (renderBmp != null)
+                    renderBmp.Dispose();
+                renderBmp = new Bitmap(530, 630, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                Graphics g = Graphics.FromImage(renderBmp);
+                g.DrawImage(baseImage, 0, 0, 530, 630);
+                g.Dispose();
+            }
+            get
+            {
+                return renderBmp;
+            }
+        }
+        
+
+
+
         static public string GetPlayerNameForInt(int input)
         {
             return "Player " + (input + 1).ToString();
+        }
+
+
+
+        private void aboutButton_Click(object sender, EventArgs e)
+        {
+            // Show the about box
+            (new AboutBox()).ShowDialog();
         }
 
 

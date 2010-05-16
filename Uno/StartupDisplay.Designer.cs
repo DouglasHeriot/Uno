@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartupDisplay));
             this.label5 = new System.Windows.Forms.Label();
             this.numberOfPlayers = new System.Windows.Forms.NumericUpDown();
             this.startGameButton = new System.Windows.Forms.Button();
             this.gameOptionsButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.quickDebugGameButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.startupPlayerView4 = new Uno.StartupPlayerView();
@@ -46,6 +46,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(321, 45);
             this.label5.Name = "label5";
@@ -81,61 +82,56 @@
             // startGameButton
             // 
             this.startGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.startGameButton.BackColor = System.Drawing.Color.Transparent;
             this.startGameButton.Location = new System.Drawing.Point(335, 496);
             this.startGameButton.Name = "startGameButton";
             this.startGameButton.Size = new System.Drawing.Size(153, 60);
             this.startGameButton.TabIndex = 6;
             this.startGameButton.Text = "Start Game";
-            this.startGameButton.UseVisualStyleBackColor = true;
+            this.startGameButton.UseVisualStyleBackColor = false;
             this.startGameButton.Click += new System.EventHandler(this.startGameButton_Click);
             // 
             // gameOptionsButton
             // 
             this.gameOptionsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.gameOptionsButton.BackColor = System.Drawing.Color.Transparent;
             this.gameOptionsButton.Location = new System.Drawing.Point(215, 529);
             this.gameOptionsButton.Name = "gameOptionsButton";
             this.gameOptionsButton.Size = new System.Drawing.Size(114, 27);
             this.gameOptionsButton.TabIndex = 5;
             this.gameOptionsButton.Text = "Game Options...";
-            this.gameOptionsButton.UseVisualStyleBackColor = true;
+            this.gameOptionsButton.UseVisualStyleBackColor = false;
             this.gameOptionsButton.Click += new System.EventHandler(this.gameOptionsButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(36, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 46);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Uno";
             // 
             // quickDebugGameButton
             // 
             this.quickDebugGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.quickDebugGameButton.BackColor = System.Drawing.Color.Transparent;
             this.quickDebugGameButton.Location = new System.Drawing.Point(12, 529);
             this.quickDebugGameButton.Name = "quickDebugGameButton";
             this.quickDebugGameButton.Size = new System.Drawing.Size(136, 27);
             this.quickDebugGameButton.TabIndex = 7;
             this.quickDebugGameButton.Text = "Quick Debug Game";
-            this.quickDebugGameButton.UseVisualStyleBackColor = true;
+            this.quickDebugGameButton.UseVisualStyleBackColor = false;
             this.quickDebugGameButton.Click += new System.EventHandler(this.quickDebugGameButton_Click);
             // 
             // aboutButton
             // 
             this.aboutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.aboutButton.BackColor = System.Drawing.Color.Transparent;
             this.aboutButton.Location = new System.Drawing.Point(215, 496);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(114, 27);
             this.aboutButton.TabIndex = 5;
             this.aboutButton.Text = "About";
-            this.aboutButton.UseVisualStyleBackColor = true;
-            this.aboutButton.Click += new System.EventHandler(this.gameOptionsButton_Click);
+            this.aboutButton.UseVisualStyleBackColor = false;
+            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
             // startupPlayerView4
             // 
             this.startupPlayerView4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.startupPlayerView4.BackColor = System.Drawing.Color.White;
+            this.startupPlayerView4.BackColor = System.Drawing.Color.Transparent;
+            this.startupPlayerView4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("startupPlayerView4.BackgroundImage")));
             this.startupPlayerView4.Location = new System.Drawing.Point(215, 388);
             this.startupPlayerView4.Name = "startupPlayerView4";
             this.startupPlayerView4.Size = new System.Drawing.Size(273, 94);
@@ -144,7 +140,8 @@
             // startupPlayerView3
             // 
             this.startupPlayerView3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.startupPlayerView3.BackColor = System.Drawing.Color.White;
+            this.startupPlayerView3.BackColor = System.Drawing.Color.Transparent;
+            this.startupPlayerView3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("startupPlayerView3.BackgroundImage")));
             this.startupPlayerView3.Location = new System.Drawing.Point(215, 288);
             this.startupPlayerView3.Name = "startupPlayerView3";
             this.startupPlayerView3.Size = new System.Drawing.Size(273, 94);
@@ -153,7 +150,8 @@
             // startupPlayerView2
             // 
             this.startupPlayerView2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.startupPlayerView2.BackColor = System.Drawing.Color.White;
+            this.startupPlayerView2.BackColor = System.Drawing.Color.Transparent;
+            this.startupPlayerView2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("startupPlayerView2.BackgroundImage")));
             this.startupPlayerView2.Location = new System.Drawing.Point(215, 188);
             this.startupPlayerView2.Name = "startupPlayerView2";
             this.startupPlayerView2.Size = new System.Drawing.Size(273, 94);
@@ -162,7 +160,8 @@
             // startupPlayerView1
             // 
             this.startupPlayerView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.startupPlayerView1.BackColor = System.Drawing.Color.White;
+            this.startupPlayerView1.BackColor = System.Drawing.Color.Transparent;
+            this.startupPlayerView1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("startupPlayerView1.BackgroundImage")));
             this.startupPlayerView1.Location = new System.Drawing.Point(215, 88);
             this.startupPlayerView1.Name = "startupPlayerView1";
             this.startupPlayerView1.Size = new System.Drawing.Size(273, 94);
@@ -175,7 +174,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 568);
             this.Controls.Add(this.quickDebugGameButton);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.startupPlayerView4);
             this.Controls.Add(this.startupPlayerView3);
             this.Controls.Add(this.startupPlayerView2);
@@ -185,9 +183,10 @@
             this.Controls.Add(this.startGameButton);
             this.Controls.Add(this.numberOfPlayers);
             this.Controls.Add(this.label5);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "StartupDisplay";
-            this.ShowIcon = false;
             this.Text = "New Uno Game";
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayers)).EndInit();
             this.ResumeLayout(false);
@@ -205,7 +204,6 @@
         private StartupPlayerView startupPlayerView2;
         private StartupPlayerView startupPlayerView3;
         private StartupPlayerView startupPlayerView4;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button quickDebugGameButton;
         private System.Windows.Forms.Button aboutButton;
     }

@@ -53,6 +53,9 @@ namespace Uno
             // Set the height of the form to only what's needed
             Height = game.NumberOfPlayers * 94 + 145;
 
+            // Set the background image
+            BackgroundImage = Properties.Resources.CardTable;
+
         }
 
         void SortedPlayersView_FormClosed(object sender, FormClosedEventArgs e)
@@ -90,12 +93,10 @@ namespace Uno
             p.Add("theFormWidth", width);
             Tweener t = new Tweener(this, p, Tweener.easeOutElastic, 30, 0);
 
-            t.setOnComplete(new Tweener.onCompleteFunction(resizeCompleted));
+            //t.setOnComplete(new Tweener.onCompleteFunction(resizeCompleted));
             Tweener.add(t);
 
 
-            // Disable the more detail button while resizing
-            moreDetailCheckBox.Enabled = false;
         }
 
         public Single theFormWidth
@@ -104,13 +105,36 @@ namespace Uno
             set { this.Width = (int) value; }
         }
 
-        private void resizeCompleted()
+
+
+
+        /*
+         * http://blogs.msdn.com/mhendersblog/archive/2005/10/12/480156.aspx
+         * and http://www.eggheadcafe.com/software/aspnet/30750705/help-with-form-painting-p.aspx
+         */
+
+        private Bitmap renderBmp;
+
+        public override Image BackgroundImage
         {
-            // Re-enable the checkbox
-            moreDetailCheckBox.Enabled = true;
+            set
+            {
+                Image baseImage = value;
+                if (renderBmp != null)
+                    renderBmp.Dispose();
+                renderBmp = new Bitmap(this.Width, this.Height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                Graphics g = Graphics.FromImage(renderBmp);
+                g.DrawImage(baseImage, 0, 0, Width, Height);
+                g.Dispose();
+            }
+            get
+            {
+                return renderBmp;
+            }
         }
+        
 
-
+        
 
 
     }

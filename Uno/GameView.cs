@@ -20,8 +20,6 @@ namespace Uno
 
         private List<Label> playerLabels = new List<Label>(4);
 
-        private bool animating = false;
-
 
         public GameView(Game newGame, GameController gameController)
         {
@@ -100,10 +98,11 @@ namespace Uno
         {
 
 
-            // Remove cards that are just in the deck
+            // Remove cards that are just in the deck, but set to appropriate positions
             foreach(Card c in game.Deck)
             {
                 this.Controls.Remove(cardsViews[c] as PictureBox);
+                (cardsViews[c] as PictureBox).Location = new Point(75, 182);
             }
 
 
@@ -145,13 +144,14 @@ namespace Uno
             }
 
 
+            /*
             // Remove all cards in the discard pile from the form except the top 2 cards
             for (int c = 0; c < game.DiscardPile.Count - 2; c++)
             {
                 Controls.Remove(cardsViews[game.DiscardPile[c]] as PictureBox);
                 (cardsViews[game.DiscardPile[c]] as PictureBox).Location = new Point(75,182);
-
             }
+            */
             
 
             // Display the discard pile
@@ -235,17 +235,12 @@ namespace Uno
             p.Add("X", left);
             Tweener t = new Tweener(control, p, easingFunction, 30, 0);
 
-            t.setOnComplete(new Tweener.onCompleteFunction(completed));
+            //t.setOnComplete(new Tweener.onCompleteFunction(completed));
             Tweener.add(t);
-
-            // Set the animating flag, so we can prevent user interaction during this time (otherwise unpredicatable things can occurr)
-            animating = true;
         }
 
         private void completed()
         {
-            animating = false;
-
             //controller.MakeComputerMove();
         }
 
@@ -278,15 +273,13 @@ namespace Uno
 
         void card_Click(object sender, EventArgs e)
         {
-            if(!animating)
-                controller.SelectCard((sender as PictureBox).Tag as Card);
+            controller.SelectCard((sender as PictureBox).Tag as Card);
         }
 
 
         private void pickupPileImage_Click(object sender, EventArgs e)
         {
-            if(!animating)
-                controller.PickupCard();
+            controller.PickupCard();
         }
 
 

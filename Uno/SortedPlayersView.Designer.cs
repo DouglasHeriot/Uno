@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SortedPlayersView));
             this.newGameButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.moreDetailCheckBox = new System.Windows.Forms.CheckBox();
             this.sortedPlayerView4 = new Uno.SortedPlayerView();
             this.sortedPlayerView3 = new Uno.SortedPlayerView();
             this.sortedPlayerView2 = new Uno.SortedPlayerView();
             this.sortedPlayerView1 = new Uno.SortedPlayerView();
-            this.moreDetailCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // newGameButton
@@ -55,14 +55,29 @@
             this.exitButton.Location = new System.Drawing.Point(27, 433);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(92, 44);
-            this.exitButton.TabIndex = 2;
+            this.exitButton.TabIndex = 1;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // moreDetailCheckBox
+            // 
+            this.moreDetailCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreDetailCheckBox.AutoSize = true;
+            this.moreDetailCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.moreDetailCheckBox.ForeColor = System.Drawing.Color.Black;
+            this.moreDetailCheckBox.Location = new System.Drawing.Point(179, 401);
+            this.moreDetailCheckBox.Name = "moreDetailCheckBox";
+            this.moreDetailCheckBox.Size = new System.Drawing.Size(80, 17);
+            this.moreDetailCheckBox.TabIndex = 0;
+            this.moreDetailCheckBox.Text = "More Detail";
+            this.moreDetailCheckBox.UseVisualStyleBackColor = false;
+            this.moreDetailCheckBox.CheckedChanged += new System.EventHandler(this.moreDetailCheckBox_CheckedChanged);
+            // 
             // sortedPlayerView4
             // 
             this.sortedPlayerView4.BackColor = System.Drawing.Color.White;
+            this.sortedPlayerView4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sortedPlayerView4.BackgroundImage")));
             this.sortedPlayerView4.Location = new System.Drawing.Point(27, 294);
             this.sortedPlayerView4.Name = "sortedPlayerView4";
             this.sortedPlayerView4.Size = new System.Drawing.Size(232, 88);
@@ -71,6 +86,7 @@
             // sortedPlayerView3
             // 
             this.sortedPlayerView3.BackColor = System.Drawing.Color.White;
+            this.sortedPlayerView3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sortedPlayerView3.BackgroundImage")));
             this.sortedPlayerView3.Location = new System.Drawing.Point(27, 200);
             this.sortedPlayerView3.Name = "sortedPlayerView3";
             this.sortedPlayerView3.Size = new System.Drawing.Size(232, 88);
@@ -79,6 +95,7 @@
             // sortedPlayerView2
             // 
             this.sortedPlayerView2.BackColor = System.Drawing.Color.White;
+            this.sortedPlayerView2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sortedPlayerView2.BackgroundImage")));
             this.sortedPlayerView2.Location = new System.Drawing.Point(27, 106);
             this.sortedPlayerView2.Name = "sortedPlayerView2";
             this.sortedPlayerView2.Size = new System.Drawing.Size(232, 88);
@@ -87,22 +104,11 @@
             // sortedPlayerView1
             // 
             this.sortedPlayerView1.BackColor = System.Drawing.Color.White;
+            this.sortedPlayerView1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("sortedPlayerView1.BackgroundImage")));
             this.sortedPlayerView1.Location = new System.Drawing.Point(27, 12);
             this.sortedPlayerView1.Name = "sortedPlayerView1";
             this.sortedPlayerView1.Size = new System.Drawing.Size(232, 88);
             this.sortedPlayerView1.TabIndex = 3;
-            // 
-            // moreDetailCheckBox
-            // 
-            this.moreDetailCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.moreDetailCheckBox.AutoSize = true;
-            this.moreDetailCheckBox.Location = new System.Drawing.Point(179, 401);
-            this.moreDetailCheckBox.Name = "moreDetailCheckBox";
-            this.moreDetailCheckBox.Size = new System.Drawing.Size(80, 17);
-            this.moreDetailCheckBox.TabIndex = 7;
-            this.moreDetailCheckBox.Text = "More Detail";
-            this.moreDetailCheckBox.UseVisualStyleBackColor = true;
-            this.moreDetailCheckBox.CheckedChanged += new System.EventHandler(this.moreDetailCheckBox_CheckedChanged);
             // 
             // SortedPlayersView
             // 
@@ -119,11 +125,11 @@
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.newGameButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "SortedPlayersView";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Final Scores";
+            this.Text = "Final Uno Scores";
             this.ResumeLayout(false);
             this.PerformLayout();
 

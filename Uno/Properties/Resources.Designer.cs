@@ -172,6 +172,20 @@ namespace Uno.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap CardTable {
+            get {
+                object obj = ResourceManager.GetObject("CardTable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap CardTableLight {
+            get {
+                object obj = ResourceManager.GetObject("CardTableLight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap g_ccw {
             get {
                 object obj = ResourceManager.GetObject("g_ccw", resourceCulture);
@@ -284,6 +298,20 @@ namespace Uno.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Icon {
+            get {
+                object obj = ResourceManager.GetObject("Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon Icon1 {
+            get {
+                object obj = ResourceManager.GetObject("Icon1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap r_ccw {
             get {
                 object obj = ResourceManager.GetObject("r_ccw", resourceCulture);
@@ -385,6 +413,13 @@ namespace Uno.Properties {
         internal static System.Drawing.Bitmap rs {
             get {
                 object obj = ResourceManager.GetObject("rs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap StartupWindow {
+            get {
+                object obj = ResourceManager.GetObject("StartupWindow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

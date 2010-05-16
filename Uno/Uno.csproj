@@ -12,6 +12,7 @@
     <AssemblyName>Uno</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -343,6 +344,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\y_ccw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Card Table Texture.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Light Card Table Texture.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StartupWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StartupWindow.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

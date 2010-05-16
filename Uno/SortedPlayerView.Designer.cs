@@ -43,6 +43,7 @@
             // 
             // typeLabel
             // 
+            this.typeLabel.BackColor = System.Drawing.Color.Transparent;
             this.typeLabel.Location = new System.Drawing.Point(3, 70);
             this.typeLabel.Name = "typeLabel";
             this.typeLabel.Size = new System.Drawing.Size(84, 13);
@@ -52,6 +53,7 @@
             // scoreLabel
             // 
             this.scoreLabel.AutoSize = true;
+            this.scoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.scoreLabel.Location = new System.Drawing.Point(175, 70);
             this.scoreLabel.Name = "scoreLabel";
             this.scoreLabel.Size = new System.Drawing.Size(53, 13);
@@ -61,6 +63,7 @@
             // ordinalLabel
             // 
             this.ordinalLabel.AutoSize = true;
+            this.ordinalLabel.BackColor = System.Drawing.Color.Transparent;
             this.ordinalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ordinalLabel.Location = new System.Drawing.Point(5, 6);
             this.ordinalLabel.Name = "ordinalLabel";
@@ -70,6 +73,7 @@
             // 
             // nameLabel
             // 
+            this.nameLabel.BackColor = System.Drawing.Color.Transparent;
             this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameLabel.Location = new System.Drawing.Point(3, 28);
             this.nameLabel.Name = "nameLabel";
@@ -80,6 +84,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(238, 22);
             this.label1.Name = "label1";
@@ -89,7 +94,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightGray;
+            this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(232, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1, 88);
@@ -98,6 +103,7 @@
             // turnsLabel
             // 
             this.turnsLabel.AutoSize = true;
+            this.turnsLabel.BackColor = System.Drawing.Color.Transparent;
             this.turnsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.turnsLabel.Location = new System.Drawing.Point(330, 22);
             this.turnsLabel.Name = "turnsLabel";
@@ -108,6 +114,7 @@
             // cardsPlayedLabel
             // 
             this.cardsPlayedLabel.AutoSize = true;
+            this.cardsPlayedLabel.BackColor = System.Drawing.Color.Transparent;
             this.cardsPlayedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cardsPlayedLabel.Location = new System.Drawing.Point(330, 39);
             this.cardsPlayedLabel.Name = "cardsPlayedLabel";
@@ -118,6 +125,7 @@
             // cardsPickedUpLabel
             // 
             this.cardsPickedUpLabel.AutoSize = true;
+            this.cardsPickedUpLabel.BackColor = System.Drawing.Color.Transparent;
             this.cardsPickedUpLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cardsPickedUpLabel.Location = new System.Drawing.Point(330, 57);
             this.cardsPickedUpLabel.Name = "cardsPickedUpLabel";
@@ -128,6 +136,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Location = new System.Drawing.Point(237, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 13);
@@ -137,6 +146,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Location = new System.Drawing.Point(255, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(69, 13);

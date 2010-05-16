@@ -695,6 +695,7 @@ namespace Uno
             // Give the players ranks so strings for "first", "second", etc. can be generated
             for (int j = 0; j < game.NumberOfPlayers; j++)
                 game.Players[j].Rank = j;
+            // TODO: handle ties, so both players recieve the same rank
         }
 
 

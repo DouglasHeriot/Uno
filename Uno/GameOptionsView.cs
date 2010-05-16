@@ -45,5 +45,10 @@ namespace Uno
             this.Hide();
         }
 
+        private void doneButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
     }
 }
