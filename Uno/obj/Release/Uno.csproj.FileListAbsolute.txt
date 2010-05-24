@@ -13,3 +13,10 @@ Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.WildColorChooser.resources
 Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.SortedPlayerView.resources
 Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.AboutBox.resources
 Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.GameOptionsView.resources
+Z:\SDD\Projects\Uno\Uno\bin\Release\Uno.exe.config
+Z:\SDD\Projects\Uno\Uno\bin\Release\Uno.exe.manifest
+Z:\SDD\Projects\Uno\Uno\bin\Release\Uno.application
+Z:\SDD\Projects\Uno\Uno\bin\Release\documentation.xml
+Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.TrustInfo.xml
+Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.exe.manifest
+Z:\SDD\Projects\Uno\Uno\obj\Release\Uno.application

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace Uno
 {
@@ -87,6 +88,9 @@ namespace Uno
             computerPlayerTimer.Interval = game.Options.ComputerPlayerDelay;
             computerPlayerTimer.Tick += new EventHandler(computerPlayerTimer_Tick);
 
+
+            // Don't ever make the first play pickup cards
+            cardsToDraw = 0;
 
 
             // Show the game view
@@ -356,7 +360,7 @@ namespace Uno
 
             // Force the player to draw their cards
             // TODO: give the next player an opportunity to play another draw card on top, etc.
-            if (cardsToDraw > 0)
+            if (cardsToDraw > 0 && game.NumberOfPlayingPlayers > 1)
             {
                 bool success;
 
@@ -571,44 +575,143 @@ namespace Uno
         /// </summary>
         private void makeComputerMove()
         {
-            // TODO: implement a smarter computer
-            if (game.CurrentPlayer.Type != Player.PlayerType.Human)
-            {
-                // Store cards that can be played in a list
-                List<Card> playableCards = new List<Card>(Game.MAXUNOCARDS);
 
-                // Look for cards that can be played
-                foreach (Card c in game.CurrentGamePlayer.Cards)
+            // Stop if for some reason this method got called when it's actually a human
+            if (game.CurrentPlayer.Type == Player.PlayerType.Human)
+                return;
+
+            // Set a flag to check if it should be smart (easier than referencing the type all the time)
+            bool smart = game.CurrentPlayer.Type == Player.PlayerType.SmartComputer ? true : false;
+            
+            // Make cards easier to access
+            List<Card> cards = game.CurrentGamePlayer.Cards;
+
+
+
+            // Store cards that can be played in a list
+            List<Card> playableCards = new List<Card>(Game.MAXUNOCARDS);
+
+
+            if (smart)
+            {
+                // Look for cards the same color
+                foreach(Card c in cards)
+                {
+                    if (canPlayCard(c) && game.CurrentColor == c.Color)
+                        playableCards.Add(c);
+                }
+
+                // If no cards of the same color were found, look for any with the same face value
+                if (playableCards.Count <= 0)
+                {
+                    foreach (Card c in cards)
+                    {
+                        if (canPlayCard(c) && game.CurrentFace == c.Face)
+                            playableCards.Add(c);
+                    }
+                }
+
+                // If still no cards are found, look for any wilds to play
+                if (playableCards.Count <= 0)
+                {
+                    foreach (Card c in cards)
+                    {
+                        if (canPlayCard(c) && c.Color == Card.CardColor.Wild)
+                            playableCards.Add(c);
+                    }
+                }
+            }
+            else
+            {
+                // Look for any cards that can be played
+                foreach (Card c in cards)
                 {
                     if (canPlayCard(c))
                         playableCards.Add(c);
                 }
+            }
 
-                if (playableCards.Count > 0)
+
+
+            // Choose a card to play
+            if (playableCards.Count > 0)
+            {
+                Random random = new Random();
+                Card selectedCard;
+
+                if (smart)
                 {
-                    // Choose a card randomly to play
-                    Random random = new Random();
-                    Card selectedCard = playableCards[random.Next(0, playableCards.Count)];
-
-                    // If the card's a wild, randomly choose a color
-                    // TODO: implement smarter wild colour choosing for the smart computer
-                    if (selectedCard.Color == Card.CardColor.Wild)
-                    {
-                        game.WildColor = Card.IntToCardColor(random.Next(0, 4));
-#if DEBUG
-                        //MessageBox.Show("Computer player \"" + game.CurrentPlayer.Name + "\" chose the color " + game.WildColor.ToString());
-#endif
-                    }
-
-                    // Play the card
-                    SelectCard(selectedCard, game.CurrentPlayer, true);
+                    // Smart player should choose the highest-value card (as its good to get rid of more points if using Uno scoring)
+                    sortCards(playableCards);
+                    selectedCard = playableCards.Last();
                 }
                 else
                 {
-                    // Pickup a card if there's nothing else to play
-                    PickupCard(true);
+                    // Choose a card randomly to play
+                    selectedCard = playableCards[random.Next(0, playableCards.Count)];
                 }
+
+
+                // If the card's a wild, randomly choose a color
+                if (selectedCard.Color == Card.CardColor.Wild)
+                {
+                    if (smart)
+                    {
+                        List<Card.CardColor> colorsToChoose = new List<Card.CardColor>();
+                        Dictionary<Card.CardColor, int> colorCounts = new Dictionary<Card.CardColor, int>();
+                        Card.CardColor greatestColor;
+
+                        // Reset the color counts
+                        for (int i = 0; i < Card.NUMBEROFCOLORS - 1; i++)
+                        {
+                            colorCounts.Add((Card.CardColor)i,0);
+                        }
+
+                        // Add 1 to the count of the color for each card
+                        foreach (Card c in cards)
+                        {
+                            if(c.Color != Card.CardColor.Wild)
+                                colorCounts[c.Color]++;
+                        }
+
+                        // Set the greatest color to the first one
+                        greatestColor = (Card.CardColor)0;
+
+                        // Look for the greatest color
+                        for (int i = 1; i < (Card.NUMBEROFCOLORS-1); i++)
+                        {
+                            if (colorCounts[greatestColor] < colorCounts[(Card.CardColor)i])
+                                greatestColor = (Card.CardColor)i;
+                        }
+
+                        // If more than one color has the highest number of cards, choose it
+                        for (int i = 0; i < (Card.NUMBEROFCOLORS -1); i++)
+                        {
+                            if (colorCounts[(Card.CardColor)i] == colorCounts[greatestColor])
+                                colorsToChoose.Add((Card.CardColor)i);
+                        }
+
+                        // Randomly choose an appropriate color
+                        game.WildColor = colorsToChoose[random.Next(0, colorsToChoose.Count)];
+
+
+                    }
+                    else
+                    {
+                        // Randomly choose a color
+                        game.WildColor = Card.IntToCardColor(random.Next(0, 4));
+                    }
+                }
+
+                // Play the card
+                SelectCard(selectedCard, game.CurrentPlayer, true);
             }
+            else
+            {
+                // Pickup a card if there's nothing else to play
+                PickupCard(true);
+            }
+        
         }
 
 

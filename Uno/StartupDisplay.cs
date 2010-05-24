@@ -96,12 +96,12 @@ namespace Uno
             // Set options for a quick game to be able to test the end of game window
             GameOptions options = new GameOptions();
             options.CardsForEachPlayer = 25;
-            options.ComputerPlayerDelay = 1;
-            options.UseAnimation = false;
+            options.ComputerPlayerDelay = 150;
+            options.UseAnimation = optionsView.Options.UseAnimation;
 
             // Add the players from the form into the list
             for (int i = 0; i < numberOfPlayers.Value; i++)
-                players.Add(new Player(GetPlayerNameForInt(i), Player.PlayerType.Computer));
+                players.Add(new Player(startupPlayerViews[i].Player.Name, (i+1)%2 > 0? Player.PlayerType.SmartComputer : Player.PlayerType.Computer));
 
             // Create the new game in a new form
             Program.NewGame(players, options);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace Uno
 {
@@ -142,6 +143,32 @@ namespace Uno
             }
 
             return playerTypeString;
+        }
+
+
+        /// <summary>
+        /// Get the badge image for a player type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Image PlayerTypeBadge(PlayerType type)
+        {
+            Image badge;
+
+            switch (type)
+            {
+                case PlayerType.Computer:
+                    badge = Properties.Resources.computer;
+                    break;
+                case PlayerType.SmartComputer:
+                    badge = Properties.Resources.computerSmart;
+                    break;
+                default:
+                    badge = null;
+                    break;
+            }
+
+            return badge;
         }
 
     }

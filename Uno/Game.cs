@@ -274,6 +274,26 @@ namespace Uno
             }
         }
 
+        /// <summary>
+        /// The number of players that still have cards in the game
+        /// </summary>
+        public int NumberOfPlayingPlayers
+        {
+            get
+            {
+                int count = 0;
+
+                // Look at each player and check if they're finished
+                for (int i = 0; i < players.Count; i++)
+                {
+                    if (!(playersCards[players[i]] as Game.GamePlayer).Finished)
+                        count++;
+                }
+
+                return count;
+            }
+        }
+
         ///////////////////////////////////////////////////////////////////////////////////////
         // Constructors
         ///////////////////////////////////////////////////////////////////////////////////////

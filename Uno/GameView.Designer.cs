@@ -39,8 +39,18 @@
             this.pickupPileImage = new System.Windows.Forms.PictureBox();
             this.player1Label = new System.Windows.Forms.Label();
             this.playerStatus = new System.Windows.Forms.PictureBox();
+            this.endHighlight = new System.Windows.Forms.PictureBox();
+            this.player1ComputerBadge = new System.Windows.Forms.PictureBox();
+            this.player2ComputerBadge = new System.Windows.Forms.PictureBox();
+            this.player3ComputerBadge = new System.Windows.Forms.PictureBox();
+            this.player4ComputerBadge = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.endHighlight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player1ComputerBadge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player2ComputerBadge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player3ComputerBadge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player4ComputerBadge)).BeginInit();
             this.SuspendLayout();
             // 
             // newGameButton
@@ -55,9 +65,9 @@
             // 
             // endGameButton
             // 
-            this.endGameButton.Location = new System.Drawing.Point(44, 438);
+            this.endGameButton.Location = new System.Drawing.Point(44, 443);
             this.endGameButton.Name = "endGameButton";
-            this.endGameButton.Size = new System.Drawing.Size(130, 55);
+            this.endGameButton.Size = new System.Drawing.Size(130, 50);
             this.endGameButton.TabIndex = 0;
             this.endGameButton.Text = "End Game";
             this.endGameButton.UseVisualStyleBackColor = true;
@@ -147,6 +157,58 @@
             this.playerStatus.TabIndex = 3;
             this.playerStatus.TabStop = false;
             // 
+            // endHighlight
+            // 
+            this.endHighlight.BackColor = System.Drawing.Color.Transparent;
+            this.endHighlight.Image = global::Uno.Properties.Resources.highlight;
+            this.endHighlight.InitialImage = null;
+            this.endHighlight.Location = new System.Drawing.Point(34, 431);
+            this.endHighlight.Name = "endHighlight";
+            this.endHighlight.Size = new System.Drawing.Size(150, 75);
+            this.endHighlight.TabIndex = 4;
+            this.endHighlight.TabStop = false;
+            this.endHighlight.Visible = false;
+            // 
+            // player1ComputerBadge
+            // 
+            this.player1ComputerBadge.BackColor = System.Drawing.Color.Transparent;
+            this.player1ComputerBadge.Image = global::Uno.Properties.Resources.computer;
+            this.player1ComputerBadge.Location = new System.Drawing.Point(825, 44);
+            this.player1ComputerBadge.Name = "player1ComputerBadge";
+            this.player1ComputerBadge.Size = new System.Drawing.Size(100, 30);
+            this.player1ComputerBadge.TabIndex = 5;
+            this.player1ComputerBadge.TabStop = false;
+            // 
+            // player2ComputerBadge
+            // 
+            this.player2ComputerBadge.BackColor = System.Drawing.Color.Transparent;
+            this.player2ComputerBadge.Image = global::Uno.Properties.Resources.computer;
+            this.player2ComputerBadge.Location = new System.Drawing.Point(825, 181);
+            this.player2ComputerBadge.Name = "player2ComputerBadge";
+            this.player2ComputerBadge.Size = new System.Drawing.Size(100, 30);
+            this.player2ComputerBadge.TabIndex = 5;
+            this.player2ComputerBadge.TabStop = false;
+            // 
+            // player3ComputerBadge
+            // 
+            this.player3ComputerBadge.BackColor = System.Drawing.Color.Transparent;
+            this.player3ComputerBadge.Image = global::Uno.Properties.Resources.computer;
+            this.player3ComputerBadge.Location = new System.Drawing.Point(825, 319);
+            this.player3ComputerBadge.Name = "player3ComputerBadge";
+            this.player3ComputerBadge.Size = new System.Drawing.Size(100, 30);
+            this.player3ComputerBadge.TabIndex = 5;
+            this.player3ComputerBadge.TabStop = false;
+            // 
+            // player4ComputerBadge
+            // 
+            this.player4ComputerBadge.BackColor = System.Drawing.Color.Transparent;
+            this.player4ComputerBadge.Image = global::Uno.Properties.Resources.computer;
+            this.player4ComputerBadge.Location = new System.Drawing.Point(825, 456);
+            this.player4ComputerBadge.Name = "player4ComputerBadge";
+            this.player4ComputerBadge.Size = new System.Drawing.Size(100, 30);
+            this.player4ComputerBadge.TabIndex = 5;
+            this.player4ComputerBadge.TabStop = false;
+            // 
             // GameView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,6 +216,10 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(950, 621);
+            this.Controls.Add(this.player4ComputerBadge);
+            this.Controls.Add(this.player3ComputerBadge);
+            this.Controls.Add(this.player2ComputerBadge);
+            this.Controls.Add(this.player1ComputerBadge);
             this.Controls.Add(this.playerStatus);
             this.Controls.Add(this.player1Label);
             this.Controls.Add(this.pickupPileImage);
@@ -164,6 +230,7 @@
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.endGameButton);
             this.Controls.Add(this.newGameButton);
+            this.Controls.Add(this.endHighlight);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -172,6 +239,11 @@
             this.Text = "Uno";
             ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.endHighlight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player1ComputerBadge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player2ComputerBadge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player3ComputerBadge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.player4ComputerBadge)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,6 +261,11 @@
         private System.Windows.Forms.PictureBox pickupPileImage;
         private System.Windows.Forms.Label player1Label;
         private System.Windows.Forms.PictureBox playerStatus;
+        private System.Windows.Forms.PictureBox endHighlight;
+        private System.Windows.Forms.PictureBox player1ComputerBadge;
+        private System.Windows.Forms.PictureBox player2ComputerBadge;
+        private System.Windows.Forms.PictureBox player3ComputerBadge;
+        private System.Windows.Forms.PictureBox player4ComputerBadge;
 
     }
 }

@@ -186,6 +186,20 @@ namespace Uno.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap computer {
+            get {
+                object obj = ResourceManager.GetObject("computer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap computerSmart {
+            get {
+                object obj = ResourceManager.GetObject("computerSmart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap g_ccw {
             get {
                 object obj = ResourceManager.GetObject("g_ccw", resourceCulture);
@@ -294,6 +308,13 @@ namespace Uno.Properties {
         internal static System.Drawing.Bitmap gs {
             get {
                 object obj = ResourceManager.GetObject("gs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap highlight {
+            get {
+                object obj = ResourceManager.GetObject("highlight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

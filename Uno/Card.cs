@@ -23,7 +23,6 @@ namespace Uno
         // Enums
         ///////////////////////////////////////////////////////////////////////////////////////
 
-
         /// <summary>
         /// Defines the color of a card.
         /// </summary>
@@ -101,6 +100,7 @@ namespace Uno
         // Attributes
         ///////////////////////////////////////////////////////////////////////////////////////
 
+        public const int NUMBEROFCOLORS = 5;
 
         private CardColor _color;
         private CardFace _face;

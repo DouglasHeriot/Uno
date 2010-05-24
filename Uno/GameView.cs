@@ -18,8 +18,12 @@ namespace Uno
         private GameController controller;
         private Hashtable cardsViews = new Hashtable(108);
 
-        private List<Label> playerLabels = new List<Label>(4);
+        private List<Label> playerLabels = new List<Label>(Game.MAXPLAYERS);
+        private List<PictureBox> playerComputerBadges = new List<PictureBox>(Game.MAXPLAYERS);
 
+        Timer endGameHighlightTimer = new Timer();
+
+        bool first = true;
 
         public GameView(Game newGame, GameController gameController)
         {
@@ -33,6 +37,8 @@ namespace Uno
             game = newGame;
             controller = gameController;
 
+            
+
 
             // Create picture boxes for each card, and store them in a hash table
             foreach (Card c in game.Deck)
@@ -45,24 +51,37 @@ namespace Uno
             playerLabels.Add(player3Label);
             playerLabels.Add(player4Label);
 
+            playerComputerBadges.Add(player1ComputerBadge);
+            playerComputerBadges.Add(player2ComputerBadge);
+            playerComputerBadges.Add(player3ComputerBadge);
+            playerComputerBadges.Add(player4ComputerBadge);
 
-            // Set player name labels
+
+            // Set player name and type labels
             for (int i = 0; i < 4; i++)
             {
                 if (i < game.Players.Count)
+                {
                     playerLabels[i].Text = game.Players[i].Name;
+                    playerComputerBadges[i].Image = Player.PlayerTypeBadge(game.Players[i].Type);
+                }
 
                 else
+                {
                     playerLabels[i].Visible = false;
+                    playerComputerBadges[i].Visible = false;
+                }
             }
 
 
 
-            
-            
+
+            endGameHighlightTimer.Interval = 500;
+            endGameHighlightTimer.Tick += new EventHandler(endGameHighlightTimer_Tick);
 
         }
 
+        
 
         /*
          * http://blogs.msdn.com/mhendersblog/archive/2005/10/12/480156.aspx
@@ -136,7 +155,7 @@ namespace Uno
                     int left = p.Cards.Count <= 10 ? k * 60 + 260 : k * (650 / p.Cards.Count) + 260 ;
 
 
-                    moveCardTo(pictureBox, left, i * 137 + 80);
+                    moveCardTo(pictureBox, left, i * 137 + 80, Tweener.easeOutCubic, !first);
 
 
                    
@@ -183,13 +202,22 @@ namespace Uno
 
 
             // Set player status
-            moveCardTo(playerStatus, 213, game.CurrentPlayerIndex * 137 + 43);
+            moveCardTo(playerStatus, 213, game.CurrentPlayerIndex * 137 + 43, Tweener.easeOutElastic, game.Options.ComputerPlayerDelay > 600);
 
             playerStatus.Image = (Image) Properties.Resources.ResourceManager.GetObject(Card.CardColorToString(game.CurrentColor)+ ( game.Reverse ? "_ccw" : "_cw" ));
 
             if (game.CurrentColor == Card.CardColor.Wild) playerStatus.BackColor = Color.Black;
             else playerStatus.BackColor = Color.Transparent;
 
+
+
+            // Show the end game highlight
+            if(game.Finished)
+                endGameHighlightTimer.Start();
+
+
+            // Set the first flag, to enable animation again
+            first = false;
 
         }
 
@@ -282,16 +310,22 @@ namespace Uno
             controller.PickupCard();
         }
 
-
-        private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction)
+        private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, bool useAnimation)
         {
-            if (game.Options.UseAnimation /*&& !animating*/)
+            if (game.Options.UseAnimation && useAnimation)
+            {
                 AnimateMotion(card, left, top, easingFunction);
+            }
             else
             {
                 card.Top = top;
                 card.Left = left;
             }
+        }
+
+        private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction)
+        {
+            moveCardTo(card, left, top, Tweener.easeOutCubic, true);
         }
 
 
@@ -314,5 +348,12 @@ namespace Uno
         {
             new AboutBox().ShowDialog();
         }
+
+
+        void endGameHighlightTimer_Tick(object sender, EventArgs e)
+        {
+            endHighlight.Visible = !endHighlight.Visible;
+        }
+
     }
 }
