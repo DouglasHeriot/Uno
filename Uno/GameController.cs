@@ -75,6 +75,7 @@ namespace Uno
 
             // Perform the action of the first card (if applicable)
             performAction(Game.CurrentCard);
+            handleActions();
 
 
             // Get ready for the first player (make a move if it's a computer)
@@ -89,10 +90,8 @@ namespace Uno
             computerPlayerTimer.Tick += new EventHandler(computerPlayerTimer_Tick);
 
 
-            // Don't ever make the first play pickup cards
-            cardsToDraw = 0;
-
-
+            
+            
             // Show the game view
             gameView.Show();
 
@@ -344,45 +343,11 @@ namespace Uno
                 nextPlayer();
                 return;
             }
+
+
+            // Do the actions required for the action cards
+            handleActions();
             
-
-
-
-
-            // Skip the player if a skip card was played
-            if (skip)
-            {
-                skip = false;
-                nextPlayer();
-                return;
-            }
-
-
-            // Force the player to draw their cards
-            // TODO: give the next player an opportunity to play another draw card on top, etc.
-            if (cardsToDraw > 0 && game.NumberOfPlayingPlayers > 1)
-            {
-                bool success;
-
-                for (int i = 0; i < cardsToDraw; i++)
-                {
-                    success = currentPlayerPickupCard();
-
-#if DEBUG
-                    if (!success)
-                        MessageBox.Show("Failed to pickup a card!");
-#endif
-                }
-
-                // Reset to 0
-                cardsToDraw = 0;
-
-                // Move onto the next player
-                nextPlayer();
-                return;
-
-                
-            }
 
             // Get ready for the next player
             setupCurrentPlayer();
@@ -480,14 +445,12 @@ namespace Uno
             switch (card.Face)
             {
                 case Card.CardFace.Draw2:
-                    cardsToDraw = 2;
+                    cardsToDraw += 2;
                     break;
 
                 case Card.CardFace.Draw4:
-                    cardsToDraw = 4;
-
+                    cardsToDraw += 4;
                     // Selecting a color is handled by the SelectCard method, when the card is played
-
                     break;
 
                 case Card.CardFace.Skip:
@@ -497,6 +460,49 @@ namespace Uno
                 case Card.CardFace.Reverse:
                     reverse();
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Implement the actions of the action cards on the next player
+        /// </summary>
+        private void handleActions()
+        {
+
+
+            // Skip the player if a skip card was played
+            if (skip)
+            {
+                skip = false;
+                nextPlayer();
+                return;
+            }
+
+
+            // Force the player to draw their cards
+            // TODO: give the next player an opportunity to play another draw card on top, etc.
+            if (cardsToDraw > 0 && game.NumberOfPlayingPlayers > 1)
+            {
+                bool success;
+
+                for (int i = 0; i < cardsToDraw; i++)
+                {
+                    success = currentPlayerPickupCard();
+
+#if DEBUG
+                    if (!success)
+                        MessageBox.Show("Failed to pickup a card!");
+#endif
+                }
+
+                // Reset to 0
+                cardsToDraw = 0;
+
+                // Move onto the next player
+                nextPlayer();
+                return;
+
+
             }
         }
 

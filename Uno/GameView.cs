@@ -202,7 +202,7 @@ namespace Uno
 
 
             // Set player status
-            moveCardTo(playerStatus, 213, game.CurrentPlayerIndex * 137 + 43, Tweener.easeOutElastic, game.Options.ComputerPlayerDelay > 600);
+            moveCardTo(playerStatus, 213, game.CurrentPlayerIndex * 137 + 43, Tweener.easeOutCubic, game.Options.ComputerPlayerDelay > 600, 50);
 
             playerStatus.Image = (Image) Properties.Resources.ResourceManager.GetObject(Card.CardColorToString(game.CurrentColor)+ ( game.Reverse ? "_ccw" : "_cw" ));
 
@@ -256,12 +256,12 @@ namespace Uno
 
 
 
-        private void AnimateMotion(Control control, int left, int top, Projectplace.Gui.Tweener.ease easingFunction)
+        private void AnimateMotion(Control control, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, int time)
         {
             TweenPairs p = new TweenPairs();
             p.Add("Y", top);
             p.Add("X", left);
-            Tweener t = new Tweener(control, p, easingFunction, 30, 0);
+            Tweener t = new Tweener(control, p, easingFunction, time, 0);
 
             //t.setOnComplete(new Tweener.onCompleteFunction(completed));
             Tweener.add(t);
@@ -310,11 +310,13 @@ namespace Uno
             controller.PickupCard();
         }
 
-        private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, bool useAnimation)
+
+
+        private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, bool useAnimation, int time)
         {
             if (game.Options.UseAnimation && useAnimation)
             {
-                AnimateMotion(card, left, top, easingFunction);
+                AnimateMotion(card, left, top, easingFunction, time);
             }
             else
             {
@@ -322,6 +324,12 @@ namespace Uno
                 card.Left = left;
             }
         }
+
+        private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, bool useAnimation)
+        {
+            moveCardTo(card, left, top, Tweener.easeOutCubic, true, 30);
+        }
+
 
         private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction)
         {

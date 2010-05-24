@@ -131,6 +131,11 @@
             Index of the current player
             </summary>
         </member>
+        <member name="F:Uno.Game.previousPlayer">
+            <summary>
+            The previous player to play
+            </summary>
+        </member>
         <member name="F:Uno.Game.reverse">
             <summary>
             Is the play order reversed?
@@ -231,6 +236,11 @@
         <member name="P:Uno.Game.NumberOfPlayingPlayers">
             <summary>
             The number of players that still have cards in the game
+            </summary>
+        </member>
+        <member name="P:Uno.Game.PreviousPlayer">
+            <summary>
+            The previous player to have a turn
             </summary>
         </member>
         <member name="T:Uno.Game.GamePlayer">
@@ -806,6 +816,11 @@
             Perform the action on an action card
             </summary>
             <param name="card">The card played</param>
+        </member>
+        <member name="M:Uno.GameController.handleActions">
+            <summary>
+            Implement the actions of the action cards on the next player
+            </summary>
         </member>
         <member name="M:Uno.GameController.reverse">
             <summary>

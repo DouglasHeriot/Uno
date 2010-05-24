@@ -78,6 +78,10 @@ namespace Uno
         /// </summary>
         int currentPlayerIndex = 0;
 
+        /// <summary>
+        /// The previous player to play
+        /// </summary>
+        Player previousPlayer;
 
         /// <summary>
         /// Is the play order reversed?
@@ -292,6 +296,16 @@ namespace Uno
 
                 return count;
             }
+        }
+
+
+        /// <summary>
+        /// The previous player to have a turn
+        /// </summary>
+        public Player PreviousPlayer
+        {
+            get { return previousPlayer; }
+            set { previousPlayer = value; }
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////

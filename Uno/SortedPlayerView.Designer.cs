@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.typeLabel = new System.Windows.Forms.Label();
             this.scoreLabel = new System.Windows.Forms.Label();
             this.ordinalLabel = new System.Windows.Forms.Label();
             this.nameLabel = new System.Windows.Forms.Label();
@@ -39,16 +38,9 @@
             this.cardsPickedUpLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.typeBadge = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.typeBadge)).BeginInit();
             this.SuspendLayout();
-            // 
-            // typeLabel
-            // 
-            this.typeLabel.BackColor = System.Drawing.Color.Transparent;
-            this.typeLabel.Location = new System.Drawing.Point(3, 70);
-            this.typeLabel.Name = "typeLabel";
-            this.typeLabel.Size = new System.Drawing.Size(84, 13);
-            this.typeLabel.TabIndex = 7;
-            this.typeLabel.Text = "Smart Computer";
             // 
             // scoreLabel
             // 
@@ -153,11 +145,23 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "Cards Played";
             // 
+            // typeBadge
+            // 
+            this.typeBadge.BackColor = System.Drawing.Color.Transparent;
+            this.typeBadge.Image = global::Uno.Properties.Resources.computer;
+            this.typeBadge.Location = new System.Drawing.Point(173, 0);
+            this.typeBadge.Name = "typeBadge";
+            this.typeBadge.Size = new System.Drawing.Size(60, 18);
+            this.typeBadge.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.typeBadge.TabIndex = 15;
+            this.typeBadge.TabStop = false;
+            // 
             // SortedPlayerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.typeBadge);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cardsPickedUpLabel);
@@ -165,12 +169,12 @@
             this.Controls.Add(this.turnsLabel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.typeLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.ordinalLabel);
             this.Controls.Add(this.nameLabel);
             this.Name = "SortedPlayerView";
             this.Size = new System.Drawing.Size(370, 88);
+            ((System.ComponentModel.ISupportInitialize)(this.typeBadge)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,7 +182,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label typeLabel;
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Label ordinalLabel;
         private System.Windows.Forms.Label nameLabel;
@@ -189,6 +192,7 @@
         private System.Windows.Forms.Label cardsPickedUpLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox typeBadge;
 
     }
 }

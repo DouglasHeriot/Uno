@@ -27,7 +27,7 @@ namespace Uno
             BackgroundImage = Properties.Resources.CardTableLight;
 
 
-            typeLabel.ForeColor = Color.FromArgb(126, 147, 73);
+//            typeLabel.ForeColor = Color.FromArgb(126, 147, 73);
         }
 
         public void SetInfo(Player thePlayer, Game theGame)
@@ -43,7 +43,9 @@ namespace Uno
 
             nameLabel.Text = player.Name;
             scoreLabel.Text = "Score: " + player.Score;
-            typeLabel.Text = Player.PlayerTypeToString(player.Type);
+
+            //typeLabel.Text = Player.PlayerTypeToString(player.Type);
+            typeBadge.Image = Player.PlayerTypeBadge(player.Type);
 
             turnsLabel.Text = gamePlayer.NumberOfTurns.ToString();
             cardsPickedUpLabel.Text = gamePlayer.NumberOfCardsPickedUp.ToString();
