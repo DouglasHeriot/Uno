@@ -1,4 +1,4 @@
-﻿/**
+﻿/*
  * Tweener.cs
  * Smooth animation helper for .Net controls
  *

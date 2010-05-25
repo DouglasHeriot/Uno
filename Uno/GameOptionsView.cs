@@ -11,12 +11,14 @@ namespace Uno
 {
     partial class GameOptionsView : Form
     {
+        // Create a GameOptions object to be edited and later returned
         private GameOptions options = new GameOptions();
 
         public GameOptionsView()
         {
             InitializeComponent();
 
+            // Add event handler that will prevent the form from closing
             FormClosing += new FormClosingEventHandler(GameOptionsView_FormClosing);
         }
 
@@ -32,6 +34,9 @@ namespace Uno
                 options.UseAnimation = animationCheckbox.Checked;
                 options.CardsForEachPlayer = (int)cardsPerPlayerUpDown.Value;
                 options.ComputerPlayerDelay = (int)computerDelayUpDown.Value;
+                options.HighlightPlayableCards = highlightPlayableCards.Checked;
+
+                options.AllowDraw4Always = allowDraw4.Checked;
 
                 return options;
             }

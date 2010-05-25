@@ -328,8 +328,8 @@ namespace Uno
         /// <summary>
         /// Create a new game with players and options
         /// </summary>
-        /// <param name="players"></param>
-        /// <param name="options"></param>
+        /// <param name="gamePlayers"></param>
+        /// <param name="gameOptions"></param>
         public Game(List<Player> gamePlayers, GameOptions gameOptions)
             :this()
         {
@@ -390,6 +390,7 @@ namespace Uno
             public List<Card> Cards
             {
                 get { return cards; }
+                set { cards = value; }
             }
 
             /// <summary>
@@ -450,7 +451,7 @@ namespace Uno
             /// <summary>
             /// Create a new GamePlayer object
             /// </summary>
-            /// <param name="player"></param>
+            /// <param name="inputPlayer"></param>
             public GamePlayer(Player inputPlayer)
             {
                 player = inputPlayer;

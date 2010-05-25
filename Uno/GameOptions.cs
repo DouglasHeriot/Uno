@@ -21,8 +21,13 @@ namespace Uno
         public int CardsForEachPlayer = 25;
         public int ComputerPlayerDelay = 50;
         public bool UseAnimation = true;
+        public bool HighlightPlayableCards = false;
+
+        // Optional Rules (not all are implemented yet!)
         public bool AllowPickupPutDown = false;
         public bool AllowDrawStacking = false;
+        public bool SwapHandsWith0 = true;
+        public bool AllowDraw4Always = true;
 
         public ScoringSystems ScoringSystem = ScoringSystems.Basic;
     }

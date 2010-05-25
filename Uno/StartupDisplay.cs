@@ -10,7 +10,10 @@ using Projectplace.Gui;
 
 namespace Uno
 {
-    public partial class StartupDisplay : Form
+    /// <summary>
+    /// The first form shown
+    /// </summary>
+    partial class StartupDisplay : Form
     {
         private List<StartupPlayerView> startupPlayerViews = new List<StartupPlayerView>(Game.MAXPLAYERS);
         private GameOptionsView optionsView = new GameOptionsView();

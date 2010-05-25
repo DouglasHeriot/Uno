@@ -25,11 +25,16 @@ namespace Uno
 
         bool first = true;
 
+        ToolTip toolTip;
+
+
         public GameView(Game newGame, GameController gameController)
         {
 
 
             InitializeComponent();
+
+            toolTip = new ToolTip();
 
             // Must redefine the background image to make the optimizing code work properly
             BackgroundImage = Properties.Resources.GameView;
@@ -130,31 +135,44 @@ namespace Uno
             // Layout the cards for each player
             for (int i=0; i<game.Players.Count; i++)
             {
-
+                // Get the GamePlayer
                 Game.GamePlayer p = (Game.GamePlayer) game.PlayersCards[game.Players[i]];
-                
-                
 
+                
                 for (int k=0; k<p.Cards.Count; k++)
                 {
+                    // Get the card
                     Card c = p.Cards[k];
 
+                    // Get the picture box and make sure it's shown on the form
                     PictureBox pictureBox = cardsViews[c] as PictureBox;
                     this.Controls.Add(pictureBox);
                     pictureBox.BringToFront();
 
+                    // Highlight playable cards
+                    if(game.Options.HighlightPlayableCards)
+                        pictureBox.BorderStyle = controller.CanPlayCard(c) ? BorderStyle.FixedSingle : BorderStyle.None;
 
+                    
 
+                    // Extra things to try while in Debug mode (incomplete features)
                     #if DEBUG
-                    if (p.Cards.Count > 10)
-                    {
-                        //System.Diagnostics.Debugger.Break();
-                    }
+
+                        // Set the tooltip to the status of the card
+                        toolTip.SetToolTip(pictureBox, controller.CanPlayCardStatus(c).ToString());
+
+
+                        if (p.Cards.Count > 10)
+                        {
+                            //System.Diagnostics.Debugger.Break();
+                        }
+
                     #endif
 
+                    // Set the position of the card on the screen, putting them closer together when there's more than 10 cards
                     int left = p.Cards.Count <= 10 ? k * 60 + 260 : k * (650 / p.Cards.Count) + 260 ;
 
-
+                    // Animate moving the position of the card
                     moveCardTo(pictureBox, left, i * 137 + 80, Tweener.easeOutCubic, !first);
 
 
@@ -176,12 +194,19 @@ namespace Uno
             // Display the discard pile
             if (game.DiscardPile.Count > 0)
             {
-                Control lastCard = cardsViews[game.DiscardPile.Last()] as Control;
+                PictureBox lastCard = cardsViews[game.DiscardPile.Last()] as PictureBox;
 
                 Controls.Add(lastCard);
                 lastCard.BringToFront();
 
                 moveCardTo(lastCard, 75, 65);
+
+                // Remove tooltip
+                toolTip.SetToolTip(lastCard, "");
+
+                // Remove the highlighted border
+                if (game.Options.HighlightPlayableCards)
+                    lastCard.BorderStyle = BorderStyle.None;
             }
 
 

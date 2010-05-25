@@ -97,7 +97,7 @@ namespace Uno
         /// <summary>
         /// Create a new Player with a name
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="newName"></param>
         public Player(string newName)
             :this()
         {

@@ -10,6 +10,47 @@ namespace Uno
     class GameController
     {
         ///////////////////////////////////////////////////////////////////////////////////////
+        // Enums
+        ///////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Determine the status of playing a card
+        /// </summary>
+        public enum CardPlayStatus
+        {
+            /// <summary>
+            /// The card may be played
+            /// </summary>
+            Success,
+
+            /// <summary>
+            /// The card is the wrong color
+            /// </summary>
+            WrongColor,
+
+            /// <summary>
+            /// The card is the wrong face value
+            /// </summary>
+            WrongFace,
+
+            /// <summary>
+            /// The card does not belong to the current player
+            /// </summary>
+            IncorrectPlayer,
+
+            /// <summary>
+            /// Draw 4 may only be played when no other card of current colour are available
+            /// </summary>
+            Draw4NotAllowed,
+
+            /// <summary>
+            /// The reason is unknown: an error may have occurred
+            /// </summary>
+            UnkownError
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////
         // Attributes
         ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -48,7 +89,7 @@ namespace Uno
         /// <summary>
         /// Create a new game controller for a new Game
         /// </summary>
-        /// <param name="game"></param>
+        /// <param name="newGame"></param>
         public GameController(Game newGame)
         {
             game = newGame;
@@ -115,12 +156,13 @@ namespace Uno
         /// Choose a card for the current player to play
         /// </summary>
         /// <param name="card"></param>
-        public void SelectCard(Card card)
+        public CardPlayStatus SelectCard(Card card)
         {
             
-            // Check if the card can be played
-            if (!canPlayCard(card))
-                return;
+            // Check if the card can be played before asking for wild colour
+            CardPlayStatus wildCheckStatus = CanPlayCardStatus(card);
+            if (wildCheckStatus != CardPlayStatus.Success)
+                return wildCheckStatus;
             
 
             // Ask for the color for a wild card
@@ -140,21 +182,25 @@ namespace Uno
 
             }
 
-            SelectCard(card, game.CurrentPlayer, false);
+            return SelectCard(card, game.CurrentPlayer, false);
         }
 
 
         /// <summary>
         /// Choose a card for the current player to play
         /// </summary>
-        /// <param name="card"></param>
-        public void SelectCard(Card card, Player player, bool computer)
+        public CardPlayStatus SelectCard(Card card, Player player, bool computer)
         {
+            CardPlayStatus theStatus = CardPlayStatus.UnkownError;
+
+
             // Check that it's the current player's card, not someone else's
             if (game.CurrentGamePlayer.Cards.IndexOf(card) >= 0)
             {
+                CardPlayStatus status = CanPlayCardStatus(card);
+
                 // Check that the card is allowed
-                if (canPlayCard(card))
+                if (status == CardPlayStatus.Success)
                 {
                     // Move it to the discard pile
                     game.DiscardPile.Add(card);
@@ -178,14 +224,16 @@ namespace Uno
                 else
                 {
                     // Sorry, you can't play that card!
+                    theStatus = status;
                 }
             }
             else
             {
                 // It's not your turn!
+                theStatus = CardPlayStatus.IncorrectPlayer;
             }
 
-            
+            return theStatus;
             
         }
 
@@ -195,7 +243,6 @@ namespace Uno
         /// </summary>
         public void PickupCard()
         {
-            
             PickupCard(false);
         }
 
@@ -255,16 +302,64 @@ namespace Uno
             gameView.Close();
         }
 
-        /*
         /// <summary>
-        /// Testing purposes only (should be removed later)
+        /// Check if a card can be played (by current or previous players)
         /// </summary>
-        public void MakeComputerMove()
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public bool CanPlayCard(Card card)
         {
-            startComputerMove();
+            return CanPlayCardStatus(card) == CardPlayStatus.Success;
         }
-         */
 
+
+        // Check if a card can be played
+        public CardPlayStatus CanPlayCardStatus(Card card)
+        {
+            // Assume success unless otherwise
+            CardPlayStatus success = CardPlayStatus.Success;
+
+            if (card.Color != Card.CardColor.Wild && card.Color != game.CurrentColor && card.Face != game.CurrentFace)
+            {
+                // Check the colour is correct, or the card is a wild
+                if (card.Color != Card.CardColor.Wild && card.Color != game.CurrentColor)
+                    success = CardPlayStatus.WrongColor;
+
+                // Check if the face is correct
+                else if (card.Face != game.CurrentFace)
+                    success = CardPlayStatus.WrongFace;
+            }
+
+
+            // Don't allow Draw 4s when the player has a card of the current color
+            if (!game.Options.AllowDraw4Always)
+            {
+                bool checkForCurrentColor = false;
+
+                foreach (Card c in game.CurrentGamePlayer.Cards)
+                {
+                    if (c.Color == game.CurrentColor)
+                    {
+                        checkForCurrentColor = true;
+                        break;
+                    }
+                }
+
+                if (checkForCurrentColor)
+                    success = CardPlayStatus.Draw4NotAllowed;
+
+            }
+
+            // Don't allow playing somebody else's cards!
+            // TODO: allow optional pickup put downs
+            if (game.CurrentGamePlayer.Cards.IndexOf(card) < 0)
+                success = CardPlayStatus.IncorrectPlayer;
+
+
+            return success;
+        }
+
+       
         ///////////////////////////////////////////////////////////////////////////////////////
         // Private Methods
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -312,6 +407,43 @@ namespace Uno
         }
 
 
+        /// <summary>
+        /// Get the index of the next player
+        /// </summary>
+        /// <param name="initial">The index of the current player</param>
+        /// <param name="reverse">Reverse the current direction again</param>
+        /// <returns>The index of the next player</returns>
+        private int getNextPlayerIndex(int initial, bool reverse)
+        {
+            // Move onto the next player
+            if (!reverse ? !game.Reverse : game.Reverse)
+            {
+                initial++;
+
+                if (initial >= game.Players.Count)
+                    initial = 0;
+            }
+            else
+            {
+                initial--;
+
+                if (initial < 0)
+                    initial = game.Players.Count - 1;
+            }
+
+            return initial;
+
+        }
+
+        /// <summary>
+        /// Get the index of the next player
+        /// </summary>
+        /// <param name="initial">The index of the current player</param>
+        /// <returns>The index of the next player</returns>
+        private int getNextPlayerIndex(int initial)
+        {
+            return getNextPlayerIndex(initial, false);
+        }
 
         private void nextPlayer()
         {
@@ -321,21 +453,7 @@ namespace Uno
 
 
             // Move onto the next player
-            if (!game.Reverse)
-            {
-                game.CurrentPlayerIndex++;
-
-                if (game.CurrentPlayerIndex >= game.Players.Count)
-                    game.CurrentPlayerIndex = 0;
-            }
-            else
-            {
-                game.CurrentPlayerIndex--;
-
-                if (game.CurrentPlayerIndex < 0)
-                    game.CurrentPlayerIndex = game.Players.Count - 1;
-            }
-
+            game.CurrentPlayerIndex = getNextPlayerIndex(game.CurrentPlayerIndex);
 
             // Check if the player is actually already finished (but the whole game isn't)
             if (game.CurrentGamePlayer.Finished)
@@ -388,12 +506,18 @@ namespace Uno
             }
 
 
-            // Add a card from the deck to the current player's hand
-            game.CurrentGamePlayer.Cards.Add(game.Deck[0]);
-            game.Deck.RemoveAt(0);
+            // Get the index to insert the card into
+            // (more efficient than sorting the whole hand again when adding a card)
+            int index = 0;
 
-            // Sort the hand
-            sortCards(game.CurrentGamePlayer.Cards);
+            // Index must be checked first, to prevent out of range exceptions in the second half of the condition
+            while (index < game.CurrentGamePlayer.Cards.Count && game.CurrentGamePlayer.Cards[index].SortingValue < game.Deck[0].SortingValue)
+                index++;
+
+
+            // Add a card from the deck to the current player's hand
+            game.CurrentGamePlayer.Cards.Insert(index, game.Deck[0]);
+            game.Deck.RemoveAt(0);
 
             // Add to the number of cards picked up statistic
             game.CurrentGamePlayer.NumberOfCardsPickedUp++;
@@ -460,6 +584,11 @@ namespace Uno
                 case Card.CardFace.Reverse:
                     reverse();
                     break;
+
+                case Card.CardFace.Zero:
+                    if(game.Options.SwapHandsWith0)
+                        swapAllPlayerHands();
+                    break;
             }
         }
 
@@ -517,41 +646,6 @@ namespace Uno
         }
 
 
-        /// <summary>
-        /// Check if a card can be played
-        /// </summary>
-        /// <param name="card"></param>
-        /// <returns></returns>
-        private bool canPlayCard(Card card)
-        {
-            bool success = false;
-
-            
-            // Old condition used during development from old canPlayCardOn(card, card) method
-            // current.Color == newCard.Color || newCard.Color == Card.CardColor.Wild || /* current.Color == Card.CardColor.Wild ||*/ current.Face == newCard.Face
-
-
-            // Always allow wilds
-            // TODO: implement (optional) Uno rule where you can only play D4 when you've got no other option
-            if (card.Color == Card.CardColor.Wild)
-                success = true;
-
-            // Allow if the color is correct
-            else if (card.Color == game.CurrentColor)
-                success = true;
-
-            // Allow if the face is correct
-            else if (card.Face == game.CurrentFace)
-                success = true;
-
-
-            // Don't allow playing somebody else's cards!
-            if (game.CurrentGamePlayer.Cards.IndexOf(card) < 0)
-                success = false;
-
-            return success;
-        }
-
 
 
 
@@ -603,7 +697,7 @@ namespace Uno
                 // Look for cards the same color
                 foreach(Card c in cards)
                 {
-                    if (canPlayCard(c) && game.CurrentColor == c.Color)
+                    if (CanPlayCard(c) && game.CurrentColor == c.Color)
                         playableCards.Add(c);
                 }
 
@@ -612,7 +706,7 @@ namespace Uno
                 {
                     foreach (Card c in cards)
                     {
-                        if (canPlayCard(c) && game.CurrentFace == c.Face)
+                        if (CanPlayCard(c) && game.CurrentFace == c.Face)
                             playableCards.Add(c);
                     }
                 }
@@ -622,7 +716,7 @@ namespace Uno
                 {
                     foreach (Card c in cards)
                     {
-                        if (canPlayCard(c) && c.Color == Card.CardColor.Wild)
+                        if (CanPlayCard(c) && c.Color == Card.CardColor.Wild)
                             playableCards.Add(c);
                     }
                 }
@@ -632,7 +726,7 @@ namespace Uno
                 // Look for any cards that can be played
                 foreach (Card c in cards)
                 {
-                    if (canPlayCard(c))
+                    if (CanPlayCard(c))
                         playableCards.Add(c);
                 }
             }
@@ -729,6 +823,26 @@ namespace Uno
             makeComputerMove();
         }
 
+
+        private void swapAllPlayerHands()
+        {
+
+
+            List<Card> temp = (game.PlayersCards[game.Players[0]] as Game.GamePlayer).Cards;
+
+
+            int index = 0;
+
+            for (int i = 0; i < game.NumberOfPlayers; i++)
+            {
+                if(i<game.NumberOfPlayers-1)
+                    (game.PlayersCards[game.Players[index]] as Game.GamePlayer).Cards = (game.PlayersCards[game.Players[getNextPlayerIndex(index, true)]] as Game.GamePlayer).Cards;
+                else
+                    (game.PlayersCards[game.Players[index]] as Game.GamePlayer).Cards = temp;
+
+                index = getNextPlayerIndex(index, true);
+            }
+        }
 
 
         ///////////////////////////////////////////////////////////////////////////////////////

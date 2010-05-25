@@ -155,8 +155,8 @@
             <summary>
             Create a new game with players and options
             </summary>
-            <param name="players"></param>
-            <param name="options"></param>
+            <param name="gamePlayers"></param>
+            <param name="gameOptions"></param>
         </member>
         <member name="P:Uno.Game.Players">
             <summary>
@@ -252,7 +252,7 @@
             <summary>
             Create a new GamePlayer object
             </summary>
-            <param name="player"></param>
+            <param name="inputPlayer"></param>
         </member>
         <member name="P:Uno.Game.GamePlayer.Player">
             <summary>
@@ -520,6 +520,11 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:Uno.StartupDisplay">
+            <summary>
+            The first form shown
+            </summary>
+        </member>
         <member name="F:Uno.StartupDisplay.components">
             <summary>
             Required designer variable.
@@ -715,7 +720,7 @@
             <summary>
             Create a new Player with a name
             </summary>
-            <param name="name"></param>
+            <param name="newName"></param>
         </member>
         <member name="M:Uno.Player.#ctor(System.String,Uno.Player.PlayerType)">
             <summary>
@@ -762,7 +767,7 @@
             <summary>
             Create a new game controller for a new Game
             </summary>
-            <param name="game"></param>
+            <param name="newGame"></param>
         </member>
         <member name="M:Uno.GameController.SelectCard(Uno.Card)">
             <summary>
@@ -774,7 +779,6 @@
             <summary>
             Choose a card for the current player to play
             </summary>
-            <param name="card"></param>
         </member>
         <member name="M:Uno.GameController.PickupCard">
             <summary>
@@ -786,6 +790,13 @@
             Choose to pickup a card instead of playing
             </summary>
         </member>
+        <member name="M:Uno.GameController.CanPlayCard(Uno.Card)">
+            <summary>
+            Check if a card can be played (by current or previous players)
+            </summary>
+            <param name="card"></param>
+            <returns></returns>
+        </member>
         <member name="M:Uno.GameController.shuffleDeck">
             <summary>
             Shuffle the deck of cards to pick up
@@ -795,6 +806,21 @@
             <summary>
             Deal cards to each player and to the discard pile
             </summary>
+        </member>
+        <member name="M:Uno.GameController.getNextPlayerIndex(System.Int32,System.Boolean)">
+            <summary>
+            Get the index of the next player
+            </summary>
+            <param name="initial">The index of the current player</param>
+            <param name="reverse">Reverse the current direction again</param>
+            <returns>The index of the next player</returns>
+        </member>
+        <member name="M:Uno.GameController.getNextPlayerIndex(System.Int32)">
+            <summary>
+            Get the index of the next player
+            </summary>
+            <param name="initial">The index of the current player</param>
+            <returns>The index of the next player</returns>
         </member>
         <member name="M:Uno.GameController.setupCurrentPlayer">
             <summary>
@@ -826,13 +852,6 @@
             <summary>
             Reverse the direction of play
             </summary>
-        </member>
-        <member name="M:Uno.GameController.canPlayCard(Uno.Card)">
-            <summary>
-            Check if a card can be played
-            </summary>
-            <param name="card"></param>
-            <returns></returns>
         </member>
         <member name="M:Uno.GameController.startComputerMove">
             <summary>
@@ -873,6 +892,41 @@
         <member name="P:Uno.GameController.Game">
             <summary>
             The game being played
+            </summary>
+        </member>
+        <member name="T:Uno.GameController.CardPlayStatus">
+            <summary>
+            Determine the status of playing a card
+            </summary>
+        </member>
+        <member name="F:Uno.GameController.CardPlayStatus.Success">
+            <summary>
+            The card may be played
+            </summary>
+        </member>
+        <member name="F:Uno.GameController.CardPlayStatus.WrongColor">
+            <summary>
+            The card is the wrong color
+            </summary>
+        </member>
+        <member name="F:Uno.GameController.CardPlayStatus.WrongFace">
+            <summary>
+            The card is the wrong face value
+            </summary>
+        </member>
+        <member name="F:Uno.GameController.CardPlayStatus.IncorrectPlayer">
+            <summary>
+            The card does not belong to the current player
+            </summary>
+        </member>
+        <member name="F:Uno.GameController.CardPlayStatus.Draw4NotAllowed">
+            <summary>
+            Draw 4 may only be played when no other card of current colour are available
+            </summary>
+        </member>
+        <member name="F:Uno.GameController.CardPlayStatus.UnkownError">
+            <summary>
+            The reason is unknown: an error may have occurred
             </summary>
         </member>
         <member name="M:Uno.Program.Main">
