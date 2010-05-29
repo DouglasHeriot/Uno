@@ -37,6 +37,7 @@ namespace Uno
                 options.HighlightPlayableCards = highlightPlayableCards.Checked;
 
                 options.AllowDraw4Always = allowDraw4.Checked;
+                options.SwapHandsWith0 = swapWith0.Checked;
 
                 return options;
             }

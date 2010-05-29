@@ -38,6 +38,7 @@
             this.helpButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.allowDraw4 = new System.Windows.Forms.CheckBox();
+            this.swapWith0 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.computerDelayUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsPerPlayerUpDown)).BeginInit();
             this.SuspendLayout();
@@ -170,12 +171,23 @@
             this.allowDraw4.Text = "Allow Draw 4s to be played any time";
             this.allowDraw4.UseVisualStyleBackColor = true;
             // 
+            // swapWith0
+            // 
+            this.swapWith0.AutoSize = true;
+            this.swapWith0.Location = new System.Drawing.Point(12, 208);
+            this.swapWith0.Name = "swapWith0";
+            this.swapWith0.Size = new System.Drawing.Size(153, 17);
+            this.swapWith0.TabIndex = 7;
+            this.swapWith0.Text = "Swap hands with a \'0\' card";
+            this.swapWith0.UseVisualStyleBackColor = true;
+            // 
             // GameOptionsView
             // 
             this.AcceptButton = this.doneButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(250, 287);
+            this.Controls.Add(this.swapWith0);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.helpButton);
@@ -211,5 +223,6 @@
         private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox allowDraw4;
+        private System.Windows.Forms.CheckBox swapWith0;
     }
 }

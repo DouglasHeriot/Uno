@@ -52,14 +52,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Uno.exe" size="3714048">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Uno.exe" size="3714560">
       <assemblyIdentity name="Uno" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Rz1Hu1xXkZFGtBy21u+t0VvBJb4=</dsig:DigestValue>
+        <dsig:DigestValue>J8gprlazLzWnuA98ARl8KLhW/Os=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

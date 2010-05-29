@@ -435,6 +435,16 @@ namespace Uno
 
         }
 
+        private int getNextPlayingPlayerIndex(int initial, bool reverse)
+        {
+            int value = getNextPlayerIndex(initial, reverse);
+
+            while ((game.PlayersCards[game.Players[value]] as Game.GamePlayer).Finished)
+                value = getNextPlayerIndex(value, reverse);
+
+            return value;
+        }
+
         /// <summary>
         /// Get the index of the next player
         /// </summary>
@@ -833,14 +843,15 @@ namespace Uno
 
             int index = 0;
 
-            for (int i = 0; i < game.NumberOfPlayers; i++)
+            for (int i = 0; i < game.NumberOfPlayingPlayers; i++)
             {
-                if(i<game.NumberOfPlayers-1)
-                    (game.PlayersCards[game.Players[index]] as Game.GamePlayer).Cards = (game.PlayersCards[game.Players[getNextPlayerIndex(index, true)]] as Game.GamePlayer).Cards;
+                if(i<game.NumberOfPlayingPlayers-1)
+                    (game.PlayersCards[game.Players[index]] as Game.GamePlayer).Cards = (game.PlayersCards[game.Players[getNextPlayingPlayerIndex(index, true)]] as Game.GamePlayer).Cards;
                 else
                     (game.PlayersCards[game.Players[index]] as Game.GamePlayer).Cards = temp;
 
-                index = getNextPlayerIndex(index, true);
+                
+                index = getNextPlayingPlayerIndex(index, true);
             }
         }
 
