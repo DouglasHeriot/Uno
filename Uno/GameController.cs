@@ -281,7 +281,7 @@ namespace Uno
                 for (int i = 0; i < game.NumberOfPlayers; i++)
                 {
                     Game.GamePlayer gamePlayer = (game.PlayersCards[game.Players[i]] as Game.GamePlayer);
-                    gamePlayer.Score = gamePlayer.FinishRank < 0 ? game.NumberOfPlayers - 1 : gamePlayer.FinishRank;
+                    gamePlayer.Score = gamePlayer.FinishRank < 0 ? game.NumberOfPlayers : gamePlayer.FinishRank;
 
                     game.Players[i].Score += gamePlayer.Score;
                 }
@@ -926,10 +926,20 @@ namespace Uno
                 }
             }
 
+            int sameRankedPlayers = 0;
+
             // Give the players ranks so strings for "first", "second", etc. can be generated
             for (int j = 0; j < game.NumberOfPlayers; j++)
-                game.Players[j].Rank = j;
-            // TODO: handle ties, so both players recieve the same rank
+            {
+                if (j > 0 && game.Players[j - 1].Score == game.Players[j].Score)
+                    sameRankedPlayers++;
+                else
+                    sameRankedPlayers = 0;
+
+                game.Players[j].Rank = j-sameRankedPlayers;
+
+            }
+            
         }
 
 
@@ -954,7 +964,7 @@ namespace Uno
                     // only count from 0-12 to exclude draw 4
                     for (int k = 0; k < 13; k++)
                     {
-                        deck.Add(new Card(color, (Card.CardFace)k));
+                        deck.Add(new Card(color, (Card.CardFace)k));    
 
                         // Add the second idenical card, except for 0s
                         if (k != 0)
