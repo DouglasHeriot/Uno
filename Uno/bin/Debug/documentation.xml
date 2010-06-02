@@ -423,6 +423,13 @@
             <param name="face"></param>
             <returns></returns>
         </member>
+        <member name="M:Uno.Card.ScoringValueForFace(Uno.Card.CardFace)">
+            <summary>
+            Get the Uno scoring value for a card face
+            </summary>
+            <param name="face">The face value of the card</param>
+            <returns>The integer value</returns>
+        </member>
         <member name="P:Uno.Card.Color">
             <summary>
             The color of the card
@@ -790,6 +797,11 @@
             Choose to pickup a card instead of playing
             </summary>
         </member>
+        <member name="M:Uno.GameController.EndGame">
+            <summary>
+            End the game, and perform necessary clean up
+            </summary>
+        </member>
         <member name="M:Uno.GameController.CanPlayCard(Uno.Card)">
             <summary>
             Check if a card can be played (by current or previous players)
@@ -853,6 +865,13 @@
             Reverse the direction of play
             </summary>
         </member>
+        <member name="M:Uno.GameController.gameView_FormClosed(System.Object,System.Windows.Forms.FormClosedEventArgs)">
+            <summary>
+            Tell the program the window was closed
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
         <member name="M:Uno.GameController.startComputerMove">
             <summary>
             Gets ready to make a move for the computer
@@ -861,6 +880,18 @@
         <member name="M:Uno.GameController.makeComputerMove">
             <summary>
             Makes the move for a computer player (should only be called by a timer)
+            </summary>
+        </member>
+        <member name="M:Uno.GameController.computerPlayerTimer_Tick(System.Object,System.EventArgs)">
+            <summary>
+            Execute the computer player's move after a delay
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Uno.GameController.swapAllPlayerHands">
+            <summary>
+            Swap the players hands around (optionally when playing a 0 card)
             </summary>
         </member>
         <member name="M:Uno.GameController.ShuffleList``1(System.Collections.Generic.IList{``0})">
@@ -887,6 +918,13 @@
             <summary>
             Generate a Uno deck of cards
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Uno.GameController.CalculateUnoScoreForHand(System.Collections.Generic.List{Uno.Card})">
+            <summary>
+            Calculate a player's Uno score for their hand
+            </summary>
+            <param name="hand"></param>
             <returns></returns>
         </member>
         <member name="P:Uno.GameController.Game">

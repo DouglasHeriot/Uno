@@ -15,20 +15,61 @@ namespace Uno
             Hybrid
         }
 
-        // TODO: break down into properties with private attributes
+        // Auto properties are much nicer than splitting with separate fields, 
+        // where no additional logic is required
+        
+        public int CardsForEachPlayer       { get; set; }
+        public int ComputerPlayerDelay      { get; set; }
+        public bool UseAnimation            { get; set; }
+        public bool HighlightPlayableCards  { get; set; }
+
+        // Optional Rules
+        public bool SwapHandsWith0          { get; set; }
+        public bool AllowDraw4Always        { get; set; }
+        //public bool AllowPickupPutDown    { get; set; }
+        //public bool AllowDrawStacking     { get; set; }
 
 
-        public int CardsForEachPlayer = 25;
-        public int ComputerPlayerDelay = 50;
-        public bool UseAnimation = true;
-        public bool HighlightPlayableCards = false;
+        private ScoringSystems scoringSystem = ScoringSystems.Basic;
+        private bool stopPlayingAfterFirst = false;
 
-        // Optional Rules (not all are implemented yet!)
-        public bool AllowPickupPutDown = false;
-        public bool AllowDrawStacking = false;
-        public bool SwapHandsWith0 = true;
-        public bool AllowDraw4Always = true;
+        public ScoringSystems ScoringSystem
+        {
+            get { return scoringSystem; }
+            set
+            {
+                scoringSystem = value;
 
-        public ScoringSystems ScoringSystem = ScoringSystems.Basic;
+                if (scoringSystem == ScoringSystems.OfficialUno)
+                    stopPlayingAfterFirst = true;
+            }
+        }
+
+        public bool StopPlayingAfterFirst
+        {
+            get { return stopPlayingAfterFirst; }
+            set
+            {
+                stopPlayingAfterFirst = scoringSystem == ScoringSystems.OfficialUno ? true : value;
+            }
+        }
+
+
+        public GameOptions()
+        {
+            // Set default values
+
+            CardsForEachPlayer = 7;
+            ComputerPlayerDelay = 1200;
+            UseAnimation = true;
+            HighlightPlayableCards = false;
+
+            SwapHandsWith0 = false;
+            AllowDraw4Always = true;
+            StopPlayingAfterFirst = false;
+
+            ScoringSystem = ScoringSystems.Basic;
+            
+        }
     }
 }

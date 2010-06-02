@@ -20,6 +20,8 @@ namespace Uno
             // Create a new player object
             player = new Player();
 
+            // Select human by default
+            type.SelectedIndex = 0;
 
             // Set the background image
             BackgroundImage = Properties.Resources.CardTableLight;

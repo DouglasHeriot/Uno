@@ -37,6 +37,7 @@
             // type
             // 
             this.type.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.type.FormattingEnabled = true;
             this.type.Items.AddRange(new object[] {
             "Human",
@@ -46,7 +47,6 @@
             this.type.Name = "type";
             this.type.Size = new System.Drawing.Size(120, 21);
             this.type.TabIndex = 2;
-            this.type.Text = "Human";
             this.type.SelectedIndexChanged += new System.EventHandler(this.type_SelectedIndexChanged);
             // 
             // name

@@ -39,6 +39,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.allowDraw4 = new System.Windows.Forms.CheckBox();
             this.swapWith0 = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.scoringMethodDropDown = new System.Windows.Forms.ComboBox();
+            this.stopAfterFirst = new System.Windows.Forms.CheckBox();
+            this.requiredOfficialLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.computerDelayUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsPerPlayerUpDown)).BeginInit();
             this.SuspendLayout();
@@ -46,9 +50,10 @@
             // animationCheckbox
             // 
             this.animationCheckbox.AutoSize = true;
+            this.animationCheckbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.animationCheckbox.Checked = true;
             this.animationCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.animationCheckbox.Location = new System.Drawing.Point(70, 80);
+            this.animationCheckbox.Location = new System.Drawing.Point(149, 94);
             this.animationCheckbox.Name = "animationCheckbox";
             this.animationCheckbox.Size = new System.Drawing.Size(94, 17);
             this.animationCheckbox.TabIndex = 2;
@@ -57,7 +62,7 @@
             // 
             // computerDelayUpDown
             // 
-            this.computerDelayUpDown.Location = new System.Drawing.Point(19, 103);
+            this.computerDelayUpDown.Location = new System.Drawing.Point(228, 117);
             this.computerDelayUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -80,24 +85,26 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(86, 107);
+            this.label1.Location = new System.Drawing.Point(89, 119);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Computer Player Delay (ms)";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(86, 35);
+            this.label2.Location = new System.Drawing.Point(142, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Cards per player";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cardsPerPlayerUpDown
             // 
-            this.cardsPerPlayerUpDown.Location = new System.Drawing.Point(19, 31);
+            this.cardsPerPlayerUpDown.Location = new System.Drawing.Point(228, 45);
             this.cardsPerPlayerUpDown.Maximum = new decimal(new int[] {
             25,
             0,
@@ -120,7 +127,7 @@
             // doneButton
             // 
             this.doneButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.doneButton.Location = new System.Drawing.Point(228, 252);
+            this.doneButton.Location = new System.Drawing.Point(355, 307);
             this.doneButton.Name = "doneButton";
             this.doneButton.Size = new System.Drawing.Size(75, 23);
             this.doneButton.TabIndex = 7;
@@ -131,7 +138,8 @@
             // highlightPlayableCards
             // 
             this.highlightPlayableCards.AutoSize = true;
-            this.highlightPlayableCards.Location = new System.Drawing.Point(70, 57);
+            this.highlightPlayableCards.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.highlightPlayableCards.Location = new System.Drawing.Point(103, 71);
             this.highlightPlayableCards.Name = "highlightPlayableCards";
             this.highlightPlayableCards.Size = new System.Drawing.Size(140, 17);
             this.highlightPlayableCards.TabIndex = 1;
@@ -141,7 +149,7 @@
             // helpButton
             // 
             this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.helpButton.Location = new System.Drawing.Point(147, 252);
+            this.helpButton.Location = new System.Drawing.Point(274, 307);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(75, 23);
             this.helpButton.TabIndex = 6;
@@ -153,7 +161,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(67, 166);
+            this.label3.Location = new System.Drawing.Point(135, 197);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 13);
             this.label3.TabIndex = 6;
@@ -162,9 +170,10 @@
             // allowDraw4
             // 
             this.allowDraw4.AutoSize = true;
+            this.allowDraw4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.allowDraw4.Checked = true;
             this.allowDraw4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.allowDraw4.Location = new System.Drawing.Point(70, 185);
+            this.allowDraw4.Location = new System.Drawing.Point(47, 225);
             this.allowDraw4.Name = "allowDraw4";
             this.allowDraw4.Size = new System.Drawing.Size(196, 17);
             this.allowDraw4.TabIndex = 4;
@@ -174,21 +183,71 @@
             // swapWith0
             // 
             this.swapWith0.AutoSize = true;
-            this.swapWith0.Location = new System.Drawing.Point(70, 208);
+            this.swapWith0.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.swapWith0.Location = new System.Drawing.Point(90, 248);
             this.swapWith0.Name = "swapWith0";
             this.swapWith0.Size = new System.Drawing.Size(153, 17);
             this.swapWith0.TabIndex = 5;
             this.swapWith0.Text = "Swap hands with a \'0\' card";
             this.swapWith0.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(143, 145);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Scoring Method";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // scoringMethodDropDown
+            // 
+            this.scoringMethodDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.scoringMethodDropDown.FormattingEnabled = true;
+            this.scoringMethodDropDown.Items.AddRange(new object[] {
+            "Simple",
+            "Official Uno Scoring"});
+            this.scoringMethodDropDown.Location = new System.Drawing.Point(228, 142);
+            this.scoringMethodDropDown.Name = "scoringMethodDropDown";
+            this.scoringMethodDropDown.Size = new System.Drawing.Size(121, 21);
+            this.scoringMethodDropDown.TabIndex = 8;
+            this.scoringMethodDropDown.SelectedIndexChanged += new System.EventHandler(this.scoringMethodDropDown_SelectedIndexChanged);
+            // 
+            // stopAfterFirst
+            // 
+            this.stopAfterFirst.AutoSize = true;
+            this.stopAfterFirst.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.stopAfterFirst.Location = new System.Drawing.Point(82, 271);
+            this.stopAfterFirst.Name = "stopAfterFirst";
+            this.stopAfterFirst.Size = new System.Drawing.Size(161, 17);
+            this.stopAfterFirst.TabIndex = 5;
+            this.stopAfterFirst.Text = "Stop playing after first winner";
+            this.stopAfterFirst.UseVisualStyleBackColor = true;
+            // 
+            // requiredOfficialLabel
+            // 
+            this.requiredOfficialLabel.AutoSize = true;
+            this.requiredOfficialLabel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.requiredOfficialLabel.Location = new System.Drawing.Point(249, 272);
+            this.requiredOfficialLabel.Name = "requiredOfficialLabel";
+            this.requiredOfficialLabel.Size = new System.Drawing.Size(158, 13);
+            this.requiredOfficialLabel.TabIndex = 9;
+            this.requiredOfficialLabel.Text = "Required for official Uno scoring";
+            this.requiredOfficialLabel.Visible = false;
+            // 
             // GameOptionsView
             // 
             this.AcceptButton = this.doneButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 287);
+            this.ClientSize = new System.Drawing.Size(442, 342);
+            this.Controls.Add(this.requiredOfficialLabel);
+            this.Controls.Add(this.scoringMethodDropDown);
+            this.Controls.Add(this.stopAfterFirst);
             this.Controls.Add(this.swapWith0);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.doneButton);
@@ -224,5 +283,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox allowDraw4;
         private System.Windows.Forms.CheckBox swapWith0;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox scoringMethodDropDown;
+        private System.Windows.Forms.CheckBox stopAfterFirst;
+        private System.Windows.Forms.Label requiredOfficialLabel;
     }
 }

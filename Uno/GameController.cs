@@ -271,32 +271,35 @@ namespace Uno
         }
 
 
+        /// <summary>
+        /// End the game, and perform necessary clean up
+        /// </summary>
         public void EndGame()
         {
-            
-
             // Calculate scores
-            if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
+            for (int i = 0; i < game.NumberOfPlayers; i++)
             {
-                for (int i = 0; i < game.NumberOfPlayers; i++)
-                {
-                    Game.GamePlayer gamePlayer = (game.PlayersCards[game.Players[i]] as Game.GamePlayer);
+                Game.GamePlayer gamePlayer = (game.PlayersCards[game.Players[i]] as Game.GamePlayer);
+
+                // Score the players according to the basic system
+                // TODO: implement hybrid scoring somehow
+                if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic || game.Options.ScoringSystem == GameOptions.ScoringSystems.Hybrid)
                     gamePlayer.Score = gamePlayer.FinishRank < 0 ? game.NumberOfPlayers : gamePlayer.FinishRank;
 
-                    game.Players[i].Score += gamePlayer.Score;
-                }
+                // Use official Uno scoring
+                else
+                    gamePlayer.Score = CalculateUnoScoreForHand(gamePlayer.Cards);
 
-
+                // Add the GamePlayer's score to the Player's total
+                // (For playing multiple games, not currently implemented)
+                game.Players[i].Score += gamePlayer.Score;
             }
-
 
             // Sort players based on score
             sortPlayersByScore();
 
-
             // Show the final results
             Program.NewSortedPlayersView(game);
-
 
             // Close the game view
             gameView.Close();
@@ -658,8 +661,12 @@ namespace Uno
 
 
 
-
-        void gameView_FormClosed(object sender, FormClosedEventArgs e)
+        /// <summary>
+        /// Tell the program the window was closed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gameView_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.CloseWindow();
         }
@@ -825,8 +832,12 @@ namespace Uno
         }
 
 
-
-        void computerPlayerTimer_Tick(object sender, EventArgs e)
+        /// <summary>
+        /// Execute the computer player's move after a delay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void computerPlayerTimer_Tick(object sender, EventArgs e)
         {
             // Stop the timer and make a move
             computerPlayerTimer.Stop();
@@ -834,6 +845,9 @@ namespace Uno
         }
 
 
+        /// <summary>
+        /// Swap the players hands around (optionally when playing a 0 card)
+        /// </summary>
         private void swapAllPlayerHands()
         {
 
@@ -895,8 +909,10 @@ namespace Uno
         /// <param name="cards"></param>
         public static void sortCards(List<Card> cards)
         {
+            // Check each card
             for (int i = 1; i < cards.Count; i++)
             {
+                // Move the card into the correct place
                 for (int k = i; k > 0 && cards[k].SortingValue < cards[k - 1].SortingValue; k--)
                 {
                     Card temp = cards[k];
@@ -913,8 +929,8 @@ namespace Uno
         private void sortPlayersByScore()
         {
 
-            if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
-            {
+            /*if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
+            {*/
                 for (int i = 1; i < game.NumberOfPlayers; i++)
                 {
                     for (int k = i; k > 0 && game.Players[k].Score < game.Players[k - 1].Score; k--)
@@ -924,7 +940,7 @@ namespace Uno
                         game.Players[k - 1] = temp;
                     }
                 }
-            }
+            //}
 
             int sameRankedPlayers = 0;
 
@@ -988,6 +1004,25 @@ namespace Uno
 
 
             return deck;
+        }
+
+
+        /// <summary>
+        /// Calculate a player's Uno score for their hand
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <returns></returns>
+        public static int CalculateUnoScoreForHand(List<Card> hand)
+        {
+            int score = 0;
+
+            // Add the scoring value for each card to the score
+            foreach (Card c in hand)
+            {
+                score += c.ScoringValue;
+            }
+
+            return score;
         }
 
     }

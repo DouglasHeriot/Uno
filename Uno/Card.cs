@@ -102,8 +102,8 @@ namespace Uno
 
         public const int NUMBEROFCOLORS = 5;
 
-        private CardColor _color;
-        private CardFace _face;
+        private CardColor color;
+        private CardFace face;
 
 
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +116,7 @@ namespace Uno
         /// </summary>
         public CardColor Color
         {
-            get { return _color; }
+            get { return color; }
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Uno
         /// </summary>
         public CardFace Face
         {
-            get { return _face; }
+            get { return face; }
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Uno
         /// </summary>
         public Image Image
         {
-            get { return ImageForCard(_color, _face); }
+            get { return ImageForCard(color, face); }
         }
 
 
@@ -145,13 +145,18 @@ namespace Uno
             {
                 int value;
 
-                if (_color == CardColor.Wild && _face == CardFace.None)
+                if (color == CardColor.Wild && face == CardFace.None)
                     value = 13*4;
                 else
-                    value = (int)_color * 13 + (int)_face;
+                    value = (int)color * 13 + (int)face;
 
                 return value;
             }
+        }
+
+        public int ScoringValue
+        {
+            get { return ScoringValueForFace(face); }
         }
 
 
@@ -165,11 +170,11 @@ namespace Uno
         /// </summary>
         /// <param name="color"></param>
         /// <param name="face"></param>
-        public Card(CardColor color, CardFace face)
+        public Card(CardColor theColor, CardFace theFace)
         {
             // Save parameters in private attributes
-            _color = color;
-            _face = face;
+            color = theColor;
+            face = theFace;
 
             // TODO: implement validation, to prevent illegal card (eg. red wild, or black skip)
         }
@@ -187,7 +192,7 @@ namespace Uno
         /// <returns></returns>
         public override string ToString()
         {
-            return StringForCard(_color, _face);
+            return StringForCard(color, face);
         }
 
 
@@ -373,6 +378,44 @@ namespace Uno
         {
             // TODO: implement checking for valid card
             return true;
+        }
+
+
+        /// <summary>
+        /// Get the Uno scoring value for a card face
+        /// </summary>
+        /// <param name="face">The face value of the card</param>
+        /// <returns>The integer value</returns>
+        public static int ScoringValueForFace(CardFace face)
+        {
+            int value = 0;
+
+            switch (face)
+            {
+                case CardFace.Zero:
+                case CardFace.One:
+                case CardFace.Two:
+                case CardFace.Three:
+                case CardFace.Four:
+                case CardFace.Five:
+                case CardFace.Six:
+                case CardFace.Seven:
+                case CardFace.Eight:
+                case CardFace.Nine:
+                    value = CardFaceToInt(face);
+                    break;
+                case CardFace.Draw2:
+                case CardFace.Reverse:
+                case CardFace.Skip:
+                    value = 20;
+                    break;
+                case CardFace.None:
+                case CardFace.Draw4:
+                    value = 50;
+                    break;
+            }
+
+            return value;
         }
     }
 }

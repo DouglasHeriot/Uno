@@ -234,14 +234,20 @@ namespace Uno
         {
             get
             {
+
                 bool finished = true;
 
-                for (int i = 0; i < players.Count; i++)
+                // Game is finished if stopping after first winner, and number of finished players is at least 1
+                if (!(options.StopPlayingAfterFirst && NumberOfFinishedPlayers > 0))
                 {
-                    if (!(playersCards[players[i]] as Game.GamePlayer).Finished)
+
+                    for (int i = 0; i < players.Count; i++)
                     {
-                        finished = false;
-                        break;
+                        if (!(playersCards[players[i]] as Game.GamePlayer).Finished)
+                        {
+                            finished = false;
+                            break;
+                        }
                     }
                 }
 
