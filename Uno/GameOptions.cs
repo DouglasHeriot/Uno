@@ -11,8 +11,11 @@ namespace Uno
         public enum ScoringSystems
         {
             Basic,
-            OfficialUno,
-            Hybrid
+            CardValue
+
+            // TODO: Implement hybrid system, where it's scored simply, 
+            //       but unfinished players are ordered based on their Uno score
+            //Hybrid
         }
 
         // Auto properties are much nicer than splitting with separate fields, 
@@ -40,7 +43,7 @@ namespace Uno
             {
                 scoringSystem = value;
 
-                if (scoringSystem == ScoringSystems.OfficialUno)
+                if (scoringSystem == ScoringSystems.CardValue)
                     stopPlayingAfterFirst = true;
             }
         }
@@ -50,7 +53,7 @@ namespace Uno
             get { return stopPlayingAfterFirst; }
             set
             {
-                stopPlayingAfterFirst = scoringSystem == ScoringSystems.OfficialUno ? true : value;
+                stopPlayingAfterFirst = scoringSystem == ScoringSystems.CardValue ? true : value;
             }
         }
 

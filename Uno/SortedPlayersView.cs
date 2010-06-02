@@ -56,6 +56,9 @@ namespace Uno
             // Set the background image
             BackgroundImage = Properties.Resources.CardTable;
 
+            // Set the scoring method label
+            scoringMethodLabel.Text = ( game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic ? "Simple Scoring" : "Card Value Scoring" );
+
         }
 
         void SortedPlayersView_FormClosed(object sender, FormClosedEventArgs e)

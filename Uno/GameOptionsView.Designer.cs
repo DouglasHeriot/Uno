@@ -206,8 +206,8 @@
             this.scoringMethodDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.scoringMethodDropDown.FormattingEnabled = true;
             this.scoringMethodDropDown.Items.AddRange(new object[] {
-            "Simple",
-            "Official Uno Scoring"});
+            "Simple Scoring",
+            "Card Value Scoring"});
             this.scoringMethodDropDown.Location = new System.Drawing.Point(228, 142);
             this.scoringMethodDropDown.Name = "scoringMethodDropDown";
             this.scoringMethodDropDown.Size = new System.Drawing.Size(121, 21);
@@ -231,9 +231,9 @@
             this.requiredOfficialLabel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.requiredOfficialLabel.Location = new System.Drawing.Point(249, 272);
             this.requiredOfficialLabel.Name = "requiredOfficialLabel";
-            this.requiredOfficialLabel.Size = new System.Drawing.Size(158, 13);
+            this.requiredOfficialLabel.Size = new System.Drawing.Size(155, 13);
             this.requiredOfficialLabel.TabIndex = 9;
-            this.requiredOfficialLabel.Text = "Required for official Uno scoring";
+            this.requiredOfficialLabel.Text = "Required for card value scoring";
             this.requiredOfficialLabel.Visible = false;
             // 
             // GameOptionsView

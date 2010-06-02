@@ -32,6 +32,7 @@
             this.newGameButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.moreDetailCheckBox = new System.Windows.Forms.CheckBox();
+            this.scoringMethodLabel = new System.Windows.Forms.Label();
             this.sortedPlayerView4 = new Uno.SortedPlayerView();
             this.sortedPlayerView3 = new Uno.SortedPlayerView();
             this.sortedPlayerView2 = new Uno.SortedPlayerView();
@@ -73,6 +74,17 @@
             this.moreDetailCheckBox.Text = "More Detail";
             this.moreDetailCheckBox.UseVisualStyleBackColor = false;
             this.moreDetailCheckBox.CheckedChanged += new System.EventHandler(this.moreDetailCheckBox_CheckedChanged);
+            // 
+            // scoringMethodLabel
+            // 
+            this.scoringMethodLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.scoringMethodLabel.AutoSize = true;
+            this.scoringMethodLabel.BackColor = System.Drawing.Color.Transparent;
+            this.scoringMethodLabel.Location = new System.Drawing.Point(24, 402);
+            this.scoringMethodLabel.Name = "scoringMethodLabel";
+            this.scoringMethodLabel.Size = new System.Drawing.Size(80, 13);
+            this.scoringMethodLabel.TabIndex = 7;
+            this.scoringMethodLabel.Text = "Scoring System";
             // 
             // sortedPlayerView4
             // 
@@ -117,6 +129,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(290, 489);
+            this.Controls.Add(this.scoringMethodLabel);
             this.Controls.Add(this.moreDetailCheckBox);
             this.Controls.Add(this.sortedPlayerView4);
             this.Controls.Add(this.sortedPlayerView3);
@@ -144,5 +157,6 @@
         private SortedPlayerView sortedPlayerView3;
         private SortedPlayerView sortedPlayerView4;
         private System.Windows.Forms.CheckBox moreDetailCheckBox;
+        private System.Windows.Forms.Label scoringMethodLabel;
     }
 }

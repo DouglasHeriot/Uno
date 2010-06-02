@@ -97,10 +97,9 @@ namespace Uno
             List<Player> players = new List<Player>(Game.MAXPLAYERS);
             
             // Set options for a quick game to be able to test the end of game window
-            GameOptions options = new GameOptions();
-            options.CardsForEachPlayer = 25;
+            GameOptions options = optionsView.Options;
+            options.CardsForEachPlayer = 7;
             options.ComputerPlayerDelay = 150;
-            options.UseAnimation = optionsView.Options.UseAnimation;
 
             // Add the players from the form into the list
             for (int i = 0; i < numberOfPlayers.Value; i++)

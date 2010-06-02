@@ -283,7 +283,7 @@ namespace Uno
 
                 // Score the players according to the basic system
                 // TODO: implement hybrid scoring somehow
-                if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic || game.Options.ScoringSystem == GameOptions.ScoringSystems.Hybrid)
+                if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
                     gamePlayer.Score = gamePlayer.FinishRank < 0 ? game.NumberOfPlayers : gamePlayer.FinishRank;
 
                 // Use official Uno scoring

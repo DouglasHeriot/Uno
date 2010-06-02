@@ -41,7 +41,7 @@ namespace Uno
                 options.ComputerPlayerDelay = (int)computerDelayUpDown.Value;
                 options.HighlightPlayableCards = highlightPlayableCards.Checked;
                 options.StopPlayingAfterFirst = stopAfterFirst.Checked;
-                options.ScoringSystem = scoringMethodDropDown.SelectedIndex == 0 ? GameOptions.ScoringSystems.Basic : GameOptions.ScoringSystems.OfficialUno;
+                options.ScoringSystem = scoringMethodDropDown.SelectedIndex == 0 ? GameOptions.ScoringSystems.Basic : GameOptions.ScoringSystems.CardValue;
 
                 options.AllowDraw4Always = allowDraw4.Checked;
                 options.SwapHandsWith0 = swapWith0.Checked;
