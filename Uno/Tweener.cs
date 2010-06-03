@@ -68,6 +68,11 @@ namespace Projectplace.Gui
     /// </summary>
     public class TweenPairs : List<KeyValuePair<string, float>>
     {
+        /// <summary>
+        /// Add a tweener, and start playing
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="f"></param>
         public void Add(string s, float f)
         {
             Add(new KeyValuePair<string, float>(s, f));
@@ -88,7 +93,7 @@ namespace Projectplace.Gui
         public delegate void onCompleteFunction();
 
         /// <summary>
-        /// <see cref="Easing functions"/>
+        /// 
         /// </summary>
         /// <param name="t">Current time (in timer ticks)</param>
         /// <param name="b">Starting value</param>
@@ -130,7 +135,7 @@ namespace Projectplace.Gui
             /// <summary>
             /// The proxy objects pretends to be the proxied control when participating in dictionaries and such.
             /// </summary>
-            /// <param name="animated_object"></param>
+            /// <param name="obj"></param>
             /// <returns></returns>
             public override bool Equals(object obj)
             {
@@ -237,12 +242,25 @@ namespace Projectplace.Gui
             this.animated_object = animated_object;
         }
 
+        /// <summary>
+        /// Create a new tweener
+        /// </summary>
+        /// <param name="animated_object"></param>
+        /// <param name="transitions"></param>
+        /// <param name="easingFunction"></param>
+        /// <param name="duration"></param>
+        /// <param name="delay"></param>
+        /// <param name="chainedTweener"></param>
         public Tweener(object animated_object, TweenPairs transitions, ease easingFunction, int duration, int delay, Tweener chainedTweener)
             : this(animated_object, transitions, easingFunction, duration, delay)
         {
             this.chainedTweener = chainedTweener;
         }
 
+        /// <summary>
+        /// Set a function to execute when the tweener is completed
+        /// </summary>
+        /// <param name="f"></param>
         public void setOnComplete(onCompleteFunction f)
         {
             onComplete = new onCompleteFunction(f);
@@ -465,7 +483,14 @@ namespace Projectplace.Gui
 
 
 
-
+        /// <summary>
+        /// Elastic tweening on out - will overshoot slightly then come back,
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="b"></param>
+        /// <param name="d"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
         public static int easeOutElastic(float t, float b, float d, float c)
         {
             float s, a = 0.5F, p = 30;

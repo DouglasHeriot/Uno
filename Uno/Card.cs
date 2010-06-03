@@ -168,15 +168,17 @@ namespace Uno
         /// <summary>
         /// Construct a new card
         /// </summary>
-        /// <param name="color"></param>
-        /// <param name="face"></param>
+        /// <param name="theColor"></param>
+        /// <param name="theFace"></param>
         public Card(CardColor theColor, CardFace theFace)
         {
+            // Check the card is value, otherwise throw a runtime error
+            if (!IsValidCard(theColor, theFace))
+                throw new Exception(CardColorToString(theColor) + " " + CardFaceToString(theFace) + " is not a valid Uno card");
+        
             // Save parameters in private attributes
             color = theColor;
             face = theFace;
-
-            // TODO: implement validation, to prevent illegal card (eg. red wild, or black skip)
         }
 
 

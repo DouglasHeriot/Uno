@@ -348,8 +348,8 @@
             <summary>
             Construct a new card
             </summary>
-            <param name="color"></param>
-            <param name="face"></param>
+            <param name="theColor"></param>
+            <param name="theFace"></param>
         </member>
         <member name="M:Uno.Card.ToString">
             <summary>
@@ -572,6 +572,13 @@
             <example>new TweenPairs() {{"X", 200}, {"Opacity", 0.2}}</example>
             </summary>
         </member>
+        <member name="M:Projectplace.Gui.TweenPairs.Add(System.String,System.Single)">
+            <summary>
+            Add a tweener, and start playing
+            </summary>
+            <param name="s"></param>
+            <param name="f"></param>
+        </member>
         <member name="T:Projectplace.Gui.Tweener">
             <summary>
              Statically this class is responsible for managing the life cycle of all registered tweener insances.
@@ -587,6 +594,23 @@
             <param name="easingFunction">The easing funtion to use for the animation.<see cref="T:Projectplace.Gui.Tweener.ease"/></param>
             <param name="duration">The duration (in timer ticks) the animation should take to complete.</param>
             <param name="delay">How long to wait (in timer ticks) before starting the animation.</param>
+        </member>
+        <member name="M:Projectplace.Gui.Tweener.#ctor(System.Object,Projectplace.Gui.TweenPairs,Projectplace.Gui.Tweener.ease,System.Int32,System.Int32,Projectplace.Gui.Tweener)">
+            <summary>
+            Create a new tweener
+            </summary>
+            <param name="animated_object"></param>
+            <param name="transitions"></param>
+            <param name="easingFunction"></param>
+            <param name="duration"></param>
+            <param name="delay"></param>
+            <param name="chainedTweener"></param>
+        </member>
+        <member name="M:Projectplace.Gui.Tweener.setOnComplete(Projectplace.Gui.Tweener.onCompleteFunction)">
+            <summary>
+            Set a function to execute when the tweener is completed
+            </summary>
+            <param name="f"></param>
         </member>
         <member name="M:Projectplace.Gui.Tweener.add(Projectplace.Gui.Tweener)">
             <summary>
@@ -676,6 +700,16 @@
             </summary>
             <see cref="T:Projectplace.Gui.Tweener.ease"/>
         </member>
+        <member name="M:Projectplace.Gui.Tweener.easeOutElastic(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Elastic tweening on out - will overshoot slightly then come back,
+            </summary>
+            <param name="t"></param>
+            <param name="b"></param>
+            <param name="d"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
         <member name="T:Projectplace.Gui.Tweener.onCompleteFunction">
             <summary>
             It's possible to register functions on the tweener instance to be called when the animation is completed
@@ -683,7 +717,7 @@
         </member>
         <member name="T:Projectplace.Gui.Tweener.ease">
             <summary>
-            <see cref="!:Easing functions"/>
+            
             </summary>
             <param name="t">Current time (in timer ticks)</param>
             <param name="b">Starting value</param>
@@ -702,7 +736,7 @@
             <summary>
             The proxy objects pretends to be the proxied control when participating in dictionaries and such.
             </summary>
-            <param name="animated_object"></param>
+            <param name="obj"></param>
             <returns></returns>
         </member>
         <member name="M:Projectplace.Gui.Tweener.PropertyProxy.GetHashCode">
@@ -983,11 +1017,6 @@
             </summary>
             <param name="players"></param>
             <param name="options"></param>
-        </member>
-        <member name="T:TTRider.UI.HSBColor">
-            <summary>
-            Provides Round-trip conversion from RGB to HSB and back
-            </summary>
         </member>
     </members>
 </doc>

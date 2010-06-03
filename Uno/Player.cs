@@ -43,7 +43,6 @@ namespace Uno
         {
             get { return name; }
             set { name = value; }
-            // TODO: trigger events when the name is changed
         }
 
         /// <summary>
