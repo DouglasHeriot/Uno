@@ -78,5 +78,11 @@ namespace Uno
             }
         }
 
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            // Show the options help page
+            Program.ShowHelp(Help.HelpPage.Options);
+        }
+
     }
 }

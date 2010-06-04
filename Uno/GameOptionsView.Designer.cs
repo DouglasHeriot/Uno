@@ -155,7 +155,7 @@
             this.helpButton.TabIndex = 6;
             this.helpButton.Text = "Help";
             this.helpButton.UseVisualStyleBackColor = true;
-            this.helpButton.Click += new System.EventHandler(this.doneButton_Click);
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // label3
             // 

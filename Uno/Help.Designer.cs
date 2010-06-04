@@ -28,91 +28,98 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.newPageBrowser = new System.Windows.Forms.WebBrowser();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabView = new System.Windows.Forms.TabControl();
+            this.tabNewGame = new System.Windows.Forms.TabPage();
+            this.tabGameOptions = new System.Windows.Forms.TabPage();
+            this.tabPlayingAGame = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tabView.SuspendLayout();
+            this.tabNewGame.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabView
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(569, 397);
-            this.tabControl1.TabIndex = 0;
+            this.tabView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabView.Controls.Add(this.tabNewGame);
+            this.tabView.Controls.Add(this.tabGameOptions);
+            this.tabView.Controls.Add(this.tabPlayingAGame);
+            this.tabView.Location = new System.Drawing.Point(12, 12);
+            this.tabView.Name = "tabView";
+            this.tabView.SelectedIndex = 0;
+            this.tabView.Size = new System.Drawing.Size(608, 575);
+            this.tabView.TabIndex = 0;
             // 
-            // tabPage1
+            // tabNewGame
             // 
-            this.tabPage1.Controls.Add(this.newPageBrowser);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(561, 371);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "New Game";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabNewGame.AutoScroll = true;
+            this.tabNewGame.Controls.Add(this.pictureBox1);
+            this.tabNewGame.Location = new System.Drawing.Point(4, 22);
+            this.tabNewGame.Name = "tabNewGame";
+            this.tabNewGame.Padding = new System.Windows.Forms.Padding(3);
+            this.tabNewGame.Size = new System.Drawing.Size(600, 549);
+            this.tabNewGame.TabIndex = 0;
+            this.tabNewGame.Text = "New Game";
+            this.tabNewGame.UseVisualStyleBackColor = true;
             // 
-            // newPageBrowser
+            // tabGameOptions
             // 
-            this.newPageBrowser.AllowNavigation = false;
-            this.newPageBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.newPageBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.newPageBrowser.Location = new System.Drawing.Point(3, 3);
-            this.newPageBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.newPageBrowser.Name = "newPageBrowser";
-            this.newPageBrowser.ScriptErrorsSuppressed = true;
-            this.newPageBrowser.Size = new System.Drawing.Size(555, 365);
-            this.newPageBrowser.TabIndex = 0;
+            this.tabGameOptions.AutoScroll = true;
+            this.tabGameOptions.Location = new System.Drawing.Point(4, 22);
+            this.tabGameOptions.Name = "tabGameOptions";
+            this.tabGameOptions.Padding = new System.Windows.Forms.Padding(3);
+            this.tabGameOptions.Size = new System.Drawing.Size(561, 371);
+            this.tabGameOptions.TabIndex = 1;
+            this.tabGameOptions.Text = "Game Options";
+            this.tabGameOptions.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabPlayingAGame
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(561, 371);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Game Options";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPlayingAGame.AutoScroll = true;
+            this.tabPlayingAGame.Location = new System.Drawing.Point(4, 22);
+            this.tabPlayingAGame.Name = "tabPlayingAGame";
+            this.tabPlayingAGame.Size = new System.Drawing.Size(561, 371);
+            this.tabPlayingAGame.TabIndex = 2;
+            this.tabPlayingAGame.Text = "Playing a Game";
+            this.tabPlayingAGame.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // pictureBox1
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(561, 371);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Playing a Game";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = global::Uno.Properties.Resources.Icon;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(600, 499);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // Help
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 421);
-            this.Controls.Add(this.tabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            this.ClientSize = new System.Drawing.Size(632, 599);
+            this.Controls.Add(this.tabView);
+            this.MinimumSize = new System.Drawing.Size(638, 200);
             this.Name = "Help";
             this.ShowIcon = false;
             this.Text = "Uno Help";
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tabView.ResumeLayout(false);
+            this.tabNewGame.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.WebBrowser newPageBrowser;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabControl tabView;
+        private System.Windows.Forms.TabPage tabNewGame;
+        private System.Windows.Forms.TabPage tabGameOptions;
+        private System.Windows.Forms.TabPage tabPlayingAGame;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

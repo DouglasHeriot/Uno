@@ -52,9 +52,30 @@ namespace Uno
         }
 
 
+        /// <summary>
+        /// Handle the form closed event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void StartupDisplay_FormClosed(object sender, FormClosedEventArgs e)
         {
+            // Handle the optionsView FormClosing event, to prevent it from preventing itself from closing
+            optionsView.FormClosing += new FormClosingEventHandler(optionsView_FormClosing);
+
+            // Close the options as well
+            optionsView.Close();
+
+            // Tell the Program a window has been closed
             Program.CloseWindow();
+
+            
+        }
+
+        void optionsView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Stop the otions view from preventing itself from closing!
+            // (will only be after the startup view has also been told to close)
+            e.Cancel = false;
         }
 
 
@@ -86,9 +107,13 @@ namespace Uno
 
         }
 
+
+
         private void gameOptionsButton_Click(object sender, EventArgs e)
         {
-            optionsView.ShowDialog();
+            // Show the game options dialog, and make sure it's at the front
+            optionsView.Show();
+            optionsView.BringToFront();
         }
 
 
@@ -210,7 +235,7 @@ namespace Uno
         /// <param name="e"></param>
         private void helpButton_Click(object sender, EventArgs e)
         {
-            (new Help(Help.HelpPage.NewGame)).ShowDialog();
+            Program.ShowHelp(Help.HelpPage.NewGame);
         }
 
 

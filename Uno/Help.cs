@@ -36,6 +36,7 @@ namespace Uno
         public void SelectPage(HelpPage page)
         {
             // Select the tab for the user
+            tabView.SelectedIndex = (int) page;
         }
     }
 }

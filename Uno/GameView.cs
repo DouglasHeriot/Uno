@@ -369,25 +369,39 @@ namespace Uno
             moveCardTo(card, left, top, Tweener.easeOutCubic);
         }
 
+
+
         private void newGameButton_Click(object sender, EventArgs e)
         {
+            // Open a new startup window, while leaving this game to continue
             Program.NewStartup();
         }
 
         private void endGameButton_Click(object sender, EventArgs e)
         {
+            // Tell the controller to end the game
             controller.EndGame();
         }
 
         private void aboutButton_Click(object sender, EventArgs e)
         {
+            // Modally show the about box
             new AboutBox().ShowDialog();
         }
 
 
+        
         void endGameHighlightTimer_Tick(object sender, EventArgs e)
         {
+            // Alterate the visibility property of the end highlighter on each timer tick
             endHighlight.Visible = !endHighlight.Visible;
+        }
+
+
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            // Show the help window
+            Program.ShowHelp(Help.HelpPage.Playing);
         }
 
     }

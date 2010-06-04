@@ -9,6 +9,7 @@ namespace Uno
     {
 
         static private int windowCount = 0;
+        static private Help help;
 
         /// <summary>
         /// The main entry point for the application.
@@ -19,27 +20,10 @@ namespace Uno
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
             // Open the startup window
             NewStartup();
-            
 
-            // TEMPORARY CODE UNTIL STARTUP WINDOW IS IMPLEMENTED
-            /*
-            List<Player> players = new List<Player>();
-            players.Add(new Player("Me"));
-            players.Add(new Player("You"));
-            players.Add(new Player("Someone Else"));
-
-            
-
-            GameOptions options = new GameOptions();
-
-            NewGame(players, options);
-            */
-
-
-
+            // Keep the application running
             Application.Run();
         }
 
@@ -86,6 +70,15 @@ namespace Uno
             if (windowCount <= 0) Application.Exit();
 
             return windowCount;
+        }
+
+        static public void ShowHelp(Help.HelpPage page)
+        {
+            if (help == null) help = new Help();
+
+            help.SelectPage(page);
+            help.Show();
+            help.BringToFront();
         }
     }
 }
