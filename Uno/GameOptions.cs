@@ -15,6 +15,7 @@ namespace Uno
 
             // TODO: Implement hybrid system, where it's scored simply, 
             //       but unfinished players are ordered based on their Uno score
+            //       Also implement official Uno scoring could be implemented, where multiple games are played with first to 500 points
             //Hybrid
         }
 
@@ -25,6 +26,7 @@ namespace Uno
         public int ComputerPlayerDelay      { get; set; }
         public bool UseAnimation            { get; set; }
         public bool HighlightPlayableCards  { get; set; }
+        public bool AllowDebugWindow        { get; set; }
 
         // Optional Rules
         public bool SwapHandsWith0          { get; set; }
@@ -66,6 +68,7 @@ namespace Uno
             ComputerPlayerDelay = 1200;
             UseAnimation = true;
             HighlightPlayableCards = false;
+            AllowDebugWindow = false;
 
             SwapHandsWith0 = false;
             AllowDraw4Always = true;
@@ -73,6 +76,32 @@ namespace Uno
 
             ScoringSystem = ScoringSystems.Basic;
             
+        }
+
+
+        /// <summary>
+        /// Get a string to display a scoring system value
+        /// </summary>
+        /// <param name="system"></param>
+        /// <returns></returns>
+        public static string ScoringSystemToString(ScoringSystems system )
+        {
+            string theString;
+
+            switch (system)
+            {
+                case ScoringSystems.Basic:
+                    theString = "Simple Scoring";
+                    break;
+                case ScoringSystems.CardValue:
+                    theString = "Card Value Scoring";
+                    break;
+                default:
+                    theString = "";
+                    break;
+            }
+
+            return theString;
         }
     }
 }

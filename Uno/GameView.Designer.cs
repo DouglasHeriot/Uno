@@ -44,6 +44,7 @@
             this.player2ComputerBadge = new System.Windows.Forms.PictureBox();
             this.player3ComputerBadge = new System.Windows.Forms.PictureBox();
             this.player4ComputerBadge = new System.Windows.Forms.PictureBox();
+            this.gameInfoMessage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.endHighlight)).BeginInit();
@@ -65,6 +66,7 @@
             // 
             // endGameButton
             // 
+            this.endGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endGameButton.Location = new System.Drawing.Point(44, 443);
             this.endGameButton.Name = "endGameButton";
             this.endGameButton.Size = new System.Drawing.Size(130, 50);
@@ -209,6 +211,16 @@
             this.player4ComputerBadge.TabIndex = 5;
             this.player4ComputerBadge.TabStop = false;
             // 
+            // gameInfoMessage
+            // 
+            this.gameInfoMessage.BackColor = System.Drawing.Color.Transparent;
+            this.gameInfoMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameInfoMessage.Location = new System.Drawing.Point(44, 312);
+            this.gameInfoMessage.Name = "gameInfoMessage";
+            this.gameInfoMessage.Size = new System.Drawing.Size(130, 51);
+            this.gameInfoMessage.TabIndex = 6;
+            this.gameInfoMessage.Text = "Simple Scoring";
+            // 
             // GameView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,6 +228,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(950, 621);
+            this.Controls.Add(this.gameInfoMessage);
             this.Controls.Add(this.player4ComputerBadge);
             this.Controls.Add(this.player3ComputerBadge);
             this.Controls.Add(this.player2ComputerBadge);
@@ -266,6 +279,7 @@
         private System.Windows.Forms.PictureBox player2ComputerBadge;
         private System.Windows.Forms.PictureBox player3ComputerBadge;
         private System.Windows.Forms.PictureBox player4ComputerBadge;
+        private System.Windows.Forms.Label gameInfoMessage;
 
     }
 }

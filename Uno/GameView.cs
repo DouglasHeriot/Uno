@@ -79,6 +79,8 @@ namespace Uno
             }
 
 
+            gameInfoMessage.Text = GameOptions.ScoringSystemToString(game.Options.ScoringSystem) + (game.Options.StopPlayingAfterFirst ? ",\r\nStopping after winner" : "");
+
 
 
             endGameHighlightTimer.Interval = 500;
