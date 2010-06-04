@@ -20,7 +20,6 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -38,13 +37,16 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <StartupObject>
+    </StartupObject>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;/win32res:Resources/Icon.png</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>documentation.xml</DocumentationFile>
@@ -53,7 +55,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;/win32res:Resources/Icon.png</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>documentation.xml</DocumentationFile>
@@ -98,6 +100,12 @@
     <Compile Include="GameView.Designer.cs">
       <DependentUpon>GameView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Help.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Help.Designer.cs">
+      <DependentUpon>Help.cs</DependentUpon>
+    </Compile>
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GameView.resx">
       <DependentUpon>GameView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Help.resx">
+      <DependentUpon>Help.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -175,9 +186,6 @@
     <Compile Include="WildColorChooser.Designer.cs">
       <DependentUpon>WildColorChooser.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\GameView.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\b0.png" />
@@ -378,13 +386,10 @@
     <None Include="Resources\Light Card Table Texture.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\StartupWindow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\StartupWindow.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icon.png" />
+    <EmbeddedResource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

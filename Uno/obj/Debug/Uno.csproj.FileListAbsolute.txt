@@ -20,3 +20,4 @@ Z:\SDD\Projects\Uno\Uno\bin\Debug\documentation.xml
 Z:\SDD\Projects\Uno\Uno\obj\Debug\Uno.TrustInfo.xml
 Z:\SDD\Projects\Uno\Uno\obj\Debug\Uno.exe.manifest
 Z:\SDD\Projects\Uno\Uno\obj\Debug\Uno.application
+Z:\SDD\Projects\Uno\Uno\obj\Debug\Uno.Help.resources

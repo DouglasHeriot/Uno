@@ -86,6 +86,25 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Uno.Properties.Resources.newGame">
+             <summary>
+               Looks up a localized string similar to From: &lt;Saved by Mozilla 5.0 (Macintosh; en-GB)&gt;
+            Subject: Unknown
+            Date: Fri, 04 Jun 2010 10:27:19 +1000
+            MIME-Version: 1.0
+            Content-Location: file:///Users/douglas/Work/school/SCIL/PC%20Files/Projects/Uno/Help/newGame.html
+            Content-Type: multipart/related;
+            	type=&quot;text/html&quot;;
+            	boundary=&quot;----=_NextPart_000_0000_E72954EA.5FE2920F&quot;
+            X-MAF: Produced By MAF V0.19.3.0
+            
+            This is a multi-part message in MIME format.
+            
+            ------=_NextPart_000_0000_E72954EA.5FE2920F
+            Content-Type: text/html
+            Content-Transfer-Encodin [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
         <member name="T:Uno.Game">
             <summary>
             Stores the data about the game
@@ -548,6 +567,20 @@
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
+        </member>
+        <member name="M:Uno.StartupDisplay.helpButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Show the help form with the new game page
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Uno.GameOptions.ScoringSystemToString(Uno.GameOptions.ScoringSystems)">
+            <summary>
+            Get a string to display a scoring system value
+            </summary>
+            <param name="system"></param>
+            <returns></returns>
         </member>
         <member name="F:Uno.SortedPlayersView.components">
             <summary>
@@ -1017,6 +1050,23 @@
             </summary>
             <param name="players"></param>
             <param name="options"></param>
+        </member>
+        <member name="F:Uno.Help.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Uno.Help.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Uno.Help.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
         </member>
     </members>
 </doc>

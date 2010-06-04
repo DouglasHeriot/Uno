@@ -86,6 +86,25 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Uno.Properties.Resources.newGame">
+             <summary>
+               Looks up a localized string similar to From: &lt;Saved by Mozilla 5.0 (Macintosh; en-GB)&gt;
+            Subject: Unknown
+            Date: Fri, 04 Jun 2010 10:27:19 +1000
+            MIME-Version: 1.0
+            Content-Location: file:///Users/douglas/Work/school/SCIL/PC%20Files/Projects/Uno/Help/newGame.html
+            Content-Type: multipart/related;
+            	type=&quot;text/html&quot;;
+            	boundary=&quot;----=_NextPart_000_0000_E72954EA.5FE2920F&quot;
+            X-MAF: Produced By MAF V0.19.3.0
+            
+            This is a multi-part message in MIME format.
+            
+            ------=_NextPart_000_0000_E72954EA.5FE2920F
+            Content-Type: text/html
+            Content-Transfer-Encodin [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
         <member name="T:Uno.Game">
             <summary>
             Stores the data about the game
@@ -348,8 +367,8 @@
             <summary>
             Construct a new card
             </summary>
-            <param name="color"></param>
-            <param name="face"></param>
+            <param name="theColor"></param>
+            <param name="theFace"></param>
         </member>
         <member name="M:Uno.Card.ToString">
             <summary>
@@ -549,6 +568,20 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="M:Uno.StartupDisplay.helpButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Show the help form with the new game page
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Uno.GameOptions.ScoringSystemToString(Uno.GameOptions.ScoringSystems)">
+            <summary>
+            Get a string to display a scoring system value
+            </summary>
+            <param name="system"></param>
+            <returns></returns>
+        </member>
         <member name="F:Uno.SortedPlayersView.components">
             <summary>
             Required designer variable.
@@ -572,6 +605,13 @@
             <example>new TweenPairs() {{"X", 200}, {"Opacity", 0.2}}</example>
             </summary>
         </member>
+        <member name="M:Projectplace.Gui.TweenPairs.Add(System.String,System.Single)">
+            <summary>
+            Add a tweener, and start playing
+            </summary>
+            <param name="s"></param>
+            <param name="f"></param>
+        </member>
         <member name="T:Projectplace.Gui.Tweener">
             <summary>
              Statically this class is responsible for managing the life cycle of all registered tweener insances.
@@ -587,6 +627,23 @@
             <param name="easingFunction">The easing funtion to use for the animation.<see cref="T:Projectplace.Gui.Tweener.ease"/></param>
             <param name="duration">The duration (in timer ticks) the animation should take to complete.</param>
             <param name="delay">How long to wait (in timer ticks) before starting the animation.</param>
+        </member>
+        <member name="M:Projectplace.Gui.Tweener.#ctor(System.Object,Projectplace.Gui.TweenPairs,Projectplace.Gui.Tweener.ease,System.Int32,System.Int32,Projectplace.Gui.Tweener)">
+            <summary>
+            Create a new tweener
+            </summary>
+            <param name="animated_object"></param>
+            <param name="transitions"></param>
+            <param name="easingFunction"></param>
+            <param name="duration"></param>
+            <param name="delay"></param>
+            <param name="chainedTweener"></param>
+        </member>
+        <member name="M:Projectplace.Gui.Tweener.setOnComplete(Projectplace.Gui.Tweener.onCompleteFunction)">
+            <summary>
+            Set a function to execute when the tweener is completed
+            </summary>
+            <param name="f"></param>
         </member>
         <member name="M:Projectplace.Gui.Tweener.add(Projectplace.Gui.Tweener)">
             <summary>
@@ -676,6 +733,16 @@
             </summary>
             <see cref="T:Projectplace.Gui.Tweener.ease"/>
         </member>
+        <member name="M:Projectplace.Gui.Tweener.easeOutElastic(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Elastic tweening on out - will overshoot slightly then come back,
+            </summary>
+            <param name="t"></param>
+            <param name="b"></param>
+            <param name="d"></param>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
         <member name="T:Projectplace.Gui.Tweener.onCompleteFunction">
             <summary>
             It's possible to register functions on the tweener instance to be called when the animation is completed
@@ -683,7 +750,7 @@
         </member>
         <member name="T:Projectplace.Gui.Tweener.ease">
             <summary>
-            <see cref="!:Easing functions"/>
+            
             </summary>
             <param name="t">Current time (in timer ticks)</param>
             <param name="b">Starting value</param>
@@ -702,7 +769,7 @@
             <summary>
             The proxy objects pretends to be the proxied control when participating in dictionaries and such.
             </summary>
-            <param name="animated_object"></param>
+            <param name="obj"></param>
             <returns></returns>
         </member>
         <member name="M:Projectplace.Gui.Tweener.PropertyProxy.GetHashCode">
@@ -984,9 +1051,21 @@
             <param name="players"></param>
             <param name="options"></param>
         </member>
-        <member name="T:TTRider.UI.HSBColor">
+        <member name="F:Uno.Help.components">
             <summary>
-            Provides Round-trip conversion from RGB to HSB and back
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Uno.Help.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Uno.Help.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
             </summary>
         </member>
     </members>

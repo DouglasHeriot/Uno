@@ -42,6 +42,7 @@
             // newGameButton
             // 
             this.newGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.newGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newGameButton.Location = new System.Drawing.Point(167, 433);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(92, 44);

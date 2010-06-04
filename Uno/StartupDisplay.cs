@@ -203,5 +203,16 @@ namespace Uno
         }
 
 
+        /// <summary>
+        /// Show the help form with the new game page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            (new Help(Help.HelpPage.NewGame)).ShowDialog();
+        }
+
+
     }
 }

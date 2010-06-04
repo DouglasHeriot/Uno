@@ -35,6 +35,7 @@
             this.gameOptionsButton = new System.Windows.Forms.Button();
             this.quickDebugGameButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
+            this.helpButton = new System.Windows.Forms.Button();
             this.startupPlayerView4 = new Uno.StartupPlayerView();
             this.startupPlayerView3 = new Uno.StartupPlayerView();
             this.startupPlayerView2 = new Uno.StartupPlayerView();
@@ -83,6 +84,7 @@
             // 
             this.startGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.startGameButton.BackColor = System.Drawing.Color.Transparent;
+            this.startGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startGameButton.Location = new System.Drawing.Point(335, 496);
             this.startGameButton.Name = "startGameButton";
             this.startGameButton.Size = new System.Drawing.Size(153, 60);
@@ -95,6 +97,7 @@
             // 
             this.gameOptionsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.gameOptionsButton.BackColor = System.Drawing.Color.Transparent;
+            this.gameOptionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gameOptionsButton.Location = new System.Drawing.Point(215, 529);
             this.gameOptionsButton.Name = "gameOptionsButton";
             this.gameOptionsButton.Size = new System.Drawing.Size(114, 27);
@@ -119,13 +122,24 @@
             // 
             this.aboutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.aboutButton.BackColor = System.Drawing.Color.Transparent;
-            this.aboutButton.Location = new System.Drawing.Point(215, 496);
+            this.aboutButton.Location = new System.Drawing.Point(273, 496);
             this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(114, 27);
+            this.aboutButton.Size = new System.Drawing.Size(56, 27);
             this.aboutButton.TabIndex = 5;
             this.aboutButton.Text = "About";
             this.aboutButton.UseVisualStyleBackColor = false;
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
+            // 
+            // helpButton
+            // 
+            this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.helpButton.Location = new System.Drawing.Point(215, 496);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(52, 27);
+            this.helpButton.TabIndex = 8;
+            this.helpButton.Text = "Help";
+            this.helpButton.UseVisualStyleBackColor = true;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // startupPlayerView4
             // 
@@ -173,6 +187,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 568);
+            this.Controls.Add(this.helpButton);
             this.Controls.Add(this.quickDebugGameButton);
             this.Controls.Add(this.startupPlayerView4);
             this.Controls.Add(this.startupPlayerView3);
@@ -206,5 +221,6 @@
         private StartupPlayerView startupPlayerView4;
         private System.Windows.Forms.Button quickDebugGameButton;
         private System.Windows.Forms.Button aboutButton;
+        private System.Windows.Forms.Button helpButton;
     }
 }
