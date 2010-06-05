@@ -22,21 +22,61 @@ namespace Uno
 
         public Help()
         {
-            InitializeComponent();         
+            InitializeComponent();
+
+            // Handle some events, to allow the selected tab to gain focus so the mouse scroll wheel works
+            tabView.SelectedIndexChanged += new EventHandler(setFocusEventHandler);
+            ResizeEnd += new EventHandler(setFocusEventHandler);
+            ResizeEnd += new EventHandler(Help_ResizeEnd);
+            GotFocus += new EventHandler(setFocusEventHandler);
+            VisibleChanged += new EventHandler(setFocusEventHandler);
+            Shown += new EventHandler(setFocusEventHandler);
+            Scroll += new ScrollEventHandler(Help_Scroll);
         }
 
-
-        public Help(HelpPage page)
-            :this()
+        void Help_ResizeEnd(object sender, EventArgs e)
         {
-            SelectPage(page);
+            MessageBox.Show(Width.ToString() + ", Picture Box: " + pictureBox1.Width.ToString());
         }
 
+        void Help_Scroll(object sender, ScrollEventArgs e)
+        {
+            //SetFocusToTab();
+        }
 
+        /// <summary>
+        /// Select a page to view
+        /// </summary>
+        /// <param name="page"></param>
         public void SelectPage(HelpPage page)
         {
             // Select the tab for the user
             tabView.SelectedIndex = (int) page;
+        }
+
+        public void ShowPage(HelpPage page)
+        {
+            SelectPage(page);
+            Show();
+            BringToFront();
+            SetFocusToTab();
+        }
+
+        public void SetFocusToTab()
+        {
+            // Set focus to the new tab, so the scroll wheel on the user's mouse will work
+            tabView.SelectedTab.Focus();
+        }
+
+        /// <summary>
+        /// Handle any events which may require the tab to need focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void setFocusEventHandler(object sender, EventArgs e)
+        {
+            // Set focus to the new tab, so the scroll wheel on the user's mouse will work
+            SetFocusToTab();
         }
     }
 }

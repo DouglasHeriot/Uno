@@ -33,9 +33,11 @@ namespace Uno
         /// </summary>
         static public void NewStartup()
         {
+            // Creeate a new startup form, and show it
             StartupDisplay startupDisplay = new StartupDisplay();
             startupDisplay.Show();
 
+            // Count the window
             windowCount++;
         }
 
@@ -46,22 +48,36 @@ namespace Uno
         /// <param name="options"></param>
         static public GameController NewGame(List<Player> players, GameOptions options)
         {
+            // Create a new game, with the players and options
             Game game = new Game(players, options);
+
+            // Give the game to a new controller, which will set up the form and other things
             GameController controller = new GameController(game);
 
+            // Count the window
             windowCount++;
 
             return controller;
         }
 
+        /// <summary>
+        /// Crete and show a new sorted players view, for the end of a game
+        /// </summary>
+        /// <param name="game"></param>
         static public void NewSortedPlayersView(Game game)
         {
+            // Create a new form, then show it
             SortedPlayersView view = new SortedPlayersView(game);
             view.Show();
 
+            // Count this new window
             windowCount++;
         }
 
+        /// <summary>
+        /// Record a window close, and exit the applicatin if necessary
+        /// </summary>
+        /// <returns></returns>
         static public int CloseWindow()
         {
             windowCount--;
@@ -72,13 +88,17 @@ namespace Uno
             return windowCount;
         }
 
+        /// <summary>
+        /// Show the help form for a given page
+        /// </summary>
+        /// <param name="page"></param>
         static public void ShowHelp(Help.HelpPage page)
         {
-            if (help == null) help = new Help();
+            // Check if the help form exists, otherwise create a new one
+            if (help == null || !help.Visible) help = new Help();
 
-            help.SelectPage(page);
-            help.Show();
-            help.BringToFront();
+            // Set the form to show the right tab, then show it in the front
+            help.ShowPage(page);
         }
     }
 }
