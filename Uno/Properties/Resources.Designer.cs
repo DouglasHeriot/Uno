@@ -312,6 +312,20 @@ namespace Uno.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Help_GameOptions {
+            get {
+                object obj = ResourceManager.GetObject("Help_GameOptions", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Help_NewGame {
+            get {
+                object obj = ResourceManager.GetObject("Help_NewGame", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap highlight {
             get {
                 object obj = ResourceManager.GetObject("highlight", resourceCulture);

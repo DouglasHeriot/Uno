@@ -29,14 +29,19 @@ namespace Uno
             WrongColor,
 
             /// <summary>
-            /// The card is the wrong face value
-            /// </summary>
-            WrongFace,
-
-            /// <summary>
             /// The card does not belong to the current player
             /// </summary>
             IncorrectPlayer,
+            
+            /// <summary>
+            /// The card is actually in the deck
+            /// </summary>
+            Deck,
+
+            /// <summary>
+            /// The card was cancelled
+            /// </summary>
+            Cancelled,
 
             /// <summary>
             /// Draw 4 may only be played when no other card of current colour are available
@@ -168,20 +173,25 @@ namespace Uno
             // Ask for the color for a wild card
             if (card.Color == Card.CardColor.Wild)
             {
+                // Show the color chooser dialog form
                 WildColorChooser wildColorChooser = new WildColorChooser();
-                do
-                {
-                    wildColorChooser.ShowDialog();
+                wildColorChooser.ShowDialog();
 
-                    if (wildColorChooser.DialogResult == DialogResult.OK)
-                    {
-                        // Remember the chosen wild color
-                        game.WildColor = wildColorChooser.Color;
-                    }
-                } while (wildColorChooser.DialogResult != DialogResult.OK);
+                // Check if a colour was chosen, or if the action was cancelled
+                if (wildColorChooser.DialogResult == DialogResult.OK)
+                {
+                    // Remember the chosen wild color
+                    game.WildColor = wildColorChooser.Color;
+                }
+                else
+                {
+                    // Return that the user cancelled playing the card
+                    return CardPlayStatus.Cancelled;
+                }
 
             }
 
+            // Play the card, with the selected wild color already set if necessary
             return SelectCard(card, game.CurrentPlayer, false);
         }
 
@@ -191,49 +201,32 @@ namespace Uno
         /// </summary>
         public CardPlayStatus SelectCard(Card card, Player player, bool computer)
         {
-            CardPlayStatus theStatus = CardPlayStatus.UnkownError;
+            // Check if the card  is allowed to be played
+            CardPlayStatus status = CanPlayCardStatus(card);
 
-
-            // Check that it's the current player's card, not someone else's
-            if (game.CurrentGamePlayer.Cards.IndexOf(card) >= 0)
+            // Check that the card is allowed
+            if (status == CardPlayStatus.Success)
             {
-                CardPlayStatus status = CanPlayCardStatus(card);
+                // Move it to the discard pile
+                game.DiscardPile.Add(card);
+                game.CurrentGamePlayer.Cards.Remove(card);
 
-                // Check that the card is allowed
-                if (status == CardPlayStatus.Success)
-                {
-                    // Move it to the discard pile
-                    game.DiscardPile.Add(card);
-                    game.CurrentGamePlayer.Cards.Remove(card);
+                // Perform action on action cards
+                performAction(card);
+                
+                // Add to number of cards played statistic
+                game.CurrentGamePlayer.NumberOfCardsPlayed++;
 
-                    // Perform action on action cards
-                    performAction(card);
-                    
-                    // Add to number of cards played statistic
-                    game.CurrentGamePlayer.NumberOfCardsPlayed++;
+                // If the player is now finished, give them a rank
+                if (game.CurrentGamePlayer.Finished)
+                    game.CurrentGamePlayer.FinishRank = game.NumberOfFinishedPlayers - 1;
 
-                    if (game.CurrentGamePlayer.Finished)
-                    {
-                        game.CurrentGamePlayer.FinishRank = game.NumberOfFinishedPlayers - 1;
-                    }
-
-                    // Setup next player, and update the game view
-                    nextPlayer();
-                    gameView.ReDraw();
-                }
-                else
-                {
-                    // Sorry, you can't play that card!
-                    theStatus = status;
-                }
-            }
-            else
-            {
-                // It's not your turn!
-                theStatus = CardPlayStatus.IncorrectPlayer;
+                // Setup next player, and update the game view
+                nextPlayer();
+                gameView.ReDraw();
             }
 
-            return theStatus;
+            return status;
             
         }
 
@@ -322,20 +315,13 @@ namespace Uno
             // Assume success unless otherwise
             CardPlayStatus success = CardPlayStatus.Success;
 
+            // Check the colour is correct, or the card is a wild
             if (card.Color != Card.CardColor.Wild && card.Color != game.CurrentColor && card.Face != game.CurrentFace)
-            {
-                // Check the colour is correct, or the card is a wild
-                if (card.Color != Card.CardColor.Wild && card.Color != game.CurrentColor)
-                    success = CardPlayStatus.WrongColor;
-
-                // Check if the face is correct
-                else if (card.Face != game.CurrentFace)
-                    success = CardPlayStatus.WrongFace;
-            }
+                success = CardPlayStatus.WrongColor;
 
 
             // Don't allow Draw 4s when the player has a card of the current color
-            if (!game.Options.AllowDraw4Always)
+            if (!game.Options.AllowDraw4Always && card.Face == Card.CardFace.Draw4)
             {
                 bool checkForCurrentColor = false;
 
@@ -362,7 +348,22 @@ namespace Uno
             return success;
         }
 
-       
+
+
+        // Debugging methods
+        //////////////////////////////////////
+
+        public void SwapPlayersHands()
+        {
+            swapAllPlayerHands();
+            gameView.ReDraw();
+        }
+
+        public void MakeComputerMoveForPlayer()
+        {
+            makeComputerMove(true);
+        }
+
         ///////////////////////////////////////////////////////////////////////////////////////
         // Private Methods
         ///////////////////////////////////////////////////////////////////////////////////////
@@ -690,11 +691,11 @@ namespace Uno
         /// <summary>
         /// Makes the move for a computer player (should only be called by a timer)
         /// </summary>
-        private void makeComputerMove()
+        private void makeComputerMove(bool computerOnlyOverride)
         {
 
             // Stop if for some reason this method got called when it's actually a human
-            if (game.CurrentPlayer.Type == Player.PlayerType.Human)
+            if (game.CurrentPlayer.Type == Player.PlayerType.Human && !computerOnlyOverride)
                 return;
 
             // Set a flag to check if it should be smart (easier than referencing the type all the time)
@@ -841,7 +842,7 @@ namespace Uno
         {
             // Stop the timer and make a move
             computerPlayerTimer.Stop();
-            makeComputerMove();
+            makeComputerMove(false);
         }
 
 

@@ -53,7 +53,7 @@
             this.animationCheckbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.animationCheckbox.Checked = true;
             this.animationCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.animationCheckbox.Location = new System.Drawing.Point(149, 94);
+            this.animationCheckbox.Location = new System.Drawing.Point(149, 82);
             this.animationCheckbox.Name = "animationCheckbox";
             this.animationCheckbox.Size = new System.Drawing.Size(94, 17);
             this.animationCheckbox.TabIndex = 2;
@@ -62,7 +62,7 @@
             // 
             // computerDelayUpDown
             // 
-            this.computerDelayUpDown.Location = new System.Drawing.Point(228, 117);
+            this.computerDelayUpDown.Location = new System.Drawing.Point(228, 105);
             this.computerDelayUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -85,7 +85,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 119);
+            this.label1.Location = new System.Drawing.Point(89, 107);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 13);
             this.label1.TabIndex = 2;
@@ -95,7 +95,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(142, 47);
+            this.label2.Location = new System.Drawing.Point(142, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 13);
             this.label2.TabIndex = 3;
@@ -104,7 +104,7 @@
             // 
             // cardsPerPlayerUpDown
             // 
-            this.cardsPerPlayerUpDown.Location = new System.Drawing.Point(228, 45);
+            this.cardsPerPlayerUpDown.Location = new System.Drawing.Point(228, 33);
             this.cardsPerPlayerUpDown.Maximum = new decimal(new int[] {
             25,
             0,
@@ -139,7 +139,7 @@
             // 
             this.highlightPlayableCards.AutoSize = true;
             this.highlightPlayableCards.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.highlightPlayableCards.Location = new System.Drawing.Point(103, 71);
+            this.highlightPlayableCards.Location = new System.Drawing.Point(103, 59);
             this.highlightPlayableCards.Name = "highlightPlayableCards";
             this.highlightPlayableCards.Size = new System.Drawing.Size(140, 17);
             this.highlightPlayableCards.TabIndex = 1;
@@ -161,7 +161,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(135, 197);
+            this.label3.Location = new System.Drawing.Point(135, 185);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 13);
             this.label3.TabIndex = 6;
@@ -173,7 +173,7 @@
             this.allowDraw4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.allowDraw4.Checked = true;
             this.allowDraw4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.allowDraw4.Location = new System.Drawing.Point(47, 225);
+            this.allowDraw4.Location = new System.Drawing.Point(47, 213);
             this.allowDraw4.Name = "allowDraw4";
             this.allowDraw4.Size = new System.Drawing.Size(196, 17);
             this.allowDraw4.TabIndex = 4;
@@ -184,7 +184,7 @@
             // 
             this.swapWith0.AutoSize = true;
             this.swapWith0.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.swapWith0.Location = new System.Drawing.Point(90, 248);
+            this.swapWith0.Location = new System.Drawing.Point(90, 236);
             this.swapWith0.Name = "swapWith0";
             this.swapWith0.Size = new System.Drawing.Size(153, 17);
             this.swapWith0.TabIndex = 5;
@@ -194,7 +194,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(143, 145);
+            this.label4.Location = new System.Drawing.Point(143, 133);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(82, 13);
             this.label4.TabIndex = 2;
@@ -208,7 +208,7 @@
             this.scoringMethodDropDown.Items.AddRange(new object[] {
             "Simple Scoring",
             "Card Value Scoring"});
-            this.scoringMethodDropDown.Location = new System.Drawing.Point(228, 142);
+            this.scoringMethodDropDown.Location = new System.Drawing.Point(228, 130);
             this.scoringMethodDropDown.Name = "scoringMethodDropDown";
             this.scoringMethodDropDown.Size = new System.Drawing.Size(121, 21);
             this.scoringMethodDropDown.TabIndex = 8;
@@ -218,7 +218,7 @@
             // 
             this.stopAfterFirst.AutoSize = true;
             this.stopAfterFirst.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.stopAfterFirst.Location = new System.Drawing.Point(82, 271);
+            this.stopAfterFirst.Location = new System.Drawing.Point(82, 259);
             this.stopAfterFirst.Name = "stopAfterFirst";
             this.stopAfterFirst.Size = new System.Drawing.Size(161, 17);
             this.stopAfterFirst.TabIndex = 5;
@@ -229,7 +229,7 @@
             // 
             this.requiredOfficialLabel.AutoSize = true;
             this.requiredOfficialLabel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.requiredOfficialLabel.Location = new System.Drawing.Point(249, 272);
+            this.requiredOfficialLabel.Location = new System.Drawing.Point(249, 260);
             this.requiredOfficialLabel.Name = "requiredOfficialLabel";
             this.requiredOfficialLabel.Size = new System.Drawing.Size(155, 13);
             this.requiredOfficialLabel.TabIndex = 9;

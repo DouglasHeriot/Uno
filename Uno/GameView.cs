@@ -16,22 +16,30 @@ namespace Uno
 
         private Game game;
         private GameController controller;
+
+        // Stores the relationship between cards and their picture boxes on the form
         private Hashtable cardsViews = new Hashtable(108);
 
         private List<Label> playerLabels = new List<Label>(Game.MAXPLAYERS);
         private List<PictureBox> playerComputerBadges = new List<PictureBox>(Game.MAXPLAYERS);
 
+        // Timer to flash the end game button highlight
         Timer endGameHighlightTimer = new Timer();
 
+        // Is this the first time the view has been drawn?
         bool first = true;
+
+        // Has the player confirmed closing the form?
+        bool confirmedClose = false;
+
+        // If there are too many cards, they shouldn't be animated all dealt at once
+        bool tooManyCards;
 
         ToolTip toolTip;
 
 
         public GameView(Game newGame, GameController gameController)
         {
-
-
             InitializeComponent();
 
             toolTip = new ToolTip();
@@ -39,6 +47,7 @@ namespace Uno
             // Must redefine the background image to make the optimizing code work properly
             BackgroundImage = Properties.Resources.GameView;
 
+            // Save the parameters
             game = newGame;
             controller = gameController;
 
@@ -48,6 +57,8 @@ namespace Uno
             // Create picture boxes for each card, and store them in a hash table
             foreach (Card c in game.Deck)
                 cardsViews.Add(c, createPictureBoxForCard(c));
+
+
 
             // Add controls to their arrays
 
@@ -79,18 +90,44 @@ namespace Uno
             }
 
 
+            // Set the game info message
             gameInfoMessage.Text = GameOptions.ScoringSystemToString(game.Options.ScoringSystem) + (game.Options.StopPlayingAfterFirst ? ",\r\nStopping after winner" : "");
 
+            // Handle the form closing event
+            FormClosing += new FormClosingEventHandler(GameView_FormClosing);
 
-
+            // Set up the end game highlight flashing timer
             endGameHighlightTimer.Interval = 500;
             endGameHighlightTimer.Tick += new EventHandler(endGameHighlightTimer_Tick);
 
+
+            // Check if there's too many cards
+            tooManyCards = game.NumberOfPlayers * game.Options.CardsForEachPlayer > 50;
+
+
+
+            #if DEBUG
+                debugControls.Visible = true;
+            #endif
+        }
+
+        void GameView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!confirmedClose)
+            {
+                DialogResult result = MessageBox.Show(this, "Are you sure you want to close this Uno game?", "Close Uno Game", MessageBoxButtons.OKCancel);
+
+                if (result != DialogResult.OK)
+                    e.Cancel = true;
+                else
+                    confirmedClose = true;
+            }
         }
 
         
 
         /*
+         * Using Background images without reducing performance
          * http://blogs.msdn.com/mhendersblog/archive/2005/10/12/480156.aspx
          * and http://www.eggheadcafe.com/software/aspnet/30750705/help-with-form-painting-p.aspx
          */
@@ -125,7 +162,7 @@ namespace Uno
 
 
             // Remove cards that are just in the deck, but set to appropriate positions
-            foreach(Card c in game.Deck)
+            foreach (Card c in game.Deck)
             {
                 this.Controls.Remove(cardsViews[c] as PictureBox);
                 (cardsViews[c] as PictureBox).Location = new Point(75, 182);
@@ -135,13 +172,13 @@ namespace Uno
 
 
             // Layout the cards for each player
-            for (int i=0; i<game.Players.Count; i++)
+            for (int i = 0; i < game.Players.Count; i++)
             {
                 // Get the GamePlayer
-                Game.GamePlayer p = (Game.GamePlayer) game.PlayersCards[game.Players[i]];
+                Game.GamePlayer p = (Game.GamePlayer)game.PlayersCards[game.Players[i]];
 
-                
-                for (int k=0; k<p.Cards.Count; k++)
+
+                for (int k = 0; k < p.Cards.Count; k++)
                 {
                     // Get the card
                     Card c = p.Cards[k];
@@ -152,46 +189,45 @@ namespace Uno
                     pictureBox.BringToFront();
 
                     // Highlight playable cards
-                    if(game.Options.HighlightPlayableCards)
+                    if (game.Options.HighlightPlayableCards)
                         pictureBox.BorderStyle = controller.CanPlayCard(c) ? BorderStyle.FixedSingle : BorderStyle.None;
 
-                    
+
 
                     // Extra things to try while in Debug mode (incomplete features)
-                    #if DEBUG
+#if DEBUG
 
-                        // Set the tooltip to the status of the card
-                        toolTip.SetToolTip(pictureBox, controller.CanPlayCardStatus(c).ToString());
+                    // Set the tooltip to the status of the card
+                    toolTip.SetToolTip(pictureBox, controller.CanPlayCardStatus(c).ToString());
 
 
-                        if (p.Cards.Count > 10)
-                        {
-                            //System.Diagnostics.Debugger.Break();
-                        }
+                    if (p.Cards.Count > 10)
+                    {
+                        //System.Diagnostics.Debugger.Break();
+                    }
 
-                    #endif
+#endif
 
                     // Set the position of the card on the screen, putting them closer together when there's more than 10 cards
-                    int left = p.Cards.Count <= 10 ? k * 60 + 260 : k * (650 / p.Cards.Count) + 260 ;
+                    int left = p.Cards.Count <= 10 ? k * 60 + 260 : k * (650 / p.Cards.Count) + 260;
 
                     // Animate moving the position of the card
-                    moveCardTo(pictureBox, left, i * 137 + 80, Tweener.easeOutCubic, !first);
+                    moveControlTo(pictureBox, left, i * 137 + 80, Tweener.easeOutCubic, !(first && tooManyCards));
 
 
-                   
+
                 }
             }
 
 
-            /*
-            // Remove all cards in the discard pile from the form except the top 2 cards
-            for (int c = 0; c < game.DiscardPile.Count - 2; c++)
+            // Remove all cards in the discard pile from the form except some of the top cards
+            for (int c = 0; c < game.DiscardPile.Count - 15; c++)
             {
                 Controls.Remove(cardsViews[game.DiscardPile[c]] as PictureBox);
-                (cardsViews[game.DiscardPile[c]] as PictureBox).Location = new Point(75,182);
+                (cardsViews[game.DiscardPile[c]] as PictureBox).Location = new Point(75, 182);
+
             }
-            */
-            
+
 
             // Display the discard pile
             if (game.DiscardPile.Count > 0)
@@ -201,7 +237,7 @@ namespace Uno
                 Controls.Add(lastCard);
                 lastCard.BringToFront();
 
-                moveCardTo(lastCard, 75, 65);
+                moveControlTo(lastCard, 75, 65);
 
                 // Remove tooltip
                 toolTip.SetToolTip(lastCard, "");
@@ -229,9 +265,10 @@ namespace Uno
 
 
             // Set player status
-            moveCardTo(playerStatus, 213, game.CurrentPlayerIndex * 137 + 43, Tweener.easeOutCubic, game.Options.ComputerPlayerDelay > 600, 50);
+            // Don't animate when computers are playing each other really quickly
+            moveControlTo(playerStatus, 213, game.CurrentPlayerIndex * 137 + 43, Tweener.easeOutCubic, game.Options.ComputerPlayerDelay > 600, 50);
 
-            playerStatus.Image = (Image) Properties.Resources.ResourceManager.GetObject(Card.CardColorToString(game.CurrentColor)+ ( game.Reverse ? "_ccw" : "_cw" ));
+            playerStatus.Image = (Image)Properties.Resources.ResourceManager.GetObject(Card.CardColorToString(game.CurrentColor) + (game.Reverse ? "_ccw" : "_cw"));
 
             if (game.CurrentColor == Card.CardColor.Wild) playerStatus.BackColor = Color.Black;
             else playerStatus.BackColor = Color.Transparent;
@@ -239,7 +276,7 @@ namespace Uno
 
 
             // Show the end game highlight
-            if(game.Finished)
+            if (game.Finished)
                 endGameHighlightTimer.Start();
 
 
@@ -248,41 +285,15 @@ namespace Uno
 
         }
 
-        void card_MouseLeave(object sender, EventArgs e)
-        {
-            int newTop = (sender as PictureBox).Top + 10;
 
-            /*
-            if (Game.USEANIMATION)
-                AnimateMotion((Control)sender, (sender as Control).Left, newTop);
-            else
-                (sender as PictureBox).Top = newTop;
-             */
-
-
-            //(sender as PictureBox).Invalidate();
-            //this.Invalidate();
-        }
-
-        void card_MouseEnter(object sender, EventArgs e)
-        {
-            int newTop = (sender as PictureBox).Top - 10;
-
-            /*
-            if (Game.USEANIMATION)
-                AnimateMotion((Control)sender, (sender as Control).Left, newTop);
-            else
-                (sender as PictureBox).Top = newTop;
-             */
-
-
-            //(sender as PictureBox).Invalidate();
-            //this.Invalidate(true);
-        }
-
-
-
-
+        /// <summary>
+        /// Animate the movement of a control. Does not check if animation is enabled or not
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="left"></param>
+        /// <param name="top"></param>
+        /// <param name="easingFunction"></param>
+        /// <param name="time"></param>
         private void AnimateMotion(Control control, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, int time)
         {
             TweenPairs p = new TweenPairs();
@@ -294,79 +305,128 @@ namespace Uno
             Tweener.add(t);
         }
 
-        private void completed()
-        {
-            //controller.MakeComputerMove();
-        }
-
-
         private PictureBox createPictureBoxForCard(Card card)
         {
+            // Create the new picture box
             PictureBox pictureBox = new PictureBox();
-
+            
+            // Set the tag so its card can be easily retrieved
             pictureBox.Tag = card;
             
-
+            // Set some properties
             pictureBox.Image = card.Image;
-            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox.BackColor = Color.Transparent;
 
+            // Set the width and hight
             pictureBox.Height = 80;
             pictureBox.Width = 50;
 
+            // Set the default position to the deck
             pictureBox.Left = 75;
             pictureBox.Top = 182;
 
+            // Setup click event handler, to allow users to select cards
             pictureBox.Click += new EventHandler(card_Click);
-            //pictureBox.MouseEnter += new EventHandler(card_MouseEnter);
-            //pictureBox.MouseLeave += new EventHandler(card_MouseLeave);
 
-            
             return pictureBox;
         }
 
 
         void card_Click(object sender, EventArgs e)
         {
-            controller.SelectCard((sender as PictureBox).Tag as Card);
+            // Select the card, and save the result
+            GameController.CardPlayStatus result = controller.SelectCard((sender as PictureBox).Tag as Card);
+
+            // Present the result to the user
+            if (result != GameController.CardPlayStatus.Success)
+            {
+                string errorString;
+
+                // Get the appropriate string for the error
+                switch (result)
+                {
+                    case GameController.CardPlayStatus.IncorrectPlayer:
+                        errorString = "Wrong Player";
+                        break;
+                    case GameController.CardPlayStatus.Draw4NotAllowed:
+                        errorString = "Not allowed to play Draw 4 while you have " + game.CurrentColor.ToString() + " cards";
+                        break;
+                    case GameController.CardPlayStatus.WrongColor:
+                        errorString = "Wrong color";
+                        break;
+                    case GameController.CardPlayStatus.UnkownError:
+                        errorString = "Not Allowed";
+                        break;
+                    default:
+                        errorString = "";
+                        break;
+                }
+
+                // Show the label, with the string
+                errorLabel.Text = errorString;
+                errorLabel.Visible = true;
+            }
+            else
+            {
+                // Hide the label if there's no errors
+                errorLabel.Visible = false;
+            }
         }
+
 
 
         private void pickupPileImage_Click(object sender, EventArgs e)
         {
+            // Tell the controller to pickup a card
             controller.PickupCard();
+
+            // Hide the error label
+            errorLabel.Visible = false;
         }
 
 
 
-        private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, bool useAnimation, int time)
+        /// <summary>
+        /// Animate moving a control to a new position
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="left"></param>
+        /// <param name="top"></param>
+        /// <param name="easingFunction"></param>
+        /// <param name="useAnimation"></param>
+        /// <param name="time"></param>
+        private void moveControlTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, bool useAnimation, int time)
         {
+            // Check if the user disabled animation
             if (game.Options.UseAnimation && useAnimation)
             {
+                // Perform the animation
                 AnimateMotion(card, left, top, easingFunction, time);
             }
             else
             {
+                // Just move the control if animation is disabled
                 card.Top = top;
                 card.Left = left;
             }
         }
 
-        private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, bool useAnimation)
+        private void moveControlTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction, bool useAnimation)
         {
-            moveCardTo(card, left, top, Tweener.easeOutCubic, true, 30);
+            moveControlTo(card, left, top, Tweener.easeOutCubic, useAnimation, 30);
         }
 
 
-        private void moveCardTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction)
+        private void moveControlTo(Control card, int left, int top, Projectplace.Gui.Tweener.ease easingFunction)
         {
-            moveCardTo(card, left, top, Tweener.easeOutCubic, true);
+            moveControlTo(card, left, top, Tweener.easeOutCubic, true);
         }
 
 
-        private void moveCardTo(Control card, int left, int top)
+        private void moveControlTo(Control card, int left, int top)
         {
-            moveCardTo(card, left, top, Tweener.easeOutCubic);
+            moveControlTo(card, left, top, Tweener.easeOutCubic);
         }
 
 
@@ -379,6 +439,22 @@ namespace Uno
 
         private void endGameButton_Click(object sender, EventArgs e)
         {
+            if (!game.Finished)
+            {
+                DialogResult result = MessageBox.Show(this, "Are you sure you want to end this game?", "End Game", MessageBoxButtons.OKCancel);
+
+                if (result != DialogResult.OK)
+                    return;
+                else
+                    confirmedClose = true;
+            }
+            else
+            {
+                // Allow the form to close without prompting the user
+                confirmedClose = true;
+            }
+            
+
             // Tell the controller to end the game
             controller.EndGame();
         }
@@ -402,6 +478,16 @@ namespace Uno
         {
             // Show the help window
             Program.ShowHelp(Help.HelpPage.Playing);
+        }
+
+        private void swapHandsButton_Click(object sender, EventArgs e)
+        {
+            controller.SwapPlayersHands();
+        }
+
+        private void computerMoveButton_Click(object sender, EventArgs e)
+        {
+            controller.MakeComputerMoveForPlayer();
         }
 
     }

@@ -26,6 +26,27 @@
             Updates the game view form to present the current state of the game
             </summary>
         </member>
+        <member name="M:Uno.GameView.AnimateMotion(System.Windows.Forms.Control,System.Int32,System.Int32,Projectplace.Gui.Tweener.ease,System.Int32)">
+            <summary>
+            Animate the movement of a control. Does not check if animation is enabled or not
+            </summary>
+            <param name="control"></param>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="easingFunction"></param>
+            <param name="time"></param>
+        </member>
+        <member name="M:Uno.GameView.moveControlTo(System.Windows.Forms.Control,System.Int32,System.Int32,Projectplace.Gui.Tweener.ease,System.Boolean,System.Int32)">
+            <summary>
+            Animate moving a control to a new position
+            </summary>
+            <param name="card"></param>
+            <param name="left"></param>
+            <param name="top"></param>
+            <param name="easingFunction"></param>
+            <param name="useAnimation"></param>
+            <param name="time"></param>
+        </member>
         <member name="F:Uno.AboutBox.components">
             <summary>
             Required designer variable.
@@ -292,6 +313,36 @@
         <member name="P:Uno.Game.GamePlayer.FinishRank">
             <summary>
             The rank of the player in finishing, where 0 is first, 1 is second, and -1 is not finished yet.
+            </summary>
+        </member>
+        <member name="M:Uno.Help.SelectPage(Uno.Help.HelpPage)">
+            <summary>
+            Select a page to view
+            </summary>
+            <param name="page"></param>
+        </member>
+        <member name="M:Uno.Help.setFocusEventHandler(System.Object,System.EventArgs)">
+            <summary>
+            Handle any events which may require the tab to need focus
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Uno.Help.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Uno.Help.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Uno.Help.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
             </summary>
         </member>
         <member name="F:Uno.SortedPlayerView.components">
@@ -932,7 +983,7 @@
             Gets ready to make a move for the computer
             </summary>
         </member>
-        <member name="M:Uno.GameController.makeComputerMove">
+        <member name="M:Uno.GameController.makeComputerMove(System.Boolean)">
             <summary>
             Makes the move for a computer player (should only be called by a timer)
             </summary>
@@ -1002,14 +1053,19 @@
             The card is the wrong color
             </summary>
         </member>
-        <member name="F:Uno.GameController.CardPlayStatus.WrongFace">
-            <summary>
-            The card is the wrong face value
-            </summary>
-        </member>
         <member name="F:Uno.GameController.CardPlayStatus.IncorrectPlayer">
             <summary>
             The card does not belong to the current player
+            </summary>
+        </member>
+        <member name="F:Uno.GameController.CardPlayStatus.Deck">
+            <summary>
+            The card is actually in the deck
+            </summary>
+        </member>
+        <member name="F:Uno.GameController.CardPlayStatus.Cancelled">
+            <summary>
+            The card was cancelled
             </summary>
         </member>
         <member name="F:Uno.GameController.CardPlayStatus.Draw4NotAllowed">
@@ -1039,22 +1095,23 @@
             <param name="players"></param>
             <param name="options"></param>
         </member>
-        <member name="F:Uno.Help.components">
+        <member name="M:Uno.Program.NewSortedPlayersView(Uno.Game)">
             <summary>
-            Required designer variable.
+            Crete and show a new sorted players view, for the end of a game
             </summary>
+            <param name="game"></param>
         </member>
-        <member name="M:Uno.Help.Dispose(System.Boolean)">
+        <member name="M:Uno.Program.CloseWindow">
             <summary>
-            Clean up any resources being used.
+            Record a window close, and exit the applicatin if necessary
             </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+            <returns></returns>
         </member>
-        <member name="M:Uno.Help.InitializeComponent">
+        <member name="M:Uno.Program.ShowHelp(Uno.Help.HelpPage)">
             <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
+            Show the help form for a given page
             </summary>
+            <param name="page"></param>
         </member>
     </members>
 </doc>

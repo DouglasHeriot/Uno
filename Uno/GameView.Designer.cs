@@ -45,6 +45,11 @@
             this.player3ComputerBadge = new System.Windows.Forms.PictureBox();
             this.player4ComputerBadge = new System.Windows.Forms.PictureBox();
             this.gameInfoMessage = new System.Windows.Forms.Label();
+            this.errorLabel = new System.Windows.Forms.Label();
+            this.debugControls = new System.Windows.Forms.Panel();
+            this.computerMoveButton = new System.Windows.Forms.Button();
+            this.swapHandsButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pickupPileImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playerStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.endHighlight)).BeginInit();
@@ -52,6 +57,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.player2ComputerBadge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player3ComputerBadge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.player4ComputerBadge)).BeginInit();
+            this.debugControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // newGameButton
@@ -222,13 +228,68 @@
             this.gameInfoMessage.TabIndex = 6;
             this.gameInfoMessage.Text = "Simple Scoring";
             // 
+            // errorLabel
+            // 
+            this.errorLabel.BackColor = System.Drawing.Color.Transparent;
+            this.errorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.errorLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorLabel.Location = new System.Drawing.Point(34, 352);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(150, 76);
+            this.errorLabel.TabIndex = 6;
+            this.errorLabel.Text = "Error! Not Allowed";
+            this.errorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.errorLabel.Visible = false;
+            // 
+            // debugControls
+            // 
+            this.debugControls.Controls.Add(this.computerMoveButton);
+            this.debugControls.Controls.Add(this.swapHandsButton);
+            this.debugControls.Controls.Add(this.label1);
+            this.debugControls.Location = new System.Drawing.Point(254, 583);
+            this.debugControls.Name = "debugControls";
+            this.debugControls.Size = new System.Drawing.Size(671, 38);
+            this.debugControls.TabIndex = 7;
+            this.debugControls.Visible = false;
+            // 
+            // computerMoveButton
+            // 
+            this.computerMoveButton.Location = new System.Drawing.Point(196, 3);
+            this.computerMoveButton.Name = "computerMoveButton";
+            this.computerMoveButton.Size = new System.Drawing.Size(100, 23);
+            this.computerMoveButton.TabIndex = 1;
+            this.computerMoveButton.Text = "Computer Move";
+            this.computerMoveButton.UseVisualStyleBackColor = true;
+            this.computerMoveButton.Click += new System.EventHandler(this.computerMoveButton_Click);
+            // 
+            // swapHandsButton
+            // 
+            this.swapHandsButton.Location = new System.Drawing.Point(90, 3);
+            this.swapHandsButton.Name = "swapHandsButton";
+            this.swapHandsButton.Size = new System.Drawing.Size(100, 23);
+            this.swapHandsButton.TabIndex = 1;
+            this.swapHandsButton.Text = "Swap Hands";
+            this.swapHandsButton.UseVisualStyleBackColor = true;
+            this.swapHandsButton.Click += new System.EventHandler(this.swapHandsButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Debug Controls";
+            // 
             // GameView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::Uno.Properties.Resources.GameView;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(950, 621);
+            this.Controls.Add(this.debugControls);
+            this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.gameInfoMessage);
             this.Controls.Add(this.player4ComputerBadge);
             this.Controls.Add(this.player3ComputerBadge);
@@ -258,6 +319,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.player2ComputerBadge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.player3ComputerBadge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.player4ComputerBadge)).EndInit();
+            this.debugControls.ResumeLayout(false);
+            this.debugControls.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,6 +344,11 @@
         private System.Windows.Forms.PictureBox player3ComputerBadge;
         private System.Windows.Forms.PictureBox player4ComputerBadge;
         private System.Windows.Forms.Label gameInfoMessage;
+        private System.Windows.Forms.Label errorLabel;
+        private System.Windows.Forms.Panel debugControls;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button swapHandsButton;
+        private System.Windows.Forms.Button computerMoveButton;
 
     }
 }

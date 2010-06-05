@@ -27,16 +27,10 @@ namespace Uno
             // Handle some events, to allow the selected tab to gain focus so the mouse scroll wheel works
             tabView.SelectedIndexChanged += new EventHandler(setFocusEventHandler);
             ResizeEnd += new EventHandler(setFocusEventHandler);
-            ResizeEnd += new EventHandler(Help_ResizeEnd);
             GotFocus += new EventHandler(setFocusEventHandler);
             VisibleChanged += new EventHandler(setFocusEventHandler);
             Shown += new EventHandler(setFocusEventHandler);
             Scroll += new ScrollEventHandler(Help_Scroll);
-        }
-
-        void Help_ResizeEnd(object sender, EventArgs e)
-        {
-            MessageBox.Show(Width.ToString() + ", Picture Box: " + pictureBox1.Width.ToString());
         }
 
         void Help_Scroll(object sender, ScrollEventArgs e)
