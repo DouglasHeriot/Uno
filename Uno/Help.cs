@@ -14,9 +14,10 @@ namespace Uno
 
         public enum HelpPage
         {
-            NewGame,
+            NewGame = 0,
             Options,
-            Playing
+            Playing,
+            Rules
         }
 
 
@@ -30,12 +31,6 @@ namespace Uno
             GotFocus += new EventHandler(setFocusEventHandler);
             VisibleChanged += new EventHandler(setFocusEventHandler);
             Shown += new EventHandler(setFocusEventHandler);
-            Scroll += new ScrollEventHandler(Help_Scroll);
-        }
-
-        void Help_Scroll(object sender, ScrollEventArgs e)
-        {
-            //SetFocusToTab();
         }
 
         /// <summary>
