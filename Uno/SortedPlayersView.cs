@@ -30,6 +30,11 @@ namespace Uno
             sortedPlayerViews.Add(sortedPlayerView3);
             sortedPlayerViews.Add(sortedPlayerView4);
 
+
+            // Sort the players
+            sortPlayersByScore();
+
+
             // Setup the sorted player views
             for (int i = 0; i < Game.MAXPLAYERS; i++)
             {
@@ -60,6 +65,47 @@ namespace Uno
             scoringMethodLabel.Text = ( game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic ? "Simple Scoring" : "Card Value Scoring" );
 
         }
+
+
+
+
+        /// <summary>
+        /// Sort the players
+        /// </summary>
+        private void sortPlayersByScore()
+        {
+
+            /*if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
+            {*/
+            for (int i = 1; i < game.NumberOfPlayers; i++)
+            {
+                for (int k = i; k > 0 && game.Players[k].Score < game.Players[k - 1].Score; k--)
+                {
+                    Player temp = game.Players[k];
+                    game.Players[k] = game.Players[k - 1];
+                    game.Players[k - 1] = temp;
+                }
+            }
+            //}
+
+            int sameRankedPlayers = 0;
+
+            // Give the players ranks so strings for "first", "second", etc. can be generated
+            for (int j = 0; j < game.NumberOfPlayers; j++)
+            {
+                if (j > 0 && game.Players[j - 1].Score == game.Players[j].Score)
+                    sameRankedPlayers++;
+                else
+                    sameRankedPlayers = 0;
+
+                game.Players[j].Rank = j - sameRankedPlayers;
+
+            }
+
+        }
+
+
+
 
         void SortedPlayersView_FormClosed(object sender, FormClosedEventArgs e)
         {
