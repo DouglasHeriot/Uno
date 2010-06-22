@@ -26,7 +26,7 @@ namespace Uno
         public int ComputerPlayerDelay      { get; set; }
         public bool UseAnimation            { get; set; }
         public bool HighlightPlayableCards  { get; set; }
-        public bool AllowDebugWindow        { get; set; }
+        //public bool AllowDebugWindow        { get; set; }
 
         // Optional Rules
         public bool SwapHandsWith0          { get; set; }
@@ -55,6 +55,7 @@ namespace Uno
             get { return stopPlayingAfterFirst; }
             set
             {
+                // Validate before setting (force when card value scoring is selected)
                 stopPlayingAfterFirst = scoringSystem == ScoringSystems.CardValue ? true : value;
             }
         }
@@ -68,7 +69,7 @@ namespace Uno
             ComputerPlayerDelay = 1200;
             UseAnimation = true;
             HighlightPlayableCards = false;
-            AllowDebugWindow = false;
+            //AllowDebugWindow = false;
 
             SwapHandsWith0 = false;
             AllowDraw4Always = true;

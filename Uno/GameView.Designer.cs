@@ -65,7 +65,7 @@
             this.newGameButton.Location = new System.Drawing.Point(44, 503);
             this.newGameButton.Name = "newGameButton";
             this.newGameButton.Size = new System.Drawing.Size(130, 22);
-            this.newGameButton.TabIndex = 0;
+            this.newGameButton.TabIndex = 1;
             this.newGameButton.Text = "New Game";
             this.newGameButton.UseVisualStyleBackColor = true;
             this.newGameButton.Click += new System.EventHandler(this.newGameButton_Click);
@@ -86,7 +86,7 @@
             this.helpButton.Location = new System.Drawing.Point(44, 537);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(59, 22);
-            this.helpButton.TabIndex = 0;
+            this.helpButton.TabIndex = 2;
             this.helpButton.Text = "Help";
             this.helpButton.UseVisualStyleBackColor = true;
             this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
@@ -96,7 +96,7 @@
             this.aboutButton.Location = new System.Drawing.Point(115, 537);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(59, 22);
-            this.aboutButton.TabIndex = 0;
+            this.aboutButton.TabIndex = 3;
             this.aboutButton.Text = "About";
             this.aboutButton.UseVisualStyleBackColor = true;
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
@@ -249,7 +249,7 @@
             this.debugControls.Location = new System.Drawing.Point(254, 583);
             this.debugControls.Name = "debugControls";
             this.debugControls.Size = new System.Drawing.Size(671, 38);
-            this.debugControls.TabIndex = 7;
+            this.debugControls.TabIndex = 4;
             this.debugControls.Visible = false;
             // 
             // computerMoveButton
@@ -267,7 +267,7 @@
             this.swapHandsButton.Location = new System.Drawing.Point(90, 3);
             this.swapHandsButton.Name = "swapHandsButton";
             this.swapHandsButton.Size = new System.Drawing.Size(100, 23);
-            this.swapHandsButton.TabIndex = 1;
+            this.swapHandsButton.TabIndex = 0;
             this.swapHandsButton.Text = "Swap Hands";
             this.swapHandsButton.UseVisualStyleBackColor = true;
             this.swapHandsButton.Click += new System.EventHandler(this.swapHandsButton_Click);

@@ -130,7 +130,7 @@
             this.doneButton.Location = new System.Drawing.Point(355, 307);
             this.doneButton.Name = "doneButton";
             this.doneButton.Size = new System.Drawing.Size(75, 23);
-            this.doneButton.TabIndex = 7;
+            this.doneButton.TabIndex = 9;
             this.doneButton.Text = "Done";
             this.doneButton.UseVisualStyleBackColor = true;
             this.doneButton.Click += new System.EventHandler(this.doneButton_Click);
@@ -152,7 +152,7 @@
             this.helpButton.Location = new System.Drawing.Point(274, 307);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(75, 23);
-            this.helpButton.TabIndex = 6;
+            this.helpButton.TabIndex = 8;
             this.helpButton.Text = "Help";
             this.helpButton.UseVisualStyleBackColor = true;
             this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
@@ -176,7 +176,7 @@
             this.allowDraw4.Location = new System.Drawing.Point(47, 213);
             this.allowDraw4.Name = "allowDraw4";
             this.allowDraw4.Size = new System.Drawing.Size(196, 17);
-            this.allowDraw4.TabIndex = 4;
+            this.allowDraw4.TabIndex = 5;
             this.allowDraw4.Text = "Allow Draw 4s to be played any time";
             this.allowDraw4.UseVisualStyleBackColor = true;
             // 
@@ -187,7 +187,7 @@
             this.swapWith0.Location = new System.Drawing.Point(90, 236);
             this.swapWith0.Name = "swapWith0";
             this.swapWith0.Size = new System.Drawing.Size(153, 17);
-            this.swapWith0.TabIndex = 5;
+            this.swapWith0.TabIndex = 6;
             this.swapWith0.Text = "Swap hands with a \'0\' card";
             this.swapWith0.UseVisualStyleBackColor = true;
             // 
@@ -211,7 +211,7 @@
             this.scoringMethodDropDown.Location = new System.Drawing.Point(228, 130);
             this.scoringMethodDropDown.Name = "scoringMethodDropDown";
             this.scoringMethodDropDown.Size = new System.Drawing.Size(121, 21);
-            this.scoringMethodDropDown.TabIndex = 8;
+            this.scoringMethodDropDown.TabIndex = 4;
             this.scoringMethodDropDown.SelectedIndexChanged += new System.EventHandler(this.scoringMethodDropDown_SelectedIndexChanged);
             // 
             // stopAfterFirst
@@ -221,7 +221,7 @@
             this.stopAfterFirst.Location = new System.Drawing.Point(82, 259);
             this.stopAfterFirst.Name = "stopAfterFirst";
             this.stopAfterFirst.Size = new System.Drawing.Size(161, 17);
-            this.stopAfterFirst.TabIndex = 5;
+            this.stopAfterFirst.TabIndex = 7;
             this.stopAfterFirst.Text = "Stop playing after first winner";
             this.stopAfterFirst.UseVisualStyleBackColor = true;
             // 

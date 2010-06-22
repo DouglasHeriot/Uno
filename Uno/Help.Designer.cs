@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Help));
             this.tabView = new System.Windows.Forms.TabControl();
             this.tabNewGame = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -82,7 +83,7 @@
             this.pictureBox1.Image = global::Uno.Properties.Resources.Help_NewGame;
             this.pictureBox1.Location = new System.Drawing.Point(6, 6);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(594, 607);
+            this.pictureBox1.Size = new System.Drawing.Size(611, 607);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -106,7 +107,7 @@
             this.pictureBox2.Image = global::Uno.Properties.Resources.Help_GameOptions;
             this.pictureBox2.Location = new System.Drawing.Point(0, 0);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(600, 1351);
+            this.pictureBox2.Size = new System.Drawing.Size(617, 1351);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
@@ -153,7 +154,7 @@
             this.pictureBox4.Image = global::Uno.Properties.Resources.Help_UnoRules;
             this.pictureBox4.Location = new System.Drawing.Point(3, 0);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(620, 1062);
+            this.pictureBox4.Size = new System.Drawing.Size(614, 1062);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox4.TabIndex = 2;
             this.pictureBox4.TabStop = false;
@@ -164,9 +165,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 489);
             this.Controls.Add(this.tabView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(680, 200);
             this.Name = "Help";
-            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Uno Help";
             this.tabView.ResumeLayout(false);
             this.tabNewGame.ResumeLayout(false);

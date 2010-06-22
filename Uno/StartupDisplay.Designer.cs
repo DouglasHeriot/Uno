@@ -72,7 +72,7 @@
             0});
             this.numberOfPlayers.Name = "numberOfPlayers";
             this.numberOfPlayers.Size = new System.Drawing.Size(47, 38);
-            this.numberOfPlayers.TabIndex = 4;
+            this.numberOfPlayers.TabIndex = 0;
             this.numberOfPlayers.Value = new decimal(new int[] {
             3,
             0,
@@ -88,7 +88,7 @@
             this.startGameButton.Location = new System.Drawing.Point(335, 496);
             this.startGameButton.Name = "startGameButton";
             this.startGameButton.Size = new System.Drawing.Size(153, 60);
-            this.startGameButton.TabIndex = 6;
+            this.startGameButton.TabIndex = 8;
             this.startGameButton.Text = "Start Game";
             this.startGameButton.UseVisualStyleBackColor = false;
             this.startGameButton.Click += new System.EventHandler(this.startGameButton_Click);
@@ -98,7 +98,7 @@
             this.gameOptionsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.gameOptionsButton.BackColor = System.Drawing.Color.Transparent;
             this.gameOptionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameOptionsButton.Location = new System.Drawing.Point(215, 529);
+            this.gameOptionsButton.Location = new System.Drawing.Point(215, 496);
             this.gameOptionsButton.Name = "gameOptionsButton";
             this.gameOptionsButton.Size = new System.Drawing.Size(114, 27);
             this.gameOptionsButton.TabIndex = 5;
@@ -122,10 +122,10 @@
             // 
             this.aboutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.aboutButton.BackColor = System.Drawing.Color.Transparent;
-            this.aboutButton.Location = new System.Drawing.Point(273, 496);
+            this.aboutButton.Location = new System.Drawing.Point(273, 529);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(56, 27);
-            this.aboutButton.TabIndex = 5;
+            this.aboutButton.TabIndex = 7;
             this.aboutButton.Text = "About";
             this.aboutButton.UseVisualStyleBackColor = false;
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
@@ -133,10 +133,10 @@
             // helpButton
             // 
             this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.helpButton.Location = new System.Drawing.Point(215, 496);
+            this.helpButton.Location = new System.Drawing.Point(215, 529);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(52, 27);
-            this.helpButton.TabIndex = 8;
+            this.helpButton.TabIndex = 6;
             this.helpButton.Text = "Help";
             this.helpButton.UseVisualStyleBackColor = true;
             this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
@@ -149,7 +149,7 @@
             this.startupPlayerView4.Location = new System.Drawing.Point(215, 388);
             this.startupPlayerView4.Name = "startupPlayerView4";
             this.startupPlayerView4.Size = new System.Drawing.Size(273, 94);
-            this.startupPlayerView4.TabIndex = 3;
+            this.startupPlayerView4.TabIndex = 4;
             // 
             // startupPlayerView3
             // 
@@ -159,7 +159,7 @@
             this.startupPlayerView3.Location = new System.Drawing.Point(215, 288);
             this.startupPlayerView3.Name = "startupPlayerView3";
             this.startupPlayerView3.Size = new System.Drawing.Size(273, 94);
-            this.startupPlayerView3.TabIndex = 2;
+            this.startupPlayerView3.TabIndex = 3;
             // 
             // startupPlayerView2
             // 
@@ -169,7 +169,7 @@
             this.startupPlayerView2.Location = new System.Drawing.Point(215, 188);
             this.startupPlayerView2.Name = "startupPlayerView2";
             this.startupPlayerView2.Size = new System.Drawing.Size(273, 94);
-            this.startupPlayerView2.TabIndex = 1;
+            this.startupPlayerView2.TabIndex = 2;
             // 
             // startupPlayerView1
             // 
@@ -179,7 +179,7 @@
             this.startupPlayerView1.Location = new System.Drawing.Point(215, 88);
             this.startupPlayerView1.Name = "startupPlayerView1";
             this.startupPlayerView1.Size = new System.Drawing.Size(273, 94);
-            this.startupPlayerView1.TabIndex = 0;
+            this.startupPlayerView1.TabIndex = 1;
             // 
             // StartupDisplay
             // 
