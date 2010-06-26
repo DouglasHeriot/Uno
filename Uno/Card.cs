@@ -48,7 +48,7 @@ namespace Uno
             /// </summary>
             Blue,
 
-            /// <summary>
+            /// <summary>   
             /// Wild cards
             /// </summary>
             Wild

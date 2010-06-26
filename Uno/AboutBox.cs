@@ -97,11 +97,20 @@ namespace Uno
 
         private void douglasHeriotLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://douglasheriot.com/");
+            // Open douglasheriot.com in the default web browser
+            System.Diagnostics.Process.Start("http://douglasheriot.com/uno/");
         }
 
         private void doneButton_Click(object sender, EventArgs e)
         {
+            // Close this window
+            this.Close();
+        }
+
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            // Show help, and close this window
+            Program.ShowHelp(Help.HelpPage.NewGame);
             this.Close();
         }
     }

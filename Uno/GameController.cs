@@ -34,9 +34,9 @@ namespace Uno
             IncorrectPlayer,
             
             /// <summary>
-            /// The card is actually in the deck
+            /// The card is actually in the discard pile
             /// </summary>
-            Deck,
+            DiscardPile,
 
             /// <summary>
             /// The card was cancelled
@@ -47,6 +47,11 @@ namespace Uno
             /// Draw 4 may only be played when no other card of current colour are available
             /// </summary>
             Draw4NotAllowed,
+
+            /// <summary>
+            /// The current player can only be controlled by the computer
+            /// </summary>
+            ComputerPlayer,
 
             /// <summary>
             /// The reason is unknown: an error may have occurred
@@ -62,7 +67,6 @@ namespace Uno
 
         private Game game;
         private GameView gameView;
-
 
         private int cardsToDraw = 0;
         private bool skip = false;
@@ -97,23 +101,19 @@ namespace Uno
         /// <param name="newGame"></param>
         public GameController(Game newGame)
         {
+            // Save the Game object
             game = newGame;
-
-            
 
             // Setup the uno deck
             game.Deck = GenerateUnoDeck();
             shuffleDeck();
-
             
-
             // Create a new game view
             gameView = new GameView(game, this);
             gameView.FormClosed += new FormClosedEventHandler(gameView_FormClosed);
 
             // Deal the cards to players
             dealCards();
-
 
             // Sort the cards in each player's hand
             foreach (System.Collections.DictionaryEntry p in game.PlayersCards)
@@ -123,30 +123,18 @@ namespace Uno
             performAction(Game.CurrentCard);
             handleActions();
 
-
             // Get ready for the first player (make a move if it's a computer)
             setupCurrentPlayer();
 
             // Prepare the game view
             gameView.ReDraw();
 
-
             // Setup the computer player delay timer
             computerPlayerTimer.Interval = game.Options.ComputerPlayerDelay;
             computerPlayerTimer.Tick += new EventHandler(computerPlayerTimer_Tick);
-
-
-            
-            
+    
             // Show the game view
-            gameView.Show();
-
-
-
-            // Testing purposes only!
-            //makeComputerMove();
-
-            
+            gameView.Show();            
         }
 
 
@@ -163,13 +151,16 @@ namespace Uno
         /// <param name="card"></param>
         public CardPlayStatus SelectCard(Card card)
         {
+            // Don't let humans play on behalf of the computer!
+            if (game.CurrentPlayer.Type != Player.PlayerType.Human)
+                return CardPlayStatus.ComputerPlayer;
+                
             
             // Check if the card can be played before asking for wild colour
             CardPlayStatus wildCheckStatus = CanPlayCardStatus(card);
             if (wildCheckStatus != CardPlayStatus.Success)
                 return wildCheckStatus;
             
-
             // Ask for the color for a wild card
             if (card.Color == Card.CardColor.Wild)
             {
@@ -310,7 +301,7 @@ namespace Uno
         // Check if a card can be played
         public CardPlayStatus CanPlayCardStatus(Card card)
         {
-            // Assume success unless otherwise
+            // Assume success unless otherwise (because we're looking for the reason it isn't allowed)
             CardPlayStatus success = CardPlayStatus.Success;
 
             // Check the colour is correct, or the card is a wild
@@ -323,26 +314,37 @@ namespace Uno
             {
                 bool checkForCurrentColor = false;
 
+                // Look at each card to check if the player holds any cards of the current color
                 foreach (Card c in game.CurrentGamePlayer.Cards)
                 {
                     if (c.Color == game.CurrentColor)
                     {
+                        // We can stop checking now
                         checkForCurrentColor = true;
                         break;
                     }
                 }
 
+                // Set the success status
                 if (checkForCurrentColor)
                     success = CardPlayStatus.Draw4NotAllowed;
 
             }
 
+
             // Don't allow playing somebody else's cards!
             // TODO: allow optional pickup put downs
             if (game.CurrentGamePlayer.Cards.IndexOf(card) < 0)
-                success = CardPlayStatus.IncorrectPlayer;
+            {
+                if (game.DiscardPile.IndexOf(card) > -1)
+                    // The card is in the discard pile
+                    success = CardPlayStatus.DiscardPile;
+                else
+                    // The card is in someone else's hand
+                    success = CardPlayStatus.IncorrectPlayer;
+            }
 
-
+            
             return success;
         }
 
@@ -351,13 +353,13 @@ namespace Uno
         // Debugging methods
         //////////////////////////////////////
 
-        public void SwapPlayersHands()
+        internal void SwapPlayersHands()
         {
             swapAllPlayerHands();
             gameView.ReDraw();
         }
 
-        public void MakeComputerMoveForPlayer()
+        internal void MakeComputerMoveForPlayer()
         {
             makeComputerMove(true);
         }
@@ -697,7 +699,7 @@ namespace Uno
                 return;
 
             // Set a flag to check if it should be smart (easier than referencing the type all the time)
-            bool smart = game.CurrentPlayer.Type == Player.PlayerType.SmartComputer ? true : false;
+            bool smart = game.CurrentPlayer.Type == Player.PlayerType.SmartComputer;
             
             // Make cards easier to access
             List<Card> cards = game.CurrentGamePlayer.Cards;

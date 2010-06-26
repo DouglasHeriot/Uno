@@ -277,7 +277,10 @@ namespace Uno
 
             // Show the end game highlight
             if (game.Finished)
+            {
                 endGameHighlightTimer.Start();
+                endGameButton.Focus();
+            }
 
 
             // Set the first flag, to enable animation again
@@ -353,7 +356,7 @@ namespace Uno
                         errorString = "Not allowed to play Draw 4 while you have " + game.CurrentColor.ToString() + " cards";
                         break;
                     case GameController.CardPlayStatus.WrongColor:
-                        errorString = "Wrong color";
+                        errorString = "Wrong Colour";
                         break;
                     case GameController.CardPlayStatus.UnkownError:
                         errorString = "Not Allowed";
@@ -431,30 +434,46 @@ namespace Uno
 
 
 
-        private void newGameButton_Click(object sender, EventArgs e)
-        {
-            // Open a new startup window, while leaving this game to continue
-            Program.NewStartup();
-        }
-
-        private void endGameButton_Click(object sender, EventArgs e)
+        private bool endGame(string messageTitle, string message)
         {
             if (!game.Finished)
             {
-                DialogResult result = MessageBox.Show(this, "Are you sure you want to end this game?", "End Game", MessageBoxButtons.OKCancel);
+                DialogResult result = MessageBox.Show(this, message, messageTitle, MessageBoxButtons.OKCancel);
 
                 if (result != DialogResult.OK)
-                    return;
+                    return false;
                 else
+                {
                     confirmedClose = true;
+                    return true;
+                }
             }
             else
             {
                 // Allow the form to close without prompting the user
                 confirmedClose = true;
+                return true;
             }
-            
+        }
 
+
+        private void newGameButton_Click(object sender, EventArgs e)
+        {
+            // First, check if it's ok to end the game
+            if (!endGame("New Game", "Are you sure you want to start a new game? This current game will be lost")) return;
+
+            // Open a new startup window
+            Program.NewStartup();
+
+            // Don't bother telling the controller about it - just close this window
+            Close();
+        }
+
+        private void endGameButton_Click(object sender, EventArgs e)
+        {
+            // First, check if it's ok to end the game
+            if (!endGame("End Game", "Are you sure you want to end this game?")) return;
+            
             // Tell the controller to end the game
             controller.EndGame();
         }

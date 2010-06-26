@@ -527,7 +527,7 @@
             </summary>
         </member>
         <member name="F:Uno.Card.CardColor.Wild">
-            <summary>
+            <summary>   
             Wild cards
             </summary>
         </member>
@@ -636,6 +636,11 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Uno.SortedPlayersView.sortPlayersByScore">
+            <summary>
+            Sort the players
             </summary>
         </member>
         <member name="T:Projectplace.Gui.TweenPairs">
@@ -1015,11 +1020,6 @@
             </summary>
             <param name="cards"></param>
         </member>
-        <member name="M:Uno.GameController.sortPlayersByScore">
-            <summary>
-            Sort the players
-            </summary>
-        </member>
         <member name="M:Uno.GameController.GenerateUnoDeck">
             <summary>
             Generate a Uno deck of cards
@@ -1058,9 +1058,9 @@
             The card does not belong to the current player
             </summary>
         </member>
-        <member name="F:Uno.GameController.CardPlayStatus.Deck">
+        <member name="F:Uno.GameController.CardPlayStatus.DiscardPile">
             <summary>
-            The card is actually in the deck
+            The card is actually in the discard pile
             </summary>
         </member>
         <member name="F:Uno.GameController.CardPlayStatus.Cancelled">
@@ -1071,6 +1071,11 @@
         <member name="F:Uno.GameController.CardPlayStatus.Draw4NotAllowed">
             <summary>
             Draw 4 may only be played when no other card of current colour are available
+            </summary>
+        </member>
+        <member name="F:Uno.GameController.CardPlayStatus.ComputerPlayer">
+            <summary>
+            The current player can only be controlled by the computer
             </summary>
         </member>
         <member name="F:Uno.GameController.CardPlayStatus.UnkownError">

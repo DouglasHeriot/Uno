@@ -413,7 +413,7 @@ namespace Uno
             /// </summary>
             public bool Finished
             {
-                get { return cards.Count <= 0; }
+                get { return cards.Count <= 0 || finishRank >= 0; }
             }
 
 

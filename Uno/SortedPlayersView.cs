@@ -75,33 +75,33 @@ namespace Uno
         private void sortPlayersByScore()
         {
 
-            /*if (game.Options.ScoringSystem == GameOptions.ScoringSystems.Basic)
-            {*/
+            // Check each player is in the correct position
             for (int i = 1; i < game.NumberOfPlayers; i++)
             {
+                // Find the correct position for a player, by moving it up the list
                 for (int k = i; k > 0 && game.Players[k].Score < game.Players[k - 1].Score; k--)
                 {
+                    // Swap with the previous player
                     Player temp = game.Players[k];
                     game.Players[k] = game.Players[k - 1];
                     game.Players[k - 1] = temp;
                 }
             }
-            //}
 
             int sameRankedPlayers = 0;
 
             // Give the players ranks so strings for "first", "second", etc. can be generated
             for (int j = 0; j < game.NumberOfPlayers; j++)
             {
+                // Check if this player has the same rank as the previous one
                 if (j > 0 && game.Players[j - 1].Score == game.Players[j].Score)
                     sameRankedPlayers++;
                 else
                     sameRankedPlayers = 0;
 
+                // Give out a rank, but take into account same ranked players
                 game.Players[j].Rank = j - sameRankedPlayers;
-
             }
-
         }
 
 

@@ -83,56 +83,57 @@
             // startGameButton
             // 
             this.startGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.startGameButton.BackColor = System.Drawing.Color.Transparent;
+            this.startGameButton.BackColor = System.Drawing.SystemColors.Control;
             this.startGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startGameButton.Location = new System.Drawing.Point(335, 496);
             this.startGameButton.Name = "startGameButton";
             this.startGameButton.Size = new System.Drawing.Size(153, 60);
             this.startGameButton.TabIndex = 8;
             this.startGameButton.Text = "Start Game";
-            this.startGameButton.UseVisualStyleBackColor = false;
+            this.startGameButton.UseVisualStyleBackColor = true;
             this.startGameButton.Click += new System.EventHandler(this.startGameButton_Click);
             // 
             // gameOptionsButton
             // 
             this.gameOptionsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.gameOptionsButton.BackColor = System.Drawing.Color.Transparent;
+            this.gameOptionsButton.BackColor = System.Drawing.SystemColors.Control;
             this.gameOptionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gameOptionsButton.Location = new System.Drawing.Point(215, 496);
             this.gameOptionsButton.Name = "gameOptionsButton";
             this.gameOptionsButton.Size = new System.Drawing.Size(114, 27);
             this.gameOptionsButton.TabIndex = 5;
             this.gameOptionsButton.Text = "Game Options...";
-            this.gameOptionsButton.UseVisualStyleBackColor = false;
+            this.gameOptionsButton.UseVisualStyleBackColor = true;
             this.gameOptionsButton.Click += new System.EventHandler(this.gameOptionsButton_Click);
             // 
             // quickDebugGameButton
             // 
             this.quickDebugGameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.quickDebugGameButton.BackColor = System.Drawing.Color.Transparent;
+            this.quickDebugGameButton.BackColor = System.Drawing.SystemColors.Control;
             this.quickDebugGameButton.Location = new System.Drawing.Point(12, 529);
             this.quickDebugGameButton.Name = "quickDebugGameButton";
             this.quickDebugGameButton.Size = new System.Drawing.Size(136, 27);
             this.quickDebugGameButton.TabIndex = 7;
             this.quickDebugGameButton.Text = "Quick Debug Game";
-            this.quickDebugGameButton.UseVisualStyleBackColor = false;
+            this.quickDebugGameButton.UseVisualStyleBackColor = true;
             this.quickDebugGameButton.Click += new System.EventHandler(this.quickDebugGameButton_Click);
             // 
             // aboutButton
             // 
             this.aboutButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.aboutButton.BackColor = System.Drawing.Color.Transparent;
+            this.aboutButton.BackColor = System.Drawing.SystemColors.Control;
             this.aboutButton.Location = new System.Drawing.Point(273, 529);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(56, 27);
             this.aboutButton.TabIndex = 7;
             this.aboutButton.Text = "About";
-            this.aboutButton.UseVisualStyleBackColor = false;
+            this.aboutButton.UseVisualStyleBackColor = true;
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
             // helpButton
             // 
             this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.helpButton.BackColor = System.Drawing.SystemColors.Control;
             this.helpButton.Location = new System.Drawing.Point(215, 529);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(52, 27);
